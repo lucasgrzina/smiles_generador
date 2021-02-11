@@ -1,0 +1,381 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-block;
+  display: block;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #ffffff;
+  font-family: 'Lato', sans-serif;
+}
+
+
+
+.top-menu {
+  padding-top: 24px !important;
+  padding-bottom: 23px !important;
+}
+
+.ishop {
+  border-right: 2px solid #dbe4e7;
+  padding-right: 20px !important;
+  margin-right: 20px;
+}
+
+.tercer-logo-mobile {
+  display: none;
+}
+
+
+
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0;
+  margin: auto;
+}
+
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.navbar-ruta {
+  background-color: #000;
+  padding: 0;
+  padding-left: 0px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+}
+
+.navbar-ruta .navbar-toggler {
+  margin-left: auto;
+  color: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0);
+  padding: 1px 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.navbar-ruta .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
+  font-size: 14px;
+}
+
+.navbar-ruta .navbar-nav .nav-link:focus, .navbar-ruta .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,.75);
+}
+
+.navbar-ruta .navbar-nav .active>.nav-link, .navbar-ruta .navbar-nav .nav-link.active, 
+.navbar-ruta .navbar-nav .nav-link.show, .navbar-ruta .navbar-nav .show>.nav-link {
+  color: #fff;
+}
+
+
+
+.navbar-ruta .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.navbar-ruta ul li {
+  padding-right: 25px;
+}
+
+.navbar-ruta ul li:last-child {
+  padding-right: 0px;
+}
+
+nav a {
+  color: #fff;
+}
+
+
+
+
+
+
+
+#carouselMicrosoft {
+  background-color: #f7f7f7;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+.carousel-indicators {
+   bottom: 0px;
+}
+
+.carousel-indicators li {
+  background: #039be0;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-bottom: none;
+  border-top: none;
+}
+
+#carouselMicrosoft-mobile .carousel-indicators {
+  bottom: -40px;
+}
+
+.carousel-mobile {
+  display: none;
+}
+
+
+
+
+
+
+.inicio-cuadros {
+  padding: 50px 15px;
+}
+
+.inicio-cuadros .col-lg {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.inicio-cuadros h3 {
+  color:#000;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 20px;
+  text-align: left;
+}
+
+.inicio-cuadros p {
+  text-align: left;
+  font-size: 10.5pt;
+  line-height: 13pt;
+}
+
+.inicio-cuadros .btn-microsoft {
+  color: #fff;
+  text-align: left;
+  border-radius: 0;
+  float: left;
+  font-weight: 700;
+  padding-left: 27px;
+  padding-right: 27px;
+  margin-top: 19px;
+  font-size: 10pt;
+}
+
+.inicio-cuadros .btn-microsoft:hover {
+  background-color: #888888;
+  border-color: #888888;
+}
+
+.inicio-cuadros .btn-microsoft-01 {
+  background-color: #00a1df;
+  border-color: #00a1df;
+}
+
+.inicio-cuadros .btn-microsoft-02 {
+  background-color: #ff4f18;
+  border-color: #ff4f18;
+}
+
+.inicio-cuadros .btn-microsoft-03 {
+  background-color: #5abb00;
+  border-color: #5abb00;
+}
+
+
+.cont-microsoft {
+  background-color: #ffffff;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.cont-microsoft-01 {
+  border-top: 5px solid #00a1df;
+}
+
+.cont-microsoft-02 {
+  border-top: 5px solid #ff4f18;
+}
+
+.cont-microsoft-03 {
+  border-top: 5px solid #5abb00;
+}
+
+
+
+
+
+
+.combo-home {
+  width: 100%;
+  height: 300px;
+  background-color: #f7f7f7;
+}
+
+.combo-home .combo-desktop {
+  display: block;
+  padding-top: 46px;
+}
+
+.combo-home .combo-mobile {
+  display: none;
+}
+
+
+
+
+
+
+/*
+ * Footer
+ */
+.blog-footer {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 0;
+  color: #ffffff;
+  text-align: center;
+  background-color: #000000;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .carousel {
+    display: block !important;
+  }
+
+  .carousel-mobile {
+    display: none !important;
+  }
+
+  .inicio-cuadros .col-lg {
+    width: 100%;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    margin-bottom: 30px;
+  }
+
+  .cont-microsoft img {
+    width: 40% !important;
+    margin-right: unset !important;
+    margin-left: unset !important;
+    float: left;
+  }
+
+  .cont-tablet {
+    width: 60% !important;
+    padding-left: 20px !important;
+    float: left;
+  }
+
+  .cont-microsoft h3,
+  .cont-microsoft p {
+    padding-top: 0px;
+  }
+}
+
+
+@media (max-width:768px){
+  .top-menu {
+    padding-left: 20px;
+  }
+
+  .tercer-logo-desktop {
+    display: none;
+  }
+
+  .tercer-logo-mobile {
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 8px;
+  }
+
+  .navbar-nav {
+    margin-left: auto!important;
+  }
+
+  .navbar-ruta {
+    padding-right: 15px;
+  }
+
+  .navbar-ruta ul li {
+    padding-right: 0px;
+  }
+
+  .sucursal-header {
+    padding-left: 15px;
+  }
+
+  .carousel {
+    display: none;
+  }
+
+  .carousel-mobile {
+    display: block;
+  }
+
+  .header-home {
+    height: auto;
+  }
+
+  .header-home .header-desktop {
+    display: none;
+  }
+
+  .header-home .header-mobile {
+    display: block;
+  }
+
+  .inicio-cuadros .col-lg {
+    /*width: 50%;*/
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    margin-bottom: 30px;
+  }
+
+  .combo-home {
+    height: auto;
+  }
+
+  .combo-home img {
+    padding-bottom: 46px;
+    width: calc(100% - 100px);
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+.header-top {
+  background-color: #ffba00;
+}
+
+.search-001 .form-group {
+  width: 850px;
+}
+
+
+.cont-microsoft {
+  padding-bottom: 10px !important;
+}
+
+.search-001 .form-inline button {
+  background-color: #ffba00 !important;
+}
+
+
+
+.tags-m {
+  float: left;
+  margin-top: 20px;
+}
+
+.tags-microsoft {
+  color:#909090;
+  background-color: #fff;
+  padding: 5px 10px;
+  border: 1px solid #eaeaea;
+  float: left;
+  margin-right: 10px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.tags-microsoft:hover {
+  background-color:#ffba00;
+  color:#eaeaea;
+  text-decoration: none;
+}
+
+
+.titulo-tag {
+  margin-bottom: 50px;
+  font-size: 14pt;
+}
+
+
+.inicio-cuadros .btn-microsoft-01 {
+  background-color: #ffba00;
+  border-color: #ffba00;
+}
+
+.inicio-cuadros .btn-microsoft-02 {
+  background-color: #ffba00;
+  border-color: #ffba00;
+}
+
+.inicio-cuadros .btn-microsoft-03 {
+  background-color: #ffba00;
+  border-color: #ffba00;
+}
+
+
+.cont-microsoft {
+  background-color: #ffffff;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.cont-microsoft-01 {
+  border-top: 5px solid #ffba00;
+}
+
+.cont-microsoft-02 {
+  border-top: 5px solid #ffba00;
+}
+
+.cont-microsoft-03 {
+  border-top: 5px solid #ffba00;
+}

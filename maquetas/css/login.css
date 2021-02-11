@@ -1,0 +1,285 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-block;
+  display: block;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #ffffff;
+  font-family: 'Lato', sans-serif;
+}
+
+
+
+.top-menu {
+  padding-top: 24px !important;
+  padding-bottom: 23px !important;
+}
+
+.ishop {
+  border-right: 2px solid #dbe4e7;
+  padding-right: 20px !important;
+  margin-right: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0;
+  margin: auto;
+}
+
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.cont-001{
+  min-height:calc(100% - 47px);
+}
+
+
+.navbar-ruta {
+  background-color: #000;
+  padding: 0;
+  padding-left: 0px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+}
+
+.navbar-ruta .navbar-toggler {
+  margin-left: auto;
+  color: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0);
+  padding: 1px 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.navbar-ruta .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
+  font-size: 14px;
+}
+
+.navbar-ruta .navbar-nav .nav-link:focus, .navbar-ruta .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,.75);
+}
+
+.navbar-ruta .navbar-nav .active>.nav-link, .navbar-ruta .navbar-nav .nav-link.active, 
+.navbar-ruta .navbar-nav .nav-link.show, .navbar-ruta .navbar-nav .show>.nav-link {
+  color: #fff;
+}
+
+
+
+.navbar-ruta .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.navbar-ruta ul li {
+  padding-right: 25px;
+}
+
+.navbar-ruta ul li:last-child {
+  padding-right: 0px;
+}
+
+nav a {
+  color: #fff;
+}
+
+
+
+
+
+
+
+.header-top {
+  height: 115px;
+  padding: 0;
+  padding-top: 23px;
+  background-color: #00a6f2;
+}
+
+.header-top h1 {
+  font-weight: 700;
+  color: #fff;
+  font-size: 22pt;
+}
+
+.header-top h2 {
+  color: #fff;
+  font-size: 14pt;
+}
+
+.container {
+  flex: 1;
+}
+
+
+.form-signin {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 45px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 5px 10px 4px 10px;
+  font-size: 16px;
+  color: #b5b5b5;
+  border-radius: 0;
+  border-color: #b5b5b5;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin .form-control::placeholder {
+  color: #b5b5b5;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 15px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.olvidaste-001 {
+  color: #000000;
+  font-size: 14px;
+}
+
+
+
+.form-signin .btn-001 {
+  background-color: #000;
+  color:#fff;
+  border-radius: 0;
+  font-size: 11pt;
+  padding: 6px;
+}
+
+.form-signin .btn-001:hover {
+  background-color: #888888;
+  
+}
+
+.form-signin .h1 {
+  color: #fff;
+  font-size: 27px;
+  font-weight: bold !important;
+}
+
+.form-signin .h2 {
+  color: #fff;
+  font-size: 16px;
+  padding-bottom: 15px;
+}
+
+.form-signin .btn-002 {
+  margin-top: 20px;
+  background-color: #ff4f18;
+  color:#fff;
+  border-radius: 0;
+  font-size: 11pt;
+  margin-bottom: 20px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+}
+
+.form-signin .btn-002:hover {
+  background-color: #888888;
+}
+
+.link-001:hover {
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+/*
+ * Footer
+ */
+.blog-footer {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 0;
+  color: #ffffff;
+  text-align: center;
+  background-color: #000000;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+@media (max-width:950px){
+  .top-menu {
+    padding-left: 20px;
+  }
+
+  .tercer-logo-desktop {
+    display: none;
+  }
+
+  .tercer-logo-mobile {
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 8px;
+  }
+
+  .navbar-nav {
+    margin-left: auto!important;
+  }
+
+  .container .navbar-ruta ul li {
+    padding-right: 0px;
+  }
+
+  .navbar-ruta {
+    padding-right: 15px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
