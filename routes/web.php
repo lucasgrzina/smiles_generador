@@ -71,6 +71,16 @@ Route::prefix('/admin')->group(function () {
         Route::post('paises/filter', 'Admin\PaisesController@filter')->name('paises.filter');
         Route::resource('paises', 'Admin\PaisesController');
 
+        Route::get('custom-mails/edit/{id}', 'Admin\CustomMailsController@index')->name('custom-mails.edit-lang');            
+        Route::post('custom-mails/change-enabled', 'Admin\CustomMailsController@changeEnabled')->name('custom-mails.change-enabled');
+        Route::post('custom-mails/filter', 'Admin\CustomMailsController@filter')->name('custom-mails.filter');
+        Route::resource('custom-mails', 'Admin\CustomMailsController');
+
+        Route::get('contenido-predefinidos/edit/{id}', 'Admin\ContenidoPredefinidoController@index')->name('contenido-predefinidos.edit-lang');            
+        Route::post('contenido-predefinidos/change-enabled', 'Admin\ContenidoPredefinidoController@changeEnabled')->name('contenido-predefinidos.change-enabled');
+        Route::post('contenido-predefinidos/filter', 'Admin\ContenidoPredefinidoController@filter')->name('contenido-predefinidos.filter');
+        Route::resource('contenido-predefinidos', 'Admin\ContenidoPredefinidoController');
+
 
         Route::get('retails/sucursales/{parentId}', 'Admin\RetailsSucursalesController@index')->name('retailsSucursales.index');
         Route::get('retails/sucursales/{parentId}/create', 'Admin\RetailsSucursalesController@create')->name('retailsSucursales.create');
@@ -173,10 +183,9 @@ Route::prefix('/admin')->group(function () {
         Route::get('/error/{code}', 'Admin\ErrorController@index')->name('admin.error');
 
         
-        Route::get('/exportar', 'Admin\DashboardController@exportar')->name('admin.exportar');
-        Route::get('/previsualizar', 'Admin\DashboardController@previsualizar')->name('admin.previsualizar');
+        
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.home');
-        Route::post('/dashboard/save', 'Admin\DashboardController@guardar')->name('admin.home.guardar');
+       
     });
 });
 
@@ -253,3 +262,9 @@ if (request()->segment(1) !== 'admin') {
     });        
 
 }
+
+
+
+
+
+

@@ -35,41 +35,15 @@
 @endif
 
 
-@if (\App\Helpers\AdminHelper::mostrarMenu('banners'))
-<li class="{{ Request::is('banners*') ? 'active' : '' }}">
-    <a href="{!! route('banners.index') !!}"><i class="fa fa-edit"></i><span>Banners</span></a>
-</li>
-@endif
-<li class="{{ Request::is('tags*') ? 'active' : '' }}">
-  <a href="{{ route('tags.index') }}"><i class="fa fa-edit"></i><span>Tags</span></a>
-</li>
-
-@if (\App\Helpers\AdminHelper::mostrarMenu('productos'))
-<li class="{{ Request::is('productos*') ? 'active' : '' }}">
-    <a href="{!! route('productos.index') !!}"><i class="fa fa-edit"></i><span>Productos</span></a>
-</li>
-@endif
-<li class="{{ Request::is('noticias*') ? 'active' : '' }}">
-    <a href="{!! route('noticias.index') !!}"><i class="fa fa-edit"></i><span>Noticias</span></a>
-</li>
-<li class="{{ Request::is('entrenamientos*') ? 'active' : '' }}">
-    <a href="{!! route('entrenamientos.index') !!}"><i class="fa fa-edit"></i><span>Entrenamientos</span></a>
-</li>
 
 
-<li class="{{ Request::is('categorias*') ? 'active' : '' }}">
-    <a href="{!! route('categorias.index') !!}"><i class="fa fa-edit"></i><span>Categorias</span></a>
+
+
+<li class="{{ Request::is('custom-mails*') ? 'active' : '' }}">
+    <a href="{!! route('custom-mails.index') !!}"><i class="fa fa-edit"></i><span>Custom Mails</span></a>
 </li>
 
-<li class="{{ Request::is('ofertas*') ? 'active' : '' }}">
-    <a href="{!! route('ofertas.index') !!}"><i class="fa fa-edit"></i><span>Ofertas</span></a>
-</li>
-
-<li class="{{ Request::is('contenidos*') ? 'active' : '' }}">
-    <a href="{!! route('contenidos.index') !!}"><i class="fa fa-edit"></i><span>Contenidos</span></a>
-</li>
-
-<li class="{{ Request::is('ofertas-opiniones*') ? 'active' : '' }}">
-    <a href="{!! route('ofertas-opiniones.index') !!}"><i class="fa fa-edit"></i><span>Ofertas Opiniones</span></a>
+<li class="{{ Request::is('contenido-predefinidos*') ? 'active' : '' }}">
+    <a href="{!! route('contenido-predefinidos.index') !!}"><i class="fa fa-edit"></i><span>Contenido Predefinidos</span></a>
 </li>
 

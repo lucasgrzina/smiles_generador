@@ -24,7 +24,7 @@ class HomeController extends AppBaseController
 
     public function index()
     {
-        echo 'home';
+        return view('front.home', []);
     }
 
 

@@ -1,0 +1,50 @@
+.rowContent{
+    position: relative;
+    float: left;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 7px;
+    border-color: rgb(196, 196, 196);
+    margin-bottom: 5px;
+}
+.rowContent .card-body{
+	position: relative;
+    float: left;
+    width: 100%;
+}
+.btn-content{
+	color: #666;
+	color: rgb(240, 123, 0)
+	font-weight: bold;
+    width: 100%;
+    background: transparent;
+    text-transform: uppercase;
+}
+
+.btn-eliminar{
+	position: absolute;
+	right: 15px;
+}
+.btn-content:focus{
+	background: transparent;
+}
+.btn-content.btn:active:focus, .btn-content.btn:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.content-buttons-options{
+	position: relative;
+	float: none;
+	margin: 0 auto;
+	display: table;
+}
+
+.content-buttons-options .btn{
+	margin: 5px 10px;
+	background: rgb(240, 123, 0);
+	color: #fff;
+	font-weight: normal;
+	font-size: 14px; 
+}

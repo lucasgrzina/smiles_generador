@@ -11,13 +11,14 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .styles([
-      'public/css/bootstrap.min.css',
-      'public/css/styles.css',
-      'public/css/utils.css',
-   ], 'public/css/all.css');
 
-if (mix.inProduction()) {
-   mix.version();
-}   
+mix.js("resources/assets/js/appFront.js", "public/js");
+
+
+mix.sass('resources/sass/frontstyles.scss', 'public/css/frontstyles.css')
+  .options({
+      uglify: { compress: false },
+      processCssUrls: false
+  });
+
+
