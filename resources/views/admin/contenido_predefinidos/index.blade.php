@@ -7,7 +7,9 @@
 
 @section('scripts')
     @parent
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
     <script type="text/javascript">
+        Vue.component('draggable', vuedraggable);
         var _data = {!! json_encode($data) !!};
 
         this._mounted.push(function(_this) {

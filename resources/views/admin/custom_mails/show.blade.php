@@ -27,6 +27,8 @@
             'publicidad' => $data['selectedItem']->publicidad,
             'saldo' => $data['selectedItem']->saldo,
             'contenido' => json_decode($data['selectedItem']->contenido),
+            'footer' => $data['info']->footerhtml,
+            'redes' => $data['info']->redeshtml,
         ])
         <!-- end templates -->
         <div class="box box-default box-show">

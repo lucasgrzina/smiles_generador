@@ -97,6 +97,21 @@
                     Separador en blanco horizontal de 30px de alto.
                 </div>
             </div>
+
+            <div v-if="item.id == 'contenido_predefinido'">
+                <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-3" ></div>
+                    <div class="form-group col-sm-6" >
+                        <input class="form-control"  type="hidden" name="" v-model="item.contenidohtml" :id="'contenidohtml_'+item.unique" @change="exportar">
+                       <select class="form-control" v-model="item.predefinido" name="tipo_redes" @change=" viewContent($event, 'preview_'+item.unique, item)">
+                        <option :value="null">Seleccione</option>
+                        <option :value="item.id" v-for="item in info.tipo_contenido" :contenido="item.contenido">(% item.nombre %) - (% item.id %)</option>
+                        </select>
+                        
+                    </div>
+                    <div class="preview" :id="'preview_'+item.unique" v-html="item.contenidohtml"></div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -116,4 +131,28 @@
 
 <div class="form-group col-sm-12" >
     <h3>Footer</h3><hr>    
+    <!-- Nombre Field -->
+    <div class="form-group col-sm-6" :class="{'has-error': errors.has('footer')}" style="display: none;">
+        {!! Form::label('footer', 'Footer') !!}
+        {!! Form::text('footer', null, ['class' => 'form-control','v-model' => 'selectedItem.footer']) !!}
+        <span class="help-block" v-show="errors.has('footer')">(% errors.first('footer') %)</span>
+    </div>
+
+    <div class="form-group col-sm-6" >
+        {!! Form::label('tipo-footer', 'Redes') !!}
+       <select class="form-control" v-model="info.redes_id" name="tipo_redes" @change="selectFooter($event, 'redes')">
+        <option :value="null">Seleccione</option>
+        <option :value="item.id" v-for="item in info.tipo_redes">(% item.nombre %) - (% item.id %)</option>
+        </select>
+    </div>
+
+    <div class="form-group col-sm-6" >
+        {!! Form::label('tipo-footer', 'Footer') !!}
+       <select class="form-control" v-model="info.footer_id" name="tipo-footer" @change="selectFooter($event, 'footer')">
+        <option :value="null">Seleccione</option>
+        <option :value="item.id" v-for="item in info.tipo_footer">(% item.nombre %) - (% item.id %)</option>
+        </select>
+    </div>
+
+
 </div>

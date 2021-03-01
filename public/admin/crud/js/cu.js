@@ -74,10 +74,12 @@ if (typeof _methods.inputFile === 'undefined') {
 
 if(_data.selectedItem.contenido != ''){
   _data.listContents  = JSON.parse(_data.selectedItem.contenido);
+
 }else{
   _data.listContents  = [];
 }
-_data.idList        = _data.listContents.length;
+_data.idList            = _data.listContents.length;
+_data.footer            = _data.selectedItem.footer;
 
 _data.contenidosTipo = [
   {
@@ -100,12 +102,20 @@ _data.contenidosTipo = [
     btn: '+Fila - Texto Libre',
     cols: 1,
     titulo: 'Fila con texto libre'
-  },{
+  },
+  {
     id: 'separador1',
     index: 3,
     btn: '+Separador en blanco',
     cols: 1,
     titulo: 'Separador Horizontal | 30px de alto'
+  },
+  {
+    id: 'contenido_predefinido',
+    index: 4,
+    btn: '+Contenido predefinido',
+    cols: 1,
+    titulo: 'Contenido predefinido'
   }
 ];
 
@@ -130,6 +140,7 @@ if (typeof _methods.agregaritem === 'undefined') {
       _data.idList = mayorIndex;
       var newItem = {
         id: id,
+        unique: _data.idList,
         index: 'content_'+_data.idList,
         nombre: _this.contenidosTipo[index].titulo,
         input: '',
@@ -182,12 +193,57 @@ if (typeof _methods.exportar === 'undefined') {
         _data.selectedItem.contenido = JSON.stringify(_data.listContents);
     }
 }
+if (typeof _methods.viewContent === 'undefined') {
+  
+  _methods.viewContent = function(evt, preview, item) {
+      var _this = this;
+      let contenidoHTML = evt.target[evt.target.selectedIndex].getAttribute('contenido');
+      let contenidoHTML2 = evt.target[evt.target.selectedIndex].getAttribute('contenido');
+      
+      document.getElementById(preview).innerHTML = contenidoHTML;
+      item.contenidohtml = contenidoHTML;
+
+      this.exportar();
+     
+    }
+}
 
 if (typeof _methods.checkMove === 'undefined') {
   
   _methods.checkMove = function(evt) {
       var _this = this;
       this.exportar();
+     
+    }
+}
+
+var objFooter = new Object();
+
+if (_data.selectedItem.footer){
+  objFooter = new Object(JSON.parse(_data.selectedItem.footer));
+  _data.id_redes    = JSON.parse(objFooter).redes;
+  _data.id_footer   = JSON.parse(objFooter).footer;
+}else{
+  _data.id_redes    = 0;
+  _data.id_footer   = 0;
+}
+
+
+if (typeof _methods.selectFooter === 'undefined') {
+  
+  _methods.selectFooter = function(evt, $tipo) {
+      var _this = this;
+      if($tipo == 'footer'){
+        _data.id_footer = evt.target.value;
+      }
+
+      if($tipo == 'redes'){
+        _data.id_redes = evt.target.value;
+      }
+      let $footer = {footer: _data.id_footer, redes: _data.id_redes};
+      _data.footer  = JSON.stringify($footer);
+      _data.selectedItem.footer = JSON.stringify(_data.footer);
+     
      
     }
 }

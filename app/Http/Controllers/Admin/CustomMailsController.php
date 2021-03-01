@@ -8,6 +8,7 @@ use App\Repositories\CustomMailsRepository;
 use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\ContenidoPredefinido;
 
 class CustomMailsController extends CrudAdminController
 {
@@ -30,6 +31,9 @@ class CustomMailsController extends CrudAdminController
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
+    public function getPredefinido(){
+        return 'resdkfhskdjfh ';
+    }
     public function filter(Request $request)
     {
         try
@@ -55,7 +59,16 @@ class CustomMailsController extends CrudAdminController
     {
         parent::show($id);
 
-        //$this->data['selectedItem']->load('xxx');
+        $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
+        $id_footer = $footerObj->footer;
+        $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
+        //
+        $id_redes = $footerObj->redes;
+        $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
+        data_set($this->data, 'info', (object)[
+            'redeshtml' => ($redeshtml),
+            'footerhtml' => ($footerhtml),
+        ]);
 
         return view($this->viewPrefix.'show')->with('data', $this->data);
     }
@@ -64,10 +77,17 @@ class CustomMailsController extends CrudAdminController
     {
         parent::create();
 
+        data_set($this->data,'info',[
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
+        ]);
+
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'template' => null,
-                'contenido' => ''
+                'contenido' => '',
+                'footer' => '',
+                'tipo_footer' => null
         ]);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
@@ -82,6 +102,22 @@ class CustomMailsController extends CrudAdminController
     public function edit($id)
     {
         parent::edit($id);
+
+       // $tipo_footer = ContenidoPredefinido::get();
+        $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
+        $footer_id = $footerObj->footer;        //
+        $id_redes = $footerObj->redes;
+       
+        data_set($this->data,'info',[
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
+            'redes_id' => $id_redes,
+            'footer_id' => $footer_id,
+        ]);
+
+  
+      //  $this->data['selectedItem']['footer'] = json_encode($objFooter);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
