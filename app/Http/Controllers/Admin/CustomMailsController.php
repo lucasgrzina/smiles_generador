@@ -80,6 +80,7 @@ class CustomMailsController extends CrudAdminController
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get()
         ]);
 
         data_set($this->data, 'selectedItem', [
