@@ -8,6 +8,7 @@ use App\Repositories\CustomMailsRepository;
 use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use View;
 use App\ContenidoPredefinido;
 
 class CustomMailsController extends CrudAdminController
@@ -65,12 +66,80 @@ class CustomMailsController extends CrudAdminController
         //
         $id_redes = $footerObj->redes;
         $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
+
+        $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+        $legales_id         = $legalesObj->legales;        //
+        $legales_custom     = $legalesObj->legales_custom;
+        if ($legales_id){
+            $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+        }else{
+             $legaleshtml = '';
+        }
+        
+
         data_set($this->data, 'info', (object)[
             'redeshtml' => ($redeshtml),
             'footerhtml' => ($footerhtml),
+            'legaleshtml' => ($legaleshtml),
+            'legales_custom' => ($legales_custom),
         ]);
 
+        $this->data['url_export'] = route('custom-mails.export-html',['id' => $id]);
+
         return view($this->viewPrefix.'show')->with('data', $this->data);
+
+    }
+
+    public function exportHtml($id){
+        parent::show($id);
+
+        $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
+        $id_footer = $footerObj->footer;
+        $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
+        //
+        $id_redes = $footerObj->redes;
+        $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
+
+        $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+        $legales_id         = $legalesObj->legales;        //
+        $legales_custom     = $legalesObj->legales_custom;
+        if ($legales_id){
+            $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+        }else{
+             $legaleshtml = '';
+        }
+        
+
+        data_set($this->data, 'info', (object)[
+            'redeshtml' => ($redeshtml),
+            'footerhtml' => ($footerhtml),
+            'legaleshtml' => ($legaleshtml),
+            'legales_custom' => ($legales_custom),
+        ]);
+
+     
+        $html = View::make("admin.custom_mails.templates.diario")
+        ->with([
+            'data' => $this->data, 
+            'publicidad' => $this->data['selectedItem']->publicidad,
+            'saldo' => $this->data['selectedItem']->saldo,
+            'contenido' => json_decode($this->data['selectedItem']->contenido),
+            'footer' => $this->data['info']->footerhtml,
+            'redes' => $this->data['info']->redeshtml,
+            'legaleshtml' => $this->data['info']->legaleshtml,
+            'legales_custom' => $this->data['info']->legales_custom,
+        ])
+        ->render();
+
+        $headers = [
+            'Content-type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="'.$this->data['selectedItem']->nombre.'.html"',
+        ];
+
+        return \Response::make($html, 200, $headers);
+
+       // return $html->download('mail.html');
+
     }
 
     public function create()
@@ -88,6 +157,7 @@ class CustomMailsController extends CrudAdminController
                 'template' => null,
                 'contenido' => '',
                 'footer' => '',
+                'legales' => '',
                 'tipo_footer' => null
         ]);
 
@@ -108,13 +178,20 @@ class CustomMailsController extends CrudAdminController
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
+
+        $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+        $legales_id         = $legalesObj->legales;        //
+        $legales_custom     = $legalesObj->legales_custom;
        
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
             'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
             'redes_id' => $id_redes,
             'footer_id' => $footer_id,
+            'legales_id' => $legales_id,
+            'legales_custom' => $legales_custom,
         ]);
 
   

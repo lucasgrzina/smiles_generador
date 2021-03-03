@@ -80,6 +80,7 @@ if(_data.selectedItem.contenido != ''){
 }
 _data.idList            = _data.listContents.length;
 _data.footer            = _data.selectedItem.footer;
+_data.legales            = _data.selectedItem.legales;
 
 _data.contenidosTipo = [
   {
@@ -228,6 +229,17 @@ if (_data.selectedItem.footer){
   _data.id_footer   = 0;
 }
 
+var objLegales = new Object();
+
+if (_data.selectedItem.legales){
+  objLegales = new Object(JSON.parse(_data.selectedItem.legales));
+  _data.id_legales   = JSON.parse(objLegales).legales;
+  _data.legales_custom   = JSON.parse(objLegales).legales_custom;
+}else{
+  _data.id_legales        = 0;
+  _data.legales_custom    = '';
+}
+
 
 if (typeof _methods.selectFooter === 'undefined') {
   
@@ -248,3 +260,42 @@ if (typeof _methods.selectFooter === 'undefined') {
     }
 }
 
+if (typeof _methods.selectLegales === 'undefined') {
+  
+  _methods.selectLegales = function(evt, $tipo) {
+      var _this = this;
+
+      if($tipo == 'predefinido'){
+        _data.id_legales = evt.target.value;
+      }
+
+      if($tipo == 'legales_custom'){
+        _data.legales_custom = evt;
+      }
+
+      let $legales = {legales: _data.id_legales, legales_custom: _data.legales_custom};
+      _data.legales  = JSON.stringify($legales);
+      _data.selectedItem.legales = JSON.stringify(_data.legales);
+     
+     
+    }
+}
+
+if (typeof _methods.downloadHtml === 'undefined') {
+  
+  _methods.downloadHtml = function(filename, idelement) {
+      var contentHTML = document.getElementById(idelement).innerHTML;
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contentHTML));
+      element.setAttribute('download', filename);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+     
+     
+    }
+}

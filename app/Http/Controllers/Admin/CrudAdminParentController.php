@@ -119,7 +119,7 @@ class CrudAdminParentController extends AppBaseController
             'perms' => auth()->user()->getAllPermissions()->pluck('name'),
             'roles' => auth()->user()->getRoleNames(),
             'url_edit' => route($this->routePrefix.'.edit',[$parentId,$model->id]),
-            'url_index' => route($this->routePrefix.'.index',[$parentId])
+            'url_index' => route($this->routePrefix.'.index',[$parentId]),
         ]; 
 
         

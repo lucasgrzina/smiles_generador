@@ -74,6 +74,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('custom-mails/edit/{id}', 'Admin\CustomMailsController@index')->name('custom-mails.edit-lang');            
         Route::post('custom-mails/change-enabled', 'Admin\CustomMailsController@changeEnabled')->name('custom-mails.change-enabled');
         Route::post('custom-mails/filter', 'Admin\CustomMailsController@filter')->name('custom-mails.filter');
+        Route::get('custom-mails/export-html/{id}', 'Admin\CustomMailsController@exportHtml')->name('custom-mails.export-html');
         Route::resource('custom-mails', 'Admin\CustomMailsController');
 
         Route::get('contenido-predefinidos/edit/{id}', 'Admin\ContenidoPredefinidoController@index')->name('contenido-predefinidos.edit-lang');            

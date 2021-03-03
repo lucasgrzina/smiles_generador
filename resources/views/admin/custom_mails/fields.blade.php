@@ -66,22 +66,203 @@
             <div v-if="item.id == 'imagen1'">
                 <div class="form-group col-sm-3"></div>
                 <div class="form-group col-sm-6">
-                    <label>Link</label>
-                    <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
+                    <!-- Items link-->
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Website URL</label>
+                            <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
+                            <div class="FormControl-info">
+                                The full website URL (e.g. <code>https://www.example.com</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Source</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_source" @change="exportar">
+                            <div class="FormControl-info">
+                                The referrer: (e.g.&nbsp;<code>google</code>,&nbsp;<code>newsletter</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Medium</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_medium" @change="exportar">
+                            <div class="FormControl-info">
+                                Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Name</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
+                            <div class="FormControl-info">
+                                Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Term</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_term" @change="exportar">
+                            <div class="FormControl-info">
+                                Identify the paid keywords
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Content</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_content" @change="exportar">
+                            <div class="FormControl-info">
+                                Use to differentiate ads
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Items link-->
+                   
                     <label>Url</label>
                     <input class="form-control" type="text" name="" v-model="item.input" @change="exportar">
                 </div>
             </div>
             <div v-if="item.id == 'imagen2'">
                 <div class="form-group col-sm-6">
-                    <label>Link</label>
-                    <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
+                    <!-- Items link-->
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Website URL</label>
+                            <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
+                            <div class="FormControl-info">
+                                The full website URL (e.g. <code>https://www.example.com</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Source</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_source" @change="exportar">
+                            <div class="FormControl-info">
+                                The referrer: (e.g.&nbsp;<code>google</code>,&nbsp;<code>newsletter</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Medium</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_medium" @change="exportar">
+                            <div class="FormControl-info">
+                                Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Name</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
+                            <div class="FormControl-info">
+                                Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Term</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_term" @change="exportar">
+                            <div class="FormControl-info">
+                                Identify the paid keywords
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Content</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_content" @change="exportar">
+                            <div class="FormControl-info">
+                                Use to differentiate ads
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Items link-->
                     <label>Url</label>
                     <input class="form-control" type="text" name="" v-model="item.input" @change="exportar">
                 </div>
                 <div class="form-group col-sm-6">
-                    <label>Link</label>
-                    <input class="form-control" type="text" name="" v-model="item.link2" @change="exportar">
+                    <!-- Items link-->
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Website URL</label>
+                            <input class="form-control" type="text" name="" v-model="item.link2" @change="exportar">
+                            <div class="FormControl-info">
+                                The full website URL (e.g. <code>https://www.example.com</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Source</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_source2" @change="exportar">
+                            <div class="FormControl-info">
+                                The referrer: (e.g.&nbsp;<code>google</code>,&nbsp;<code>newsletter</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Medium</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_medium2" @change="exportar">
+                            <div class="FormControl-info">
+                                Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Name</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_campaign2" @change="exportar">
+                            <div class="FormControl-info">
+                                Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Term</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_term2" @change="exportar">
+                            <div class="FormControl-info">
+                                Identify the paid keywords
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Campaign Content</label>
+                            <input class="form-control" type="text" name="" v-model="item.utm_content2" @change="exportar">
+                            <div class="FormControl-info">
+                                Use to differentiate ads
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Items link-->
                     <label>Url</label>
                     <input class="form-control" type="text" name="" v-model="item.input2" @change="exportar">
                 </div>
@@ -155,4 +336,27 @@
     </div>
 
 
+</div>
+
+<div class="form-group col-sm-12" >
+    <h3>Legales</h3><hr>
+    <!-- Nombre Field -->
+    <div class="form-group col-sm-6" :class="{'has-error': errors.has('legales')}" style="display: none;">
+        {!! Form::label('legales', 'Legales Json') !!}
+        {!! Form::text('legales', null, ['class' => 'form-control','v-model' => 'selectedItem.legales']) !!}
+        <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
+    </div> 
+    <div class="form-group col-sm-6" >
+        {!! Form::label('tipo_legales', 'Legales predefinidos') !!}
+       <select class="form-control" v-model="info.legales_id" name="tipo-legales" @change="selectLegales($event, 'predefinido')">
+            <option :value="''">Ninguno</option>
+            <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %) - (% item.id %)</option>
+        </select>
+    </div>
+    <!-- Contenido Field -->
+    <div class="form-group col-sm-12 col-lg-12" :class="{'has-error': errors.has('legales_custom')}">
+        {!! Form::label('legales_custom', 'Legales Custom') !!}
+        <vue-mce v-model="info.legales_custom" :config="tinyConfig" @change="selectLegales($event, 'legales_custom')"/>
+        <span class="help-block" v-show="errors.has('legales_custom')">(% errors.first('legales_custom') %)</span>
+    </div>
 </div>

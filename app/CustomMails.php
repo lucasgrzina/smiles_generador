@@ -56,6 +56,7 @@ class CustomMails extends Model
         'template',
         'contenido',
         'footer',
+        'legales',
         //'enabled'
     ];
 
@@ -70,7 +71,8 @@ class CustomMails extends Model
         'saldo' => 'boolean',
         'template' => 'string',
         'contenido' => 'string',
-        'footer' => 'string',
+        'footer' => 'text',
+        'legales' => 'text',
         //'enabled' => 'boolean'
     ];
 
