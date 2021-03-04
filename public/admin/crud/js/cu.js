@@ -74,7 +74,6 @@ if (typeof _methods.inputFile === 'undefined') {
 
 if(_data.selectedItem.contenido != ''){
   _data.listContents  = JSON.parse(_data.selectedItem.contenido);
-
 }else{
   _data.listContents  = [];
 }
@@ -117,6 +116,13 @@ _data.contenidosTipo = [
     btn: '+Contenido predefinido',
     cols: 1,
     titulo: 'Contenido predefinido'
+  },
+  {
+    id: 'textoplano',
+    index: 5,
+    btn: '+Texto Comunicado',
+    cols: 1,
+    titulo: 'Texto Comunicado'
   }
 ];
 
@@ -130,6 +136,7 @@ if (typeof _methods.agregaritem === 'undefined') {
       _data.idList++;
 
       let mayorIndex = 0;
+      console.log(_this.listContents);
       _this.listContents.forEach( function(valor, indice, array) {
          if (mayorIndex < valor.index.replace("content_", "")){
           mayorIndex = parseInt(valor.index.replace("content_", ""));
@@ -202,7 +209,7 @@ if (typeof _methods.viewContent === 'undefined') {
       let contenidoHTML2 = evt.target[evt.target.selectedIndex].getAttribute('contenido');
       
       document.getElementById(preview).innerHTML = contenidoHTML;
-      item.contenidohtml = contenidoHTML;
+      //item.contenidohtml = contenidoHTML;
 
       this.exportar();
      
@@ -239,6 +246,7 @@ if (_data.selectedItem.legales){
   _data.id_legales        = 0;
   _data.legales_custom    = '';
 }
+
 
 
 if (typeof _methods.selectFooter === 'undefined') {

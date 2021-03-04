@@ -36,18 +36,9 @@
     {!! Form::email('email', null, ['class' => 'form-control','v-model' => 'selectedItem.email','v-validate' => "'required|email'",'data-vv-validate-on' => 'none']) !!}
     <span class="help-block" v-show="errors.has('email')">(% errors.first('email') %)</span>
 </div>
-<!-- Pais Id Field -->
-<div class="form-group col-sm-6" :class="{'has-error': errors.has('pais_id')}">
-    {!! Form::label('pais_id', 'País') !!}
-    <select v-model="selectedItem.pais_id" class="form-control" name="pais_id" v-validate="''" data-vv-validate-on="'none'">
-        <option :value="null">Seleccione</option>
-        <option v-for="item in info.paisesList" :value="item.id">(% item.nombre %)</option>
-    </select>
-  
-    <span class="help-block" v-show="errors.has('pais_id')">(% errors.first('pais_id') %)</span>
-</div>
 
-<div class="clearfix"></div>
+
+
 
     <div class="form-group col-sm-6" :class="{'has-error': errors.has('password')}">
         {!! Form::label('password', 'Password*') !!}

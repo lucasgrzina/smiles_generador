@@ -6,7 +6,6 @@
                 <th @click="orderBy('nombre')" :class="cssOrderBy('nombre')">Nombre</th>
                 <th @click="orderBy('apellido')" :class="cssOrderBy('apellido')">Apellido</th>
                 <th>Rol</th>
-                <th>Retail</th>
                 <th class="td-enabled">{{ trans('admin.table.enabled') }}</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
@@ -17,7 +16,6 @@
                 <td>(% item.nombre %)</td>
                 <td>(% item.apellido %)</td>
                 <td>(% item.roles.length > 0 ? item.roles[0].name : '' %)</td>
-                <td>(% item.retail ? item.retail.nombre + '(' + item.retail.pais.nombre + ')' : '' %)</td>
                 <td class="td-enabled">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
                         <switch-button v-model="item.enabled" theme="bootstrap" type-bold="true" @onChange="onChangeEnabled(item)"></switch-button>

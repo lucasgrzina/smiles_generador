@@ -269,6 +269,12 @@
                 </div>
             </div>
 
+            <div v-if="item.id == 'textoplano'">
+                <div class="form-group col-sm-12">
+                     <vue-mce v-model="item.input" @change="exportar"/>
+                </div>
+            </div>
+
             <div v-if="item.id == 'separador1'">
                 <div class="form-group col-sm-12">
                     Separador en blanco horizontal de 30px de alto.
@@ -279,10 +285,10 @@
                 <div class="form-group col-sm-12">
                     <div class="form-group col-sm-3" ></div>
                     <div class="form-group col-sm-6" >
-                        <input class="form-control"  type="hidden" name="" v-model="item.contenidohtml" :id="'contenidohtml_'+item.unique" @change="exportar">
+                        <input class="form-control"  type="hidden" name="" v-model="item.id" :id="'contenidohtml_'+item.unique" @change="exportar">
                        <select class="form-control" v-model="item.predefinido" name="tipo_redes" @change=" viewContent($event, 'preview_'+item.unique, item)">
                         <option :value="null">Seleccione</option>
-                        <option :value="item.id" v-for="item in info.tipo_contenido" :contenido="item.contenido">(% item.nombre %) - (% item.id %)</option>
+                        <option :value="item.id" v-for="item in info.tipo_contenido">(% item.nombre %)</option>
                         </select>
                         
                     </div>
@@ -318,7 +324,7 @@
         {!! Form::label('tipo-footer', 'Footer') !!}
        <select class="form-control" v-model="info.footer_id" name="tipo-footer" @change="selectFooter($event, 'footer')">
         <option :value="null">Seleccione</option>
-        <option :value="item.id" v-for="item in info.tipo_footer">(% item.nombre %) - (% item.id %)</option>
+        <option :value="item.id" v-for="item in info.tipo_footer">(% item.nombre %)</option>
         </select>
     </div>
 
@@ -326,7 +332,7 @@
         {!! Form::label('tipo-footer', 'Redes') !!}
        <select class="form-control" v-model="info.redes_id" name="tipo_redes" @change="selectFooter($event, 'redes')">
         <option :value="null">Seleccione</option>
-        <option :value="item.id" v-for="item in info.tipo_redes">(% item.nombre %) - (% item.id %)</option>
+        <option :value="item.id" v-for="item in info.tipo_redes">(% item.nombre %)</option>
         </select>
     </div>
 
@@ -342,11 +348,12 @@
         {!! Form::text('legales', null, ['class' => 'form-control','v-model' => 'selectedItem.legales']) !!}
         <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
     </div> 
+
     <div class="form-group col-sm-6" >
         {!! Form::label('tipo_legales', 'Genérico') !!}
        <select class="form-control" v-model="info.legales_id" name="tipo-legales" @change="selectLegales($event, 'predefinido')">
             <option :value="''">Ninguno</option>
-            <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %) - (% item.id %)</option>
+            <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %)</option>
         </select>
     </div>
     <!-- Contenido Field -->

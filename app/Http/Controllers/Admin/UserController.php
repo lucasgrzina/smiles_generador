@@ -115,28 +115,17 @@ class UserController extends AppBaseController
     public function create()
     {
 
-        $paises             = Paises::whereEnabled(true)->orderBy('nombre', 'asc')->get();
-        $paisesList    = [];
-
-        foreach ($paises as $pais) {
-           array_push($paisesList, [
-                'id'            => $pais->id,
-                'nombre'        => $pais->nombre,
-                'selected'        => false
-           ]);
-        }
+       
 
         $data = [
             'selectedItem' => [
                 'id' => 0,
-                'pais_id' => null,
                 'role_id' => null,
                 'enabled' => true,
                 'porc_comision' => 0
             ],
             'info' => [
-                'roles' => $this->role_repo->getActivos(),   
-                'paisesList'    => $paisesList 
+                'roles' => $this->role_repo->getActivos()
             ],
             'url_save' => route($this->routePrefix.'.store'),
             'url_index' => route($this->routePrefix.'.index')
@@ -222,16 +211,7 @@ class UserController extends AppBaseController
      */
     public function edit($id)
     {
-        $paises             = Paises::whereEnabled(true)->orderBy('nombre', 'asc')->get();
-        $paisesList    = [];
-
-        foreach ($paises as $pais) {
-           array_push($paisesList, [
-                'id'            => $pais->id,
-                'nombre'        => $pais->nombre,
-                'selected'        => false
-           ]);
-        }
+       
 
 
         $model = $this->userRepository->findWithoutFail($id);
@@ -248,8 +228,7 @@ class UserController extends AppBaseController
         $data = [
             'selectedItem' => $model,
             'info' => [
-                'roles' => $this->role_repo->getActivos(), 
-                'paisesList'    => $paisesList  
+                'roles' => $this->role_repo->getActivos()
             ],            
             'url_save' => route($this->routePrefix.'.update',[$model['id']]),
             'url_index' => route($this->routePrefix.'.index')

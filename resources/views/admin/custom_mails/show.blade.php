@@ -26,7 +26,7 @@
         <div class="box box-default box-show">
             <div class="box-body no-padding">
                 <div id="exporthtml">
-                    @include('admin.custom_mails.templates.diario',[
+                    @include('admin.custom_mails.templates.'.$data['selectedItem']->template,[
                         'nombre' => $data['selectedItem']->nombre,
                         'publicidad' => $data['selectedItem']->publicidad,
                         'saldo' => $data['selectedItem']->saldo,

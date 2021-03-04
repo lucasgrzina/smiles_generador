@@ -83,7 +83,17 @@ class CustomMailsController extends CrudAdminController
             'legaleshtml' => ($legaleshtml),
             'legales_custom' => ($legales_custom),
         ]);
-
+        
+        $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
+        
+        foreach ($arrContenidoDecode as $itemContenido) {
+            if($itemContenido->id == 'contenido_predefinido'){
+                $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
+            }
+           
+        }
+        
+        $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
         $this->data['url_export'] = route('custom-mails.export-html',['id' => $id]);
 
         return view($this->viewPrefix.'show')->with('data', $this->data);
@@ -117,8 +127,19 @@ class CustomMailsController extends CrudAdminController
             'legales_custom' => ($legales_custom),
         ]);
 
+        $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
+        
+        foreach ($arrContenidoDecode as $itemContenido) {
+            if($itemContenido->id == 'contenido_predefinido'){
+                $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
+            }
+           
+        }
+        
+        $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
+
      
-        $html = View::make("admin.custom_mails.templates.diario")
+        $html = View::make("admin.custom_mails.templates.".$this->data['selectedItem']->template)
         ->with([
             'data' => $this->data, 
             'publicidad' => $this->data['selectedItem']->publicidad,
@@ -136,6 +157,8 @@ class CustomMailsController extends CrudAdminController
             'Content-Disposition' => 'attachment; filename="'.$this->data['selectedItem']->nombre.'.html"',
         ];
 
+
+
         return \Response::make($html, 200, $headers);
 
        // return $html->download('mail.html');
@@ -152,23 +175,33 @@ class CustomMailsController extends CrudAdminController
             return redirect()->route($this->routePrefix.'.index');
         }
 
+        $templateDefault = config('constantes.default_'.$template,[]);
 
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
             'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
-            'templates' => config('constantes.templates',[])
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
+            'templates' => config('constantes.templates',[]),
+            'legales_id' => json_decode(json_decode($templateDefault['legales']))->legales,
+            'footer_id' => json_decode(json_decode($templateDefault['footer']))->footer,
+            'redes_id' => json_decode(json_decode($templateDefault['footer']))->redes,
         ]);
+      
 
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'template' => $template,
-                'contenido' => '',
-                'footer' => '',
-                'legales' => '',
+                'publicidad' => $templateDefault['publicidad'],
+                'saldo' => $templateDefault['saldo'],
+                'contenido' => $templateDefault['contenido'],
+                'footer' => $templateDefault['footer'],
+                'legales' => $templateDefault['legales'],
                 'tipo_footer' => null
         ]);
 
+        
+        //echo json_encode($templateDefault['contenido']);
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 
@@ -204,7 +237,16 @@ class CustomMailsController extends CrudAdminController
         ]);
 
   
-      //  $this->data['selectedItem']['footer'] = json_encode($objFooter);
+        $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
+        
+        foreach ($arrContenidoDecode as $itemContenido) {
+            if($itemContenido->id == 'contenido_predefinido'){
+                $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
+            }
+           
+        }
+        
+        $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }

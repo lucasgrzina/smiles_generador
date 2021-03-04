@@ -24,13 +24,12 @@ class User extends Authenticatable
 
     protected $guard = 'admin';
     protected $fillable = [
-        'nombre','apellido','enabled', 'email', 'password','pais_id'
+        'nombre','apellido','enabled', 'email', 'password'
     ];
     protected $dates = ['deleted_at'];
 
     protected $casts = [
         'enabled' => 'boolean',
-        'pais_id' => 'integer'
     ];
 
     /**
@@ -64,10 +63,7 @@ class User extends Authenticatable
         $this->notify(new ResetPassword($token));
     }
 
-    public function retail()
-    {
-        return $this->belongsTo('App\Retails', 'retail_id');
-    }
+    
 
     protected static function boot()
     {

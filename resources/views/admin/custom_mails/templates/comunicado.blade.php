@@ -124,10 +124,26 @@
 						</tr>
 					</tbody>
 				</table>
+				<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;margin:0 auto" width="600" align="center">
+           <tbody><tr>
+             <td width="600">
+               <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;margin:0 auto" align="center">
+                 <tbody><tr>
+                   <td height="50" style="line-height:0px;font-size:0px">
+					 
+					
+				   </td>
+                 </tr>
+               </tbody></table>
+             </td>
+           </tr>
+          </tbody></table>
+				
 				
 				@include('admin.custom_mails.templates.inc.contenido',[
                         'contenido' => $contenido
                 ])
+                
 
 				{!! ($footer) !!}
 				{!! ($redes) !!}
