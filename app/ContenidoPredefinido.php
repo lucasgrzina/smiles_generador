@@ -55,6 +55,7 @@ class ContenidoPredefinido extends Model
         'tipo',
         'imagen',
         'contenido',
+        'default',
         //'enabled'
     ];
 
@@ -68,6 +69,7 @@ class ContenidoPredefinido extends Model
         'tipo' => 'string',
         'imagen' => 'string',
         'contenido' => 'string',
+        'default' => 'boolean',
         //'enabled' => 'boolean'
     ];
 

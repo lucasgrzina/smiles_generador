@@ -26,4 +26,10 @@
     <vue-mce v-model="selectedItem.contenido" :config="tinyConfig"/>
     <span class="help-block" v-show="errors.has('contenido')">(% errors.first('contenido') %)</span>
 </div>
+
+<div class="form-group col-sm-6" :class="{'has-error': errors.has('default')}">
+    {!! Form::label('default', 'Default') !!}<br>
+    <input type="checkbox" :value="perm" v-model="selectedItem.default">
+    <span class="help-block" v-show="errors.has('default')">(% errors.first('default') %)</span>
+</div>
 <div class="clearfix"></div>

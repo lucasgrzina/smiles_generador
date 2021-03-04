@@ -8,6 +8,7 @@ use App\Repositories\ContenidoPredefinidoRepository;
 use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\ContenidoPredefinido;
 
 class ContenidoPredefinidoController extends CrudAdminController
 {
@@ -73,6 +74,13 @@ class ContenidoPredefinidoController extends CrudAdminController
 
     public function store(CUContenidoPredefinidoRequest $request)
     {
+        if ($request['default'] == 1){
+           // \Log::info('Es destacado');
+            ContenidoPredefinido::where('tipo', $request['tipo'])
+            ->where('default', 1)
+            ->update(['default' => 0]);
+        }
+        
         $model = $this->_store($request);
         return $this->sendResponse($model,trans('admin.success'));        
     }
@@ -86,6 +94,13 @@ class ContenidoPredefinidoController extends CrudAdminController
 
     public function update($id, CUContenidoPredefinidoRequest $request)
     {
+        if ($request['default'] == 1){
+           // \Log::info('Es destacado');
+            ContenidoPredefinido::where('tipo', $request['tipo'])
+            ->where('default', 1)
+            ->update(['default' => 0]);
+        }
+
         $model = $this->_update($id, $request);
 
         return $this->sendResponse($model,trans('admin.success'));
