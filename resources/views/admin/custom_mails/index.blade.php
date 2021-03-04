@@ -14,6 +14,13 @@
         Vue.component('draggable', vuedraggable);
         var _data = {!! json_encode($data) !!};
 
+        _methods.create = function(template) {
+            this.storeFilters();
+
+            document.location = this.url_create.concat('?template=').concat(template);
+        };
+
+
         this._mounted.push(function(_this) {
             _this.doFilter();
         });
@@ -35,10 +42,9 @@
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Seleccioná Piezza
               <span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a v-on:click="create()">Diario</a></li>
-                <li><a v-on:click="create()">Template 2</a></li>
-                <li><a v-on:click="create()">Template 3</a></li>
-                <li><a v-on:click="create()">Template 4</a></li>
+                @foreach (config('constantes.templates',[]) as $codigo => $nombre)
+                    <li><a v-on:click="create('{{$codigo}}')">{{$nombre}}</a></li>      
+                @endforeach
               </ul>
             </div>
         </section>

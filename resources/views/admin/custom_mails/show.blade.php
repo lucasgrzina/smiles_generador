@@ -21,28 +21,22 @@
     <div class="content">
         
         <!-- templates -->
-        <div id="exporthtml">
-        @include('admin.custom_mails.templates.diario',[
-            'nombre' => $data['selectedItem']->nombre,
-            'publicidad' => $data['selectedItem']->publicidad,
-            'saldo' => $data['selectedItem']->saldo,
-            'contenido' => json_decode($data['selectedItem']->contenido),
-            'footer' => $data['info']->footerhtml,
-            'redes' => $data['info']->redeshtml,
-            'legaleshtml' => $data['info']->legaleshtml,
-            'legales_custom' => $data['info']->legales_custom,
-        ])
-        </div>
+
         <!-- end templates -->
         <div class="box box-default box-show">
             <div class="box-body no-padding">
-                <div class="table-responsive">
-                        <table class="table table-view-info  table-condensed">
-                            <tbody>
-                                @include('admin.custom_mails.show_fields')
-                            </tbody>
-                        </table>
-                </div>                
+                <div id="exporthtml">
+                    @include('admin.custom_mails.templates.diario',[
+                        'nombre' => $data['selectedItem']->nombre,
+                        'publicidad' => $data['selectedItem']->publicidad,
+                        'saldo' => $data['selectedItem']->saldo,
+                        'contenido' => json_decode($data['selectedItem']->contenido),
+                        'footer' => $data['info']->footerhtml,
+                        'redes' => $data['info']->redeshtml,
+                        'legaleshtml' => $data['info']->legaleshtml,
+                        'legales_custom' => $data['info']->legales_custom,
+                    ])
+                    </div>
             </div>
             <div class="box-footer text-right">
                 @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))

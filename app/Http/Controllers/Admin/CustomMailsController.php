@@ -146,15 +146,23 @@ class CustomMailsController extends CrudAdminController
     {
         parent::create();
 
+        $template = request()->get('template',false);
+
+        if (!$template) {
+            return redirect()->route($this->routePrefix.'.index');
+        }
+
+
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
-            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get()
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
+            'templates' => config('constantes.templates',[])
         ]);
 
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
-                'template' => null,
+                'template' => $template,
                 'contenido' => '',
                 'footer' => '',
                 'legales' => '',
@@ -192,6 +200,7 @@ class CustomMailsController extends CrudAdminController
             'footer_id' => $footer_id,
             'legales_id' => $legales_id,
             'legales_custom' => $legales_custom,
+            'templates' => config('constantes.templates',[])
         ]);
 
   

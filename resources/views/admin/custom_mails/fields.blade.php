@@ -16,11 +16,9 @@
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('template')}">
     {!! Form::label('template', 'Template') !!}
    
-    <select v-model="selectedItem.template" class="form-control" name="template" v-validate="'required'" data-vv-validate-on="'none'">
-        <option value="null" disabled selected>Seleccione Template</option>
-        <option value="template_1">Template 1</option>
-        <option value="template_2">Template 2</option>
-        <option value="template_3">Template 3</option>
+    <select :disabled="true" v-model="selectedItem.template" class="form-control" name="template" v-validate="'required'" data-vv-validate-on="'none'">
+        <option :value="null">Seleccione Template</option>
+        <option v-for="(item,index) in info.templates" :value="index">(% item %)</option>
     </select>
     <span class="help-block" v-show="errors.has('template')">(% errors.first('template') %)</span>
 </div>
@@ -42,8 +40,6 @@
     <input type="checkbox"  v-model="selectedItem.saldo">
     <span class="help-block" v-show="errors.has('saldo')">(% errors.first('saldo') %)</span>
 </div>
-
-@include('admin.custom_mails.previewheader')
 
 <div class="form-group col-sm-12" >
     <h3>Contenido</h3><hr>    
@@ -318,6 +314,13 @@
         {!! Form::text('footer', null, ['class' => 'form-control','v-model' => 'selectedItem.footer']) !!}
         <span class="help-block" v-show="errors.has('footer')">(% errors.first('footer') %)</span>
     </div>
+    <div class="form-group col-sm-6" >
+        {!! Form::label('tipo-footer', 'Footer') !!}
+       <select class="form-control" v-model="info.footer_id" name="tipo-footer" @change="selectFooter($event, 'footer')">
+        <option :value="null">Seleccione</option>
+        <option :value="item.id" v-for="item in info.tipo_footer">(% item.nombre %) - (% item.id %)</option>
+        </select>
+    </div>
 
     <div class="form-group col-sm-6" >
         {!! Form::label('tipo-footer', 'Redes') !!}
@@ -327,13 +330,6 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-6" >
-        {!! Form::label('tipo-footer', 'Footer') !!}
-       <select class="form-control" v-model="info.footer_id" name="tipo-footer" @change="selectFooter($event, 'footer')">
-        <option :value="null">Seleccione</option>
-        <option :value="item.id" v-for="item in info.tipo_footer">(% item.nombre %) - (% item.id %)</option>
-        </select>
-    </div>
 
 
 </div>
@@ -347,7 +343,7 @@
         <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
     </div> 
     <div class="form-group col-sm-6" >
-        {!! Form::label('tipo_legales', 'Legales predefinidos') !!}
+        {!! Form::label('tipo_legales', 'Genérico') !!}
        <select class="form-control" v-model="info.legales_id" name="tipo-legales" @change="selectLegales($event, 'predefinido')">
             <option :value="''">Ninguno</option>
             <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %) - (% item.id %)</option>
@@ -355,7 +351,7 @@
     </div>
     <!-- Contenido Field -->
     <div class="form-group col-sm-12 col-lg-12" :class="{'has-error': errors.has('legales_custom')}">
-        {!! Form::label('legales_custom', 'Legales Custom') !!}
+        {!! Form::label('legales_custom', 'Específico') !!}
         <vue-mce v-model="info.legales_custom" :config="tinyConfig" @change="selectLegales($event, 'legales_custom')"/>
         <span class="help-block" v-show="errors.has('legales_custom')">(% errors.first('legales_custom') %)</span>
     </div>

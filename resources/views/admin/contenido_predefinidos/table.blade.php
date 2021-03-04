@@ -12,7 +12,7 @@
             <tr v-for="item in list" v-if="paging.total > 0">
                 <td>(% item.id %)</td>
                 <td>(% item.nombre %)</td>
-            <td>(% item.tipo %)</td>
+                <td>(% item.tipo %)</td>
             
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))

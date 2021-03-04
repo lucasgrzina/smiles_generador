@@ -20,16 +20,6 @@
       <a href="{!! route('roles.index') !!}"><i class="fa fa-user"></i><span>Roles</span></a>
     </li>
     @endif
-    @if (\App\Helpers\AdminHelper::mostrarMenu('registrados'))
-    <li class="{{ Request::is('registrados*') ? 'active' : '' }}">
-      <a href="{!! route('registrados.index') !!}"><i class="fa fa-user"></i><span>Registrados</span></a>
-    </li>
-    @endif
-    @if (\App\Helpers\AdminHelper::mostrarMenu('paises'))
-    <li class="{{ Request::is('paises*') ? 'active' : '' }}">
-        <a href="{!! route('paises.index') !!}"><i class="fa fa-edit"></i><span>Paises</span></a>
-    </li>
-    @endif
   </ul>
 </li>
 @endif
@@ -40,7 +30,7 @@
 
 
 <li class="{{ Request::is('custom-mails*') ? 'active' : '' }}">
-    <a href="{!! route('custom-mails.index') !!}"><i class="fa fa-edit"></i><span>Custom Mails</span></a>
+    <a href="{!! route('custom-mails.index') !!}"><i class="fa fa-edit"></i><span>Piezas</span></a>
 </li>
 
 <li class="{{ Request::is('contenido-predefinidos*') ? 'active' : '' }}">

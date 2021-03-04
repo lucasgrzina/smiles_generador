@@ -1,7 +1,4 @@
     _components['paginate'] = VuejsPaginate;   
-    _components['draggable'] = vuedraggable;   
-
-   
 
     _methods.storeFilters = function() {
         var _this = this;

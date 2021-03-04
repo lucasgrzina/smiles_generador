@@ -14,13 +14,10 @@
 </tr>
 
 <tr>
-	<td>{!! Form::label('imagen', 'Imagen') !!}</td>
-	<td>(% selectedItem.imagen %)</td>    
-</tr>
-
-<tr>
 	<td>{!! Form::label('contenido', 'Contenido') !!}</td>
-	<td>(% selectedItem.contenido %)</td>    
+	<td>
+		<div v-html="selectedItem.contenido"></div> 
+	</td>    
 </tr>
 
 <tr>

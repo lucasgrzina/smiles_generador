@@ -1,4 +1,8 @@
 <?php
 return [
-    'homeActiva' => true
+    'homeActiva' => true,
+    'templates' => [
+        'comunicado' => 'Comunicado',
+        'vto_millas' => 'Vto. Millas'
+    ]
 ];
