@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\CrudAdminController;
-use App\Http\Requests\Admin\CUCustomMailsRequest;
-use App\Repositories\CustomMailsRepository;
-use Illuminate\Http\Request;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 use View;
+use Response;
+use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
+use App\Repositories\CustomMailsRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Requests\Admin\CUCustomMailsRequest;
+use App\Repositories\Criteria\CustomMailsCriteria;
+use App\Http\Controllers\Admin\CrudAdminController;
 
 class CustomMailsController extends CrudAdminController
 {
     protected $routePrefix = 'custom-mails';
     protected $viewPrefix  = 'admin.custom_mails.';
-    protected $actionPerms = 'custom-mails';
+    protected $actionPerms = 'piezas';
 
     public function __construct(CustomMailsRepository $repo)
     {
@@ -28,7 +29,7 @@ class CustomMailsController extends CrudAdminController
     public function index()
     {
         parent::index();
-
+        $this->data['filters']['template'] = null;
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -39,6 +40,7 @@ class CustomMailsController extends CrudAdminController
     {
         try
         {
+            $this->repository->pushCriteria(new CustomMailsCriteria($request));
             $this->repository->pushCriteria(new RequestCriteria($request));
             $collection = $this->repository->with('updater')->paginate($request->get('per_page'))->toArray();        
 

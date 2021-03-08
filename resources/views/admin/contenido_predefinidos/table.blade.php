@@ -5,6 +5,7 @@
                 <th @click="orderBy('id')" class="td-id" :class="cssOrderBy('id')">ID</th>
                 <th>Nombre</th>
                 <th>Tipo</th>
+                <th>Default</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
         </thead>
@@ -12,7 +13,12 @@
             <tr v-for="item in list" v-if="paging.total > 0">
                 <td>(% item.id %)</td>
                 <td>(% item.nombre %)</td>
-                <td>(% item.tipo %)</td>
+                <td>(% nombreTipo(item.tipo) %)</td>
+                <td>
+                    <span :class="{'label': true, 'label-success': item.default, 'label-danger': !item.default}">
+                        (% item.default ? 'SI' : 'NO' %)
+                    </span>
+                </td>
             
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))

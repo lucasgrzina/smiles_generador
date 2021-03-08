@@ -20,10 +20,8 @@ class CustomMailsRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'nombre',
-        'publicidad',
-        'saldo',
-        'template'
+        'nombre' => 'like',
+        'template' => 'like'
     ];
 
     /**

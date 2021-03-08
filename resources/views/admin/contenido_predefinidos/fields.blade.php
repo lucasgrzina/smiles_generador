@@ -9,13 +9,9 @@
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('tipo')}">
     {!! Form::label('tipo', 'Tipo') !!}
    
-    <select v-model="selectedItem.tipo" class="form-control" name="tipo" v-validate="'required'" data-vv-validate-on="'none'">
-        <option value="null" disabled selected>Seleccione Template</option>
-        <option value="header">Header</option>
-        <option value="footer">Footer</option>
-        <option value="redes">Redes</option>
-        <option value="legales">Legales</option>
-        <option value="contenido">Contenido</option>
+    <select v-model="selectedItem.tipo" class="form-control" name="tipo">
+        <option :value="null">Seleccione</option>
+        <option v-for="(item,index) in info.tipos" :value="index">(% item %)</option>
     </select>
     <span class="help-block" v-show="errors.has('tipo')">(% errors.first('tipo') %)</span>
 </div>

@@ -12,6 +12,14 @@
         Vue.component('draggable', vuedraggable);
         var _data = {!! json_encode($data) !!};
 
+        _methods.nombreTipo = function(codigo) {
+            var templates = this.info.tipos;
+            if (typeof templates[codigo] !== 'undefined') {
+                return templates[codigo];
+            }
+            return codigo;
+        };
+
         this._mounted.push(function(_this) {
             _this.doFilter();
         });
@@ -21,7 +29,11 @@
 @endsection
 
 @section('content-header')
-{!! AdminHelper::contentHeader('Contenido Predefinidos',trans('admin.list'),'new','create()') !!}
+    @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
+        {!! AdminHelper::contentHeader('Contenido Predefinidos',trans('admin.list'),'new','create()') !!}
+    @else
+        {!! AdminHelper::contentHeader('Contenido Predefinidos',trans('admin.list')) !!}
+    @endif
 @endsection
 
 @section('content')
@@ -32,6 +44,12 @@
                 <div class="form-inline">
                     @include('admin.includes.crud.index-filters-input')
                     <!-- cualquier otro campo -->
+                    <div class="form-group">
+                        <select v-model="filters.tipo" class="form-control input-sm" name="tipos">
+                            <option :value="null">Tipos (todos)</option>
+                            <option v-for="(item,index) in info.tipos" :value="index">(% item %)</option>
+                        </select>
+                    </div>                    
                     @include('admin.includes.crud.index-filters-btn')
                 </div>
             </div>

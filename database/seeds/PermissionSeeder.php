@@ -16,18 +16,8 @@ class PermissionSeeder extends Seeder
         $items = [
 			['Usuarios',10],
 			['Roles y Permisos',20],
-			['Paises', 30],
-			['Retails', 31],
-			['Sucursales', 32],
-			['Banners', 33],
-			['Premios', 34],
-			['Productos', 35],
-			['Mecanicas', 36],
-			['Contactos', 37],
-			['Alertas', 38],
-			['Materiales', 39],
-			['Ventas', 40],
-			['Ranking', 41],
+			['Contenidos predefinidos', 30],
+			['Piezas', 31],
         ];
 
         foreach ($items as $i => $value) 

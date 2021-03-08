@@ -1,7 +1,7 @@
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('role')}">
     {!! Form::label('role', 'Rol*') !!}
-    <select v-model="selectedItem.role_id" class="form-control" name="role" v-validate="'required'" data-vv-validate-on="'none'" @change="alCambiarRol">
-        <option :value="null"></option>
+    <select v-model="selectedItem.role_id" class="form-control" name="role" v-validate="'required'" data-vv-validate-on="'none'">
+        <option :value="null">Seleccione</option>
         <option v-for="item in info.roles" :value="item.id">(% item.name %)</option>
     </select>
     <span class="help-block" v-show="errors.has('role')">(% errors.first('role') %)</span>
@@ -36,9 +36,6 @@
     {!! Form::email('email', null, ['class' => 'form-control','v-model' => 'selectedItem.email','v-validate' => "'required|email'",'data-vv-validate-on' => 'none']) !!}
     <span class="help-block" v-show="errors.has('email')">(% errors.first('email') %)</span>
 </div>
-
-
-
 
     <div class="form-group col-sm-6" :class="{'has-error': errors.has('password')}">
         {!! Form::label('password', 'Password*') !!}

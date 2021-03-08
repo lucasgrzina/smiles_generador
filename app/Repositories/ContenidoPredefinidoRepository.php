@@ -20,10 +20,7 @@ class ContenidoPredefinidoRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'nombre',
-        'tipo',
-        'imagen',
-        'contenido'
+        'nombre' => 'like',
     ];
 
     /**

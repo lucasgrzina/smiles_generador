@@ -115,17 +115,15 @@ class UserController extends AppBaseController
     public function create()
     {
 
-       
 
         $data = [
             'selectedItem' => [
                 'id' => 0,
                 'role_id' => null,
                 'enabled' => true,
-                'porc_comision' => 0
             ],
             'info' => [
-                'roles' => $this->role_repo->getActivos()
+                'roles' => $this->role_repo->getActivos(),   
             ],
             'url_save' => route($this->routePrefix.'.store'),
             'url_index' => route($this->routePrefix.'.index')
@@ -179,7 +177,7 @@ class UserController extends AppBaseController
      */
     public function show($id)
     {
-       $model = $this->userRepository->with(['roles','pais'])->findWithoutFail($id);
+       $model = $this->userRepository->with(['roles'])->findWithoutFail($id);
 
         if (empty($model)) {
             return redirect(route($this->routePrefix.'.index'));
@@ -211,9 +209,6 @@ class UserController extends AppBaseController
      */
     public function edit($id)
     {
-       
-
-
         $model = $this->userRepository->findWithoutFail($id);
 
         if (empty($model)) {
@@ -228,7 +223,7 @@ class UserController extends AppBaseController
         $data = [
             'selectedItem' => $model,
             'info' => [
-                'roles' => $this->role_repo->getActivos()
+                'roles' => $this->role_repo->getActivos(), 
             ],            
             'url_save' => route($this->routePrefix.'.update',[$model['id']]),
             'url_index' => route($this->routePrefix.'.index')

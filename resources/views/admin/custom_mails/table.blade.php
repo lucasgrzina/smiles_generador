@@ -4,7 +4,6 @@
             <tr>
                 <th @click="orderBy('id')" class="td-id" :class="cssOrderBy('id')">ID</th>
                 <th>Nombre</th>
-                <th>Publicidad</th>
                 <th>Template</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
@@ -13,8 +12,7 @@
             <tr v-for="item in list" v-if="paging.total > 0">
                 <td>(% item.id %)</td>
                 <td>(% item.nombre %)</td>
-                <td>(% item.publicidad %)</td>
-                <td>(% item.template %)</td>
+                <td>(% nombreTemplate(item.template) %)</td>
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))
                         <button-type type="show-list" @click="show(item)"></button-type>

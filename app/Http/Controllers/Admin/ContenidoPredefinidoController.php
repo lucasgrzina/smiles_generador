@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\CrudAdminController;
-use App\Http\Requests\Admin\CUContenidoPredefinidoRequest;
-use App\Repositories\ContenidoPredefinidoRepository;
-use Illuminate\Http\Request;
-use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\Admin\CrudAdminController;
+use App\Repositories\ContenidoPredefinidoRepository;
+use App\Http\Requests\Admin\CUContenidoPredefinidoRequest;
+use App\Repositories\Criteria\ContenidoPredefinidoCriteria;
 
 class ContenidoPredefinidoController extends CrudAdminController
 {
     protected $routePrefix = 'contenido-predefinidos';
     protected $viewPrefix  = 'admin.contenido_predefinidos.';
-    protected $actionPerms = 'contenido-predefinidos';
+    protected $actionPerms = 'contenidos-predefinidos';
 
     public function __construct(ContenidoPredefinidoRepository $repo)
     {
@@ -28,6 +29,12 @@ class ContenidoPredefinidoController extends CrudAdminController
     {
         parent::index();
 
+        $this->data['info'] = [
+            'tipos' => config('constantes.tiposContenidosPredefinidos',[])
+        ];
+
+        $this->data['filters']['tipo'] = null;
+
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -35,6 +42,7 @@ class ContenidoPredefinidoController extends CrudAdminController
     {
         try
         {
+            $this->repository->pushCriteria(new ContenidoPredefinidoCriteria($request));
             $this->repository->pushCriteria(new RequestCriteria($request));
             $collection = $this->repository->with('updater')->paginate($request->get('per_page'))->toArray();        
 
@@ -55,7 +63,9 @@ class ContenidoPredefinidoController extends CrudAdminController
     public function show($id)
     {
         parent::show($id);
-
+        $this->data['info'] = [
+            'tipos' => config('constantes.tiposContenidosPredefinidos',[])
+        ];
         //$this->data['selectedItem']->load('xxx');
 
         return view($this->viewPrefix.'show')->with('data', $this->data);
@@ -66,8 +76,13 @@ class ContenidoPredefinidoController extends CrudAdminController
         parent::create();
 
         data_set($this->data, 'selectedItem', [
-                'id' => 0
+                'id' => 0,
+                'tipo' => null,
+                'default' => false
         ]);
+        $this->data['info'] = [
+            'tipos' => config('constantes.tiposContenidosPredefinidos',[])
+        ];
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
@@ -88,7 +103,9 @@ class ContenidoPredefinidoController extends CrudAdminController
     public function edit($id)
     {
         parent::edit($id);
-
+        $this->data['info'] = [
+            'tipos' => config('constantes.tiposContenidosPredefinidos',[])
+        ];
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

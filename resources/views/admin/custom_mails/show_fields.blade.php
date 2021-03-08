@@ -19,12 +19,12 @@
 </tr>
 
 <tr>
-	<td>{!! Form::label('created_at', 'Created At') !!}</td>
-	<td>(% selectedItem.created_at %)</td>    
+	<td>{!! Form::label('created_at', 'Alta') !!}</td>
+	<td>(% selectedItem.created_at | datetimeFormat %)</td>    
 </tr>
 
 <tr>
-	<td>{!! Form::label('updated_at', 'Updated At') !!}</td>
-	<td>(% selectedItem.updated_at %)</td>    
+	<td>{!! Form::label('updated_at', 'Ult. Modif.') !!}</td>
+	<td>(% selectedItem.updated_at | datetimeFormat %)</td>    
 </tr>
 

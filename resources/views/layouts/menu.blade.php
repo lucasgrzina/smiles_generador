@@ -23,17 +23,13 @@
   </ul>
 </li>
 @endif
-
-
-
-
-
-
+@if (\App\Helpers\AdminHelper::mostrarMenu('contenidos-predefinidos'))    
 <li class="{{ Request::is('custom-mails*') ? 'active' : '' }}">
     <a href="{!! route('custom-mails.index') !!}"><i class="fa fa-edit"></i><span>Piezas</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('piezas'))    
 <li class="{{ Request::is('contenido-predefinidos*') ? 'active' : '' }}">
     <a href="{!! route('contenido-predefinidos.index') !!}"><i class="fa fa-edit"></i><span>Contenido Predefinidos</span></a>
 </li>
-
+@endif

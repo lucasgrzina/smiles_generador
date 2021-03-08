@@ -13,6 +13,9 @@
     <script type="text/javascript">
         Vue.component('draggable', vuedraggable);
         var _data = {!! json_encode($data) !!};
+        _data.info = {
+            templates: {!! json_encode(config('constantes.templates',[])) !!}
+        };
 
         _methods.create = function(template) {
             this.storeFilters();
@@ -20,6 +23,13 @@
             document.location = this.url_create.concat('?template=').concat(template);
         };
 
+        _methods.nombreTemplate = function(codigo) {
+            var templates = this.info.templates;
+            if (typeof templates[codigo] !== 'undefined') {
+                return templates[codigo];
+            }
+            return codigo;
+        };
 
         this._mounted.push(function(_this) {
             _this.doFilter();
@@ -38,15 +48,19 @@
 
             
             <small>Listado</small>
+            @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
             <div class="pull-right dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Seleccioná Piezza
-              <span class="caret"></span></button>
+              <button class="btn bg-green btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-plus"></i> Nuevo 
+                <span class="caret"></span>
+              </button>
               <ul class="dropdown-menu">
                 @foreach (config('constantes.templates',[]) as $codigo => $nombre)
                     <li><a v-on:click="create('{{$codigo}}')">{{$nombre}}</a></li>      
                 @endforeach
               </ul>
             </div>
+            @endif
         </section>
 @endsection
 
@@ -57,6 +71,12 @@
             <div class="box-body box-filter">
                 <div class="form-inline">
                     @include('admin.includes.crud.index-filters-input')
+                    <div class="form-group">
+                        <select v-model="filters.template" class="form-control input-sm" name="template">
+                            <option :value="null">Templates (todos)</option>
+                            <option v-for="(item,index) in info.templates" :value="index">(% item %)</option>
+                        </select>
+                    </div>                    
                     <!-- cualquier otro campo -->
                     @include('admin.includes.crud.index-filters-btn')
                 </div>

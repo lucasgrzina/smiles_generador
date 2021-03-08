@@ -81,6 +81,7 @@ class ContenidoPredefinido extends Model
     public static $rules = [
         'nombre' => 'required',
         'tipo' => 'required',
+        'contenido' => 'required',
         //'enabled' => 'boolean'
     ];
 

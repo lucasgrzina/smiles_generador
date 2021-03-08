@@ -10,6 +10,13 @@
     <script type="text/javascript" src="{{ asset('admin/crud/js/show.js') }}"></script>
     <script type="text/javascript">
         var _data = {!! json_encode($data) !!};
+        _methods.nombreTipo = function(codigo) {
+            var templates = this.info.tipos;
+            if (typeof templates[codigo] !== 'undefined') {
+                return templates[codigo];
+            }
+            return codigo;
+        };        
     </script>
 @endsection
 
