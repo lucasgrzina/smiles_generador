@@ -27,7 +27,7 @@
             imagen_mobile: []
         };
 
-         _methods.uploadImageCustom = function (item, event, url_upload, token, model){
+         _methods.uploadImageCustom = function (item, event, url_upload, token, pos){
             //console.log(event.target.files);
             var _this = this;
 
@@ -44,7 +44,13 @@
                 contentType: false,
                 processData: false
             }).done(function(res){
-                item.input = res.data.path;
+
+                if(pos == 1){
+                    item.input = res.data.path;
+                }else{
+                    item.input2 = res.data.path;
+                }
+
                _this.exportar();
             });
         };
