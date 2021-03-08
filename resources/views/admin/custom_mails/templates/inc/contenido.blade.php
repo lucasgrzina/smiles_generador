@@ -105,16 +105,22 @@
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="full-width" width="600" align="center">
 						<tr>
 							<td width="600" class="full-width" align="center">
-								
-								@if(property_exists($item, 'link'))
+								@if(property_exists($item, 'link') && $item->link != '')
+								@php
+									$urlLink = $item->link;
+									$dataLink = [];
+									
+									if (isset($item->utm_source) && $item->utm_source != ''){ $dataLink['utm_source'] = $item->utm_source;}
+									if (isset($item->utm_medium) && $item->utm_medium != ''){ $dataLink['utm_medium'] = $item->utm_medium;}
+									if (isset($item->utm_campaign) && $item->utm_campaign != ''){ $dataLink['utm_campaign'] = $item->utm_campaign;}
+									if (isset($item->utm_content) && $item->utm_content != ''){ $dataLink['utm_content'] = $item->utm_content;}
+									if (isset($item->utm_term) && $item->utm_term != ''){ $dataLink['utm_term'] = $item->utm_term;}	
+
+									$queryString =  http_build_query($dataLink);								
+									$urlLink = $item->link.'?'.$queryString;									
+								@endphp
 								<a style="color:#7c7c7c" 
-								href="{!! $item->link !!}?
-								utm_source={!! $item->utm_source !!}&amp;
-								utm_medium={!! $item->utm_medium !!}&amp;
-								utm_campaign={!! $item->utm_campaign !!}&amp;
-								utm_content={!! $item->utm_content !!}&amp;
-								utm_term={!! $item->utm_term !!}" target="_blank">
-									<img src="{!! $item->input !!}" width="600" class="full-width" border="0" style="display:block; max-width: 100%;">
+								href="{!! $urlLink !!}" target="_blank" width="600" class="full-width" border="0" style="display:block; max-width: 100%;"><img src="{!! $item->input !!}" width="600" class="full-width" border="0" style="display:block; max-width: 100%;">
 								</a>
 								@else
 								<div style="padding: 0 0;"><img src="{!! $item->input !!}" border="0" width="600px;" >
@@ -134,24 +140,39 @@
 		  <tbody>
 		    <tr>
 		      <td bgcolor="#FFFFFF">
-		      	<a style="color:#7c7c7c" 
-								href="{!! $item->link !!}?
-								utm_source={!! $item->utm_source !!}&amp;
-								utm_medium={!! $item->utm_medium !!}&amp;
-								utm_campaign={!! $item->utm_campaign !!}&amp;
-								utm_content={!! $item->utm_content !!}&amp;
-								utm_term={!! $item->utm_term !!}" target="_blank">
+		      	@php
+					$urlLink = $item->link;
+					$dataLink = [];
+					
+					if (isset($item->utm_source) && $item->utm_source != ''){ $dataLink['utm_source'] = $item->utm_source;}
+					if (isset($item->utm_medium) && $item->utm_medium != ''){ $dataLink['utm_medium'] = $item->utm_medium;}
+					if (isset($item->utm_campaign) && $item->utm_campaign != ''){ $dataLink['utm_campaign'] = $item->utm_campaign;}
+					if (isset($item->utm_content) && $item->utm_content != ''){ $dataLink['utm_content'] = $item->utm_content;}
+					if (isset($item->utm_term) && $item->utm_term != ''){ $dataLink['utm_term'] = $item->utm_term;}	
+												
+					$queryString =  http_build_query($dataLink);								
+					$urlLink = $item->link.'?'.$queryString;									
+				@endphp
+		      	<a style="color:#7c7c7c" href="{!! $urlLink !!}" target="_blank">
 		      		<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%"></a>
 		      	</td>
 				
 		      <td bgcolor="#FFFFFF">
+		      	@php
+					$urlLink2 = $item->link2;
+					$dataLink = [];
+					
+					if (isset($item->utm_source2) && $item->utm_source2 != ''){ $dataLink['utm_source'] = $item->utm_source2;}
+					if (isset($item->utm_medium2) && $item->utm_medium2 != ''){ $dataLink['utm_medium'] = $item->utm_medium2;}
+					if (isset($item->utm_campaign2) && $item->utm_campaign2 != ''){ $dataLink['utm_campaign'] = $item->utm_campaign2;}
+					if (isset($item->utm_content2) && $item->utm_content2 != ''){ $dataLink['utm_content'] = $item->utm_content2;}
+					if (isset($item->utm_term) && $item->utm_term != ''){ $dataLink['utm_term'] = $item->utm_term;}	
+												
+					$queryString =  http_build_query($dataLink);								
+					$urlLink2 = $item->link2.'?'.$queryString;									
+				@endphp
 		      	<a style="color:#7c7c7c" 
-								href="{!! $item->link2 !!}?
-								utm_source={!! $item->utm_source2 !!}&amp;
-								utm_medium={!! $item->utm_medium2 !!}&amp;
-								utm_campaign={!! $item->utm_campaign2 !!}&amp;
-								utm_content={!! $item->utm_content2 !!}&amp;
-								utm_term={!! $item->utm_term2 !!}" target="_blank">
+								href="{!! $urlLink2 !!}" target="_blank">
 		      		<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
 		      	</a>
 		      </td>
@@ -166,7 +187,11 @@
 				<td width="600">
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" class="full-width" align="center">
 						<tr>
+							@if(isset($item->input) && $item->input != '')
+							<td height="{!! $item->input !!}" style="line-height: 0px; font-size: 0px;">&nbsp;</td>
+							@else
 							<td height="30" style="line-height: 0px; font-size: 0px;">&nbsp;</td>
+							@endif
 						</tr>
 					</table>
 				</td>

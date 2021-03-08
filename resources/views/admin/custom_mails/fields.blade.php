@@ -50,8 +50,8 @@
       <div class="card rowContent" v-for="item in listContents" :index="item.index">
         <div class="card-header" :id="'heading'+item.index">
           <h5 class="mb-0">
-            <button class="btn btn-content" data-toggle="collapse" :data-target="'#'+item.index" aria-expanded="false" :aria-controls="item.index">
-              (% item.nombre %) 
+            <button class="btn btn-content" data-toggle="collapse" :data-target="'#'+item.index" aria-expanded="false" :aria-controls="item.index">(% item.nombre %)
+              <span v-if="item.id == 'separador1'"> | (% item.input %)px <span>
             </button>
             <button class="btn btn-sm btn-eliminar" @click="removerItem(item.index)">Eliminar item</button>
           </h5>
@@ -276,8 +276,10 @@
             </div>
 
             <div v-if="item.id == 'separador1'">
-                <div class="form-group col-sm-12">
-                    Separador en blanco horizontal de 30px de alto.
+                <div class="form-group col-sm-3"></div>
+                <div class="form-group col-sm-6">
+                    <span class="text-center" style="width: 100%; position: relative; float: left; margin-bottom: 8px;">Separador en blanco horizontal valor default 30px de alto.</span>
+                    <input class="form-control" type="number" name="" v-model="item.input" @change="exportar">
                 </div>
             </div>
 

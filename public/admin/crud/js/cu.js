@@ -108,7 +108,7 @@ _data.contenidosTipo = [
     index: 3,
     btn: '+Separador en blanco',
     cols: 1,
-    titulo: 'Separador Horizontal | 30px de alto'
+    titulo: 'Separador Horizontal'
   },
   {
     id: 'contenido_predefinido',
@@ -146,12 +146,16 @@ if (typeof _methods.agregaritem === 'undefined') {
       });
       mayorIndex++;
       _data.idList = mayorIndex;
+      var inputNew = '';
+      if (id == 'separador1'){
+        inputNew = 30;
+      }
       var newItem = {
         id: id,
         unique: _data.idList,
         index: 'content_'+_data.idList,
         nombre: _this.contenidosTipo[index].titulo,
-        input: '',
+        input: inputNew,
       };
 
       _this.listContents.push(newItem);
@@ -179,7 +183,7 @@ if (typeof _methods.exportar === 'undefined') {
   
   _methods.exportar = function(index,field,model) {
       var _this = this;
-//      alert(JSON.stringify(_this.listContents));
+
       
         var childDivs = document.getElementById('accordion').getElementsByClassName('card');
 
@@ -191,6 +195,7 @@ if (typeof _methods.exportar === 'undefined') {
 
           for (var j = 0; j < _this.listContents.length; j++) {
             if(_this.listContents[j].index == childDiv.getAttribute('index')){
+
               sortArray.push(_this.listContents[j]);
             }
           }
@@ -201,6 +206,7 @@ if (typeof _methods.exportar === 'undefined') {
         _data.selectedItem.contenido = JSON.stringify(_data.listContents);
     }
 }
+
 if (typeof _methods.viewContent === 'undefined') {
   
   _methods.viewContent = function(evt, preview, item) {
