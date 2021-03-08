@@ -7,7 +7,8 @@ return [
         'vto_millas' => 'Vto. Millas',
         'eventos_especiales' => 'Eventos Especiales',
         'sabias_que' => 'Sabías que',
-        'voucher' => 'Voucher'
+        'voucher' => 'Voucher',
+        'template_libre' => 'Template Libre'
     ],
     'default_diario' => [
     	'publicidad' => true,
@@ -54,6 +55,13 @@ return [
         'publicidad' => true,
         'saldo' => true,
         'contenido' => '[{"id": "imagen1", "link": "", "index": "content_1", "input": "https://smiles-mkt-ar.s3.amazonaws.com/Emkt-18072020/img-banner-beneficio.jpg", "nombre": "Fila de una sola imagen", "unique": 1, "utm_term": "", "utm_medium": "", "utm_source": "", "utm_content": "", "utm_campaign": ""}, {"id": "imagen1", "link": "https://www.smiles.com.ar/promo/compra-de-millas", "index": "content_6", "input": "https://smiles-mkt-ar.s3.amazonaws.com/Emkt-14052020/img-voucher-beneficio.gif", "nombre": "Fila de una sola imagen", "unique": 6}, {"id": "separador1", "index": "content_10", "input": "10", "nombre": "Separador Horizontal", "unique": 10}, {"id": "imagen1", "link": "", "index": "content_7", "input": "https://smiles-mkt-ar.s3.amazonaws.com/Emkt-14052020/img-esquema.gif", "nombre": "Fila de una sola imagen", "unique": 7}, {"id": "separador1", "index": "content_8", "input": 30, "nombre": "Separador Horizontal", "unique": 8}, {"id": "contenido_predefinido", "index": "content_11", "input": "", "nombre": "Contenido predefinido", "unique": 11, "predefinido": 6}, {"id": "separador1", "index": "content_9", "input": 30, "nombre": "Separador Horizontal", "unique": 9}]',
+        'legales'=> '"{\"legales\":\"1\",\"legales_custom\":\"\"}"',
+        'footer'=> '"{\"footer\":\"4\",\"redes\":\"3\"}"'
+    ], 
+    'default_template_libre' => [
+        'publicidad' => true,
+        'saldo' => true,
+        'contenido' => '',
         'legales'=> '"{\"legales\":\"1\",\"legales_custom\":\"\"}"',
         'footer'=> '"{\"footer\":\"4\",\"redes\":\"3\"}"'
     ]

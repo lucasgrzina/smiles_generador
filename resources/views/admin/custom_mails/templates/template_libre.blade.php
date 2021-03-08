@@ -52,11 +52,9 @@
 	</head>
 
 	<body style="margin:0; padding:0;">
-
 		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="background-color:#e0e0e0;">
 			<tr>
 				<td>
-
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" class="full-width" width="600" align="center">
 						<tr>
 							<td valign="top" width="600" height="29" style="color:#ffffff;font-family:arial;font-size:1px;line-height:3px;mso-line-height-rule:exactly;text-align:center;width:600px;height:3px">Gracias por estos 6 meses en Club Smiles</td>
@@ -130,8 +128,7 @@
 				@include('admin.custom_mails.templates.inc.contenido',[
                         'contenido' => $contenido
                 ])
-                
-				
+
 				{!! ($footer) !!}
 				{!! ($redes) !!}
 				@if ($legales_custom != '')
