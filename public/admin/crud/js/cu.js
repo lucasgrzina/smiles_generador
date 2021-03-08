@@ -49,6 +49,9 @@ if (typeof _methods.onBlur === 'undefined') {
 if (typeof _methods.inputFile === 'undefined') {
     _methods.inputFile = function(newFile, oldFile,onSuccess, onError,ref) {
       // Automatic upload
+      console.log('oldFile: '+oldFile);
+      console.log('newFile: '+newFile.error);
+
       var _this = this;
       var _ref = typeof ref !== 'undefined' ? ref : 'upload';
 
@@ -153,6 +156,8 @@ if (typeof _methods.agregaritem === 'undefined') {
       var newItem = {
         id: id,
         unique: _data.idList,
+        filevalue: [],
+        fileurl: [],
         index: 'content_'+_data.idList,
         nombre: _this.contenidosTipo[index].titulo,
         input: inputNew,

@@ -126,6 +126,8 @@
                     <!-- End Items link-->
                    
                     <label>Url</label>
+                    <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}')">
+                
                     <input class="form-control" type="text" name="" v-model="item.input" @change="exportar">
                 </div>
             </div>

@@ -31,6 +31,10 @@
             return codigo;
         };
 
+        
+         
+                        
+
         this._mounted.push(function(_this) {
             _this.doFilter();
         });
