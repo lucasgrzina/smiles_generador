@@ -27,6 +27,8 @@
             imagen_mobile: []
         };
 
+        _data.saving = false;
+
          _methods.uploadImageCustom = function (item, event, url_upload, token, pos){
             //console.log(event.target.files);
             var _this = this;
@@ -45,10 +47,11 @@
                 processData: false
             }).done(function(res){
 
+                
                 if(pos == 1){
-                    item.input = res.data.path;
+                    item.input = res.path;
                 }else{
-                    item.input2 = res.data.path;
+                    item.input2 = res.path;
                 }
 
                _this.exportar();
@@ -69,6 +72,35 @@
             //_this.errors.add('light_logo',file.error, 'server');
           },'uploadImagenMail');
         }
+
+
+        _methods.store = function(redirect = true) {
+            var _this = this;
+            _this.saving = true;
+            var _ajaxMethod = _this.selectedItem.id == 0 ? _this.ajaxPost : _this.ajaxPut ;
+            var _is_valid = _this.validateForm();
+            _this.alert.show = false;
+            return _this.$validator.validateAll().then(function(result) {
+                 _this.saving = false;    
+                if (result && _is_valid) {
+                    return _ajaxMethod(_this.url_save,_this.selectedItem,true,_this.errors).then(function(data){
+                        
+                        
+                        if(redirect){
+                           location.href = _this.url_index; 
+                        }else if(_this.selectedItem.id == 0){
+                            location.href = _this.url_index+'/'+data.id+'/edit';
+                        }
+                        
+                    });                            
+                }
+               
+            });
+        };
+
+       
+
+
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
@@ -92,7 +124,8 @@
             </div>
             <div class="box-footer text-right">
                 <button-type type="save" :promise="store"></button-type>
-          
+                <button type="save" @click="store(false)" class="btn btn-sm bg-green btn-save">
+                    <i class="fa fa-save" v-if="!saving"></i><i class="fa fa-spinner fa-spin fa-save" v-if="saving"></i> Guardar y continuar</button>
                 <button-type type="cancel" @click="cancel()"></button-type>
             </div>   
         </div>   

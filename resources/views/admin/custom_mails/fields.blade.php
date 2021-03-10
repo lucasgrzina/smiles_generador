@@ -269,13 +269,13 @@
             </div>
             <div v-if="item.id == 'textolibre'">
                 <div class="form-group col-sm-12">
-                    <vue-mce v-model="item.input" @change="exportar"/>
+                    <vue-mce v-model="item.input" @change="exportar"  />
                 </div>
             </div>
 
             <div v-if="item.id == 'textoplano'">
                 <div class="form-group col-sm-12">
-                     <vue-mce v-model="item.input" @change="exportar"/>
+                     <vue-mce v-model="item.input" @change="exportar" />
                 </div>
             </div>
 
