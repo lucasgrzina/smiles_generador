@@ -17,7 +17,7 @@ Route::prefix('id')->group(function () {
 });
 
 Route::prefix('test')->group(function () {
-    //Route::get('/sms', 'TestController@sms');
+    Route::get('/leer-s3', 'TestController@leerS3');
 });
 
 Route::prefix('combos')->group(function () {
@@ -33,7 +33,8 @@ Route::prefix('exportar')->group(function () {
 
 /*Uploads*/
 Route::prefix('uploads')->group(function () {
-    Route::post('/file', 'UploadsController@storeFile')->name('uploads.store-file');
+    //Route::post('/file', 'UploadsController@storeFile')->name('uploads.store-file');
+    Route::post('/file', 'UploadsController@subirArchivo')->name('uploads.store-file');
     Route::post('/image', 'UploadsController@storeImage')->name('uploads.store-image');
 });
 
