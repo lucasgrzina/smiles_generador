@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Services\ApiRolService;
+use App\Helpers\StorageHelper;
 
+use App\Services\ApiRolService;
 use App\Services\ApiSmsService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends AppBaseController
 {
@@ -62,4 +64,19 @@ class TestController extends AppBaseController
             \Log::info($ex->getMessage());
         }
     }     
+
+    public function leerS3() {
+        
+        $path = env('AMAZON_S3_FOLDER').'/tmp/test.png';
+        $img = StorageHelper::contenido('tmp/1605205406-Premio-01.jpg','uploads_local');
+
+        StorageHelper::put(
+            $path,
+            $img
+        );
+
+        //\Log::info(StorageHelper::url(env('AMAZON_S3_FOLDER').'/tmp/1612980492-2021-01-18-16-32-localhost.png','uploads'));
+        $files = StorageHelper::files(env('AMAZON_S3_FOLDER').'/tmp');
+        return $files;
+    }
 }

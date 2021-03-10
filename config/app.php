@@ -252,6 +252,7 @@ return [
         'Date' => Jenssegers\Date\Date::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'FrontHelper' => App\Helpers\FrontHelper::class,
+        'StorageHelper' => App\Helpers\StorageHelper::class,
     ],
 
 ];

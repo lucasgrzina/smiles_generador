@@ -63,12 +63,22 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-        'uploads' => [
+        'uploads_local' => [
             'driver' => 'local',
             'root' => public_path('uploads'),
             'url' => env('APP_URL').'/uploads',
             'visibility' => 'public',
-        ], 
+        ],
+        
+        'uploads' => [
+            'driver' => 's3',
+            'visibility' => 'public',
+            'key' => env('AMAZON_S3_KEY', ''),
+            'secret' => env('AMAZON_S3_SECRET', ''),
+            'region' => env('AMAZON_S3_REGION', ''),
+            'bucket' => env('AMAZON_S3_BUCKET', ''),
+            'url' => env('AMAZON_S3_URL')
+        ],        
         
         'dist_local' => [
             'driver' => 'local',
