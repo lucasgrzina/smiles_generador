@@ -57,7 +57,7 @@
                 <span v-if="item.id == 'separador1'"> | (% item.input %)px <span>
             </button>
             <button class="btn-xs btn-eliminar btn bg-transparent" @click="removerItem(item.index)">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash text-danger"></i>
             </button>
           </h5>
         </div>
@@ -133,7 +133,8 @@
                     <label>Url</label>
                     <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
                 
-                    <input class="form-control" type="text" name="" v-model="item.input" @change="exportar">
+                    <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
+                    <span><a href="#"><i class="fa fa-trash text-danger"></i></a>(% item.input %)</span>
                 </div>
             </div>
             <div v-if="item.id == 'imagen2'">
