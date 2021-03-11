@@ -68,5 +68,10 @@ class StorageHelper
     public static function directorios($path, $disk = 'uploads')
     {
         return \Storage::disk($disk)->directories($path);
-    }    
+    } 
+    
+    public static function archivos($path, $disk = 'uploads')
+    {
+        return \Storage::disk($disk)->files($path);
+    }     
 }
