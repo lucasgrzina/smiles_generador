@@ -71,7 +71,7 @@
                         <div class="col-sm-12">
                             <label>Imagen</label>
 
-                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
+                            <input type="file" v-if="!item.input" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
                         
                             <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
                         </div>
@@ -157,7 +157,7 @@
                         <div class="col-sm-12">
                             <label>Imagen</label>
 
-                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
+                            <input type="file" v-if="!item.input" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
                         
                             <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
                         </div>
@@ -239,7 +239,7 @@
                         <div class="col-sm-12">
                             <label>Imagen</label>
 
-                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',2)">
+                            <input type="file" v-if="!item.input2" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',2)">
                         
                             <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input2" @change="exportar">
                         </div>
