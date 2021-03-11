@@ -47,12 +47,12 @@
 <div class="col-sm-12">
 
     <draggable id="accordion" v-model="listContents" @end="checkMove">
-      <div class="card rowContent" v-for="item in listContents" :index="item.index">
-        <div class="card-header" :id="'heading'+item.index">
+      <div class="card rowContent " v-for="item in listContents" :index="item.index">
+        <div class="card-header " :id="'heading'+item.index">
           <h5 class="mb-0">
             
             <button class="btn btn-content" data-toggle="collapse" :data-target="'#'+item.index" aria-expanded="false" :aria-controls="item.index">
-                <i class="pull-left fa fa-arrows-alt"></i>
+                <div class="icon-left"><i class="pull-left fa fa-arrows-alt"></i></div>
                 (% item.nombre %)
                 <span v-if="item.id == 'separador1'"> | (% item.input %)px <span>
             </button>
@@ -63,10 +63,28 @@
         </div>
 
         <div :id="item.index" class="collapse" :aria-labelledby="'heading'+item.index" data-parent="#accordion">
-          <div class="card-body">
+          <div class="card-body ">
             <div v-if="item.id == 'imagen1'">
                 <div class="form-group col-sm-3"></div>
                 <div class="form-group col-sm-6">
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Imagen</label>
+
+                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
+                        
+                            <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
+                        </div>
+                        <div class="col-md-12" v-if="item.input">
+                            <a href="#" class="delete-image shadow-light" @click="deleteImage($event, item, 1)">
+                                <i class="fa fa-trash text-danger"></i>
+                            </a>
+                            <div class="imagen-load-container" 
+                            v-bind:style="{ backgroundImage: 'url(' + item.input + ')' }"
+                            ></div>
+                            
+                        </div>
+                    </div>
                     <!-- Items link-->
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-sm-12">
@@ -130,15 +148,29 @@
 
                     <!-- End Items link-->
                    
-                    <label>Url</label>
-                    <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
-                
-                    <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
-                    <span><a href="#"><i class="fa fa-trash text-danger"></i></a>(% item.input %)</span>
+                    
                 </div>
             </div>
             <div v-if="item.id == 'imagen2'">
                 <div class="form-group col-sm-6">
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Imagen</label>
+
+                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',1)">
+                        
+                            <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
+                        </div>
+                        <div class="col-md-12" v-if="item.input">
+                            <a href="#" class="delete-image shadow-light" @click="deleteImage($event, item, 1)">
+                                <i class="fa fa-trash text-danger"></i>
+                            </a>
+                            <div class="imagen-load-container" 
+                            v-bind:style="{ backgroundImage: 'url(' + item.input + ')' }"
+                            ></div>
+                            
+                        </div>
+                    </div>
                     <!-- Items link-->
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-sm-12">
@@ -200,12 +232,27 @@
                         </div>
                     </div>
 
-                    <!-- End Items link-->
-                    <label>Url</label>
-                    <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}', 1)">
-                    <input class="form-control" type="text" name="" v-model="item.input" @change="exportar">
+                  
                 </div>
                 <div class="form-group col-sm-6">
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label>Imagen</label>
+
+                            <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}',2)">
+                        
+                            <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input2" @change="exportar">
+                        </div>
+                        <div class="col-md-12" v-if="item.input2">
+                            <a href="#" class="delete-image shadow-light" @click="deleteImage($event, item, 2)">
+                                <i class="fa fa-trash text-danger"></i>
+                            </a>
+                            <div class="imagen-load-container" 
+                            v-bind:style="{ backgroundImage: 'url(' + item.input2 + ')' }"
+                            ></div>
+                            
+                        </div>
+                    </div>
                     <!-- Items link-->
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-sm-12">
@@ -267,10 +314,7 @@
                         </div>
                     </div>
 
-                    <!-- End Items link-->
-                    <label>Url</label>
-                    <input type="file" name="" @change="uploadImageCustom(item, $event, '{{ route('uploads.store-file') }}', '{{ csrf_token() }}', 2)">
-                    <input class="form-control" type="text" name="" v-model="item.input2" @change="exportar">
+                   
                 </div>
             </div>
             <div v-if="item.id == 'textolibre'">

@@ -102,8 +102,7 @@
         };
 
        
-
-
+             
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>

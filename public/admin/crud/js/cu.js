@@ -123,9 +123,9 @@ _data.contenidosTipo = [
   {
     id: 'textoplano',
     index: 5,
-    btn: '+Texto Comunicado',
+    btn: '+Contenido HTML',
     cols: 1,
-    titulo: 'Texto Comunicado'
+    titulo: 'Contenido HTML'
   }
 ];
 
@@ -168,6 +168,8 @@ if (typeof _methods.agregaritem === 'undefined') {
     }
 }
 
+
+
 if (typeof _methods.removerItem === 'undefined') {
   
   _methods.removerItem = function(index,field,model) {
@@ -184,6 +186,19 @@ if (typeof _methods.removerItem === 'undefined') {
 }
 
 
+if (typeof _methods.deleteImage === 'undefined') {
+  _methods.deleteImage = function(evt, item, pos) {
+    var _this = this;
+    console.log('delete');
+    evt.preventDefault();
+    if(pos == 1){
+      item.input = '';
+    }else{
+      item.input2 = '';
+    }
+    _this.exportar();
+  }
+}
 if (typeof _methods.exportar === 'undefined') {
   
   _methods.exportar = function(index,field,model) {
