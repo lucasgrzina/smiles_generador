@@ -80,11 +80,14 @@
             var _ajaxMethod = _this.selectedItem.id == 0 ? _this.ajaxPost : _this.ajaxPut ;
             var _is_valid = _this.validateForm();
             _this.alert.show = false;
+
             return _this.$validator.validateAll().then(function(result) {
-                 _this.saving = false;    
+                     
                 if (result && _is_valid) {
+                    
                     return _ajaxMethod(_this.url_save,_this.selectedItem,true,_this.errors).then(function(data){
                         
+                        _this.saving = false;
                         
                         if(redirect){
                            location.href = _this.url_index; 
@@ -94,7 +97,7 @@
                         
                     });                            
                 }
-               
+
             });
         };
 
