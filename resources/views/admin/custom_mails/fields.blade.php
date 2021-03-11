@@ -50,10 +50,15 @@
       <div class="card rowContent" v-for="item in listContents" :index="item.index">
         <div class="card-header" :id="'heading'+item.index">
           <h5 class="mb-0">
-            <button class="btn btn-content" data-toggle="collapse" :data-target="'#'+item.index" aria-expanded="false" :aria-controls="item.index">(% item.nombre %)
-              <span v-if="item.id == 'separador1'"> | (% item.input %)px <span>
+            
+            <button class="btn btn-content" data-toggle="collapse" :data-target="'#'+item.index" aria-expanded="false" :aria-controls="item.index">
+                <i class="pull-left fa fa-arrows-alt"></i>
+                (% item.nombre %)
+                <span v-if="item.id == 'separador1'"> | (% item.input %)px <span>
             </button>
-            <button class="btn btn-sm btn-eliminar" @click="removerItem(item.index)">Eliminar item</button>
+            <button class="btn-xs btn-eliminar btn bg-transparent" @click="removerItem(item.index)">
+                <i class="fa fa-trash"></i>
+            </button>
           </h5>
         </div>
 
