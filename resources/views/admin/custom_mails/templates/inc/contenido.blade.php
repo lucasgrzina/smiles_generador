@@ -110,7 +110,9 @@
 									@php
 										$urlLink = $item->link;
 										$dataLink = [];
-										
+										$item->utm_source = 'Email';
+										$item->utm_medium = 'Newsletter';
+
 										if (isset($item->utm_source) && $item->utm_source != ''){ $dataLink['utm_source'] = $item->utm_source;}
 										if (isset($item->utm_medium) && $item->utm_medium != ''){ $dataLink['utm_medium'] = $item->utm_medium;}
 										if (isset($item->utm_campaign) && $item->utm_campaign != ''){ $dataLink['utm_campaign'] = $item->utm_campaign;}
@@ -141,10 +143,12 @@
 		  <tbody>
 		    <tr>
 		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link) && $item->link != '')
+		      	@if(isset($item->link) && $item->link != '' && isset($item->input))
 		      	@php
 					$urlLink = $item->link;
 					$dataLink = [];
+					$item->utm_source = 'Email';
+					$item->utm_medium = 'Newsletter';
 					
 					if (isset($item->utm_source) && $item->utm_source != ''){ $dataLink['utm_source'] = $item->utm_source;}
 					if (isset($item->utm_medium) && $item->utm_medium != ''){ $dataLink['utm_medium'] = $item->utm_medium;}
@@ -158,17 +162,19 @@
 		      	<a style="color:#7c7c7c" href="{!! $urlLink !!}" target="_blank">
 		      		<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%"></a>
 		      	</td>
-		      	@else
+		      	@elseif(isset($item->input))
 				<div style="padding: 0 0;">
 					<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%">
 				</div>
 				@endif
 				
 		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link2) && $item->link2 != '')
+		      	@if(isset($item->link2) && $item->link2 != '' && isset($item->input2))
 		      	@php
 					$urlLink2 = $item->link2;
 					$dataLink = [];
+					$item->utm_source2 = 'Email';
+					$item->utm_medium2 = 'Newsletter';
 					
 					if (isset($item->utm_source2) && $item->utm_source2 != ''){ $dataLink['utm_source'] = $item->utm_source2;}
 					if (isset($item->utm_medium2) && $item->utm_medium2 != ''){ $dataLink['utm_medium'] = $item->utm_medium2;}
@@ -183,7 +189,7 @@
 								href="{!! $urlLink2 !!}" target="_blank">
 		      		<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
 		      	</a>
-		      	@else
+		      	@elseif(isset($item->input2))
 				<div style="padding: 0 0;">
 					<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
 				</div>

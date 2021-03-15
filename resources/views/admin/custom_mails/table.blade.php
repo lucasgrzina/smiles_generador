@@ -5,6 +5,7 @@
                 <th @click="orderBy('id')" class="td-id" :class="cssOrderBy('id')">ID</th>
                 <th>Nombre</th>
                 <th>Template</th>
+                <th>Fecha de envío</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
         </thead>
@@ -13,6 +14,7 @@
                 <td>(% item.id %)</td>
                 <td>(% item.nombre %)</td>
                 <td>(% nombreTemplate(item.template) %)</td>
+                <td>(% item.fecha_envio | dateFormat %)</td>
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))
                         <button-type type="show-list" @click="show(item)"></button-type>

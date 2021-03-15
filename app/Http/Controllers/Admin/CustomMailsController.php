@@ -218,6 +218,7 @@ class CustomMailsController extends CrudAdminController
         parent::edit($id);
 
        // $tipo_footer = ContenidoPredefinido::get();
+
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
@@ -247,6 +248,9 @@ class CustomMailsController extends CrudAdminController
             }
            
         }
+
+       
+       
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
 

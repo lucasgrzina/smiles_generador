@@ -88,16 +88,16 @@ _data.contenidosTipo = [
   {
     id: 'imagen1',
     index: 0,
-    btn: '+Fila 1 imagen',
+    btn: '+Fila de una sola imagen por Banner horizontal',
     cols: 1,
-    titulo: 'Fila de una sola imagen'
+    titulo: 'Fila de una sola imagen por Banner horizontal'
   },
   {
     id: 'imagen2',
     index: 1,
-    btn: '+Fila - 2 imagenes',
+    btn: '+Fila de 2 imágenes por Banner horizontal',
     cols: 1,
-    titulo: 'Fila con dos imagenes'
+    titulo: 'Fila de 2 imágenes por Banner horizontal'
   },
   {
     id: 'textolibre',

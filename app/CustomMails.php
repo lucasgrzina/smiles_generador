@@ -51,6 +51,7 @@ class CustomMails extends Model
     
     public $fillable = [
         'nombre',
+        'fecha_envio',
         'publicidad',
         'saldo',
         'template',
@@ -67,6 +68,7 @@ class CustomMails extends Model
      */
     protected $casts = [
         'nombre' => 'string',
+        'fecha_envio' => 'date:Y-m-d',
         'publicidad' => 'boolean',
         'saldo' => 'boolean',
         'template' => 'string',

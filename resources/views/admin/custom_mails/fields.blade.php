@@ -11,6 +11,12 @@
                 <span class="help-block" v-show="errors.has('nombre')">(% errors.first('nombre') %)</span>
             </div>
 
+            <div class="form-group col-sm-4" :class="{'has-error': errors.has('fecha_envio')}">
+                {!! Form::label('fecha_envio', 'Fecha Envío') !!}
+                {!! Form::date('fecha_envio', null, ['class' => 'form-control','v-model' => 'selectedItem.fecha_envio']) !!}
+                <span class="help-block" v-show="errors.has('fecha_envio')">(% errors.first('fecha_envio') %)</span>
+            </div>
+
             <!-- Nombre Field -->
             <div class="form-group col-sm-6" :class="{'has-error': errors.has('contenido')}" style="display: none;">
                 {!! Form::label('contenido', 'Contenido') !!}
@@ -111,37 +117,40 @@
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
                                         <div class="FormControl-info">
-                                            The full website URL (e.g. <code>https://www.example.com</code>)
+                                            Ingresar (<code>https://www.example.com</code>)
                                         </div>
                                     </div>
                                 </div>
 
+                                
+
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
-                                        <label>Campaign Source</label>
+                                        <label>Nombre de Campaña</label>
+                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
+                                        <div class="FormControl-info">
+                                            (e.g. <code>Vencimientos verano</code>)
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12">
+                                        <label>Fuente</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_source" @change="exportar">
                                         <div class="FormControl-info">
-                                            The referrer: (e.g.&nbsp;<code>google</code>,&nbsp;<code>newsletter</code>)
+                                            Ejemplo: (e.g.&nbsp;<code>google</code>,&nbsp;<code>Email</code>)
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
-                                        <label>Campaign Medium</label>
+                                        <label>Medio Canal</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_medium" @change="exportar">
                                         <div class="FormControl-info">
                                             Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="margin-bottom: 15px;">
-                                    <div class="col-sm-12">
-                                        <label>Campaign Name</label>
-                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
-                                        <div class="FormControl-info">
-                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                -->
                                 <!-- End Items link-->
                             
                                 
@@ -202,6 +211,18 @@
                                     </div>
                                 </div>
 
+                                
+
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12">
+                                        <label>Nombre de Campaña</label>
+                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
+                                        <div class="FormControl-info">
+                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
                                         <label>Campaign Source</label>
@@ -211,23 +232,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
                                         <label>Campaign Medium</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_medium" @change="exportar">
                                         <div class="FormControl-info">
                                             Marketing medium: (e.g.&nbsp;<code>cpc</code>,&nbsp;<code>banner</code>,&nbsp;<code>email</code>)
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="margin-bottom: 15px;">
-                                    <div class="col-sm-12">
-                                        <label>Campaign Name</label>
-                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
-                                        <div class="FormControl-info">
-                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
                                         </div>
                                     </div>
                                 </div>
@@ -252,7 +262,7 @@
                                     </div>
                                 </div>
 
-                            
+                                -->
                             </div>
                             <div class="form-group col-sm-6">
                                 <div class="row" style="margin-bottom: 15px;">
@@ -284,6 +294,20 @@
                                     </div>
                                 </div>
 
+                                
+
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12">
+                                        <label>Nombre de Campaña</label>
+                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign2" @change="exportar">
+                                        <div class="FormControl-info">
+                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--
+
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
                                         <label>Campaign Source</label>
@@ -303,17 +327,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row" style="margin-bottom: 15px;">
-                                    <div class="col-sm-12">
-                                        <label>Campaign Name</label>
-                                        <input class="form-control" type="text" name="" v-model="item.utm_campaign2" @change="exportar">
-                                        <div class="FormControl-info">
-                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="row" style="margin-bottom: 15px;">
                                     <div class="col-sm-12">
                                         <label>Campaign Term</label>
@@ -333,7 +346,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                -->
                             
                             </div>
                         </div>

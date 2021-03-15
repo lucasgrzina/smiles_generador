@@ -14,12 +14,13 @@
     <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
     <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
- 
+
 
     <script type="text/javascript">
         Vue.component('file-upload', VueUploadComponent);
         Vue.component('draggable', vuedraggable);
         Vue.component('Sortable', Sortable);
+        
 
         var _data = {!! json_encode($data) !!};
         _data.files = {
@@ -28,6 +29,9 @@
         };
 
         _data.saving = false;
+
+
+        
 
          _methods.uploadImageCustom = function (item, event, url_upload, token, pos){
             //console.log(event.target.files);
