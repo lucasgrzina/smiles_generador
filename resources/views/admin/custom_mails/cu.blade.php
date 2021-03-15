@@ -101,6 +101,32 @@
             });
         };
 
+        _methods.configMce = function (tipo) {
+            var config = {};
+
+            switch (tipo) {
+                case 'html':
+                    config = {
+                        theme: 'modern',
+                        fontsize_formats: "",
+                        plugins: 'code',
+                        toolbar1: 'code',
+                        media_filter_html: false
+                    }
+                    break;            
+                default:
+                    config = {
+                            theme: 'modern',
+                            fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 39px 34px 38px 42px 48px",
+                            plugins: 'searchreplace autolink textcolor link',
+                            toolbar1: 'formatselect fontsizeselect | bold italic strikethrough forecolor backcolor link',
+                            media_filter_html: false
+                        }                    
+                    break;
+            }
+
+            return config;
+        };
        
              
         
@@ -118,12 +144,12 @@
 @section('content')
     @include('admin.components.switches')
     <div class="content">
-        <div class="box box-default box-cu">
-            <div class="box-body">
-                <div class="row">
-                        @include('admin.custom_mails.fields')
-                </div>
-            </div>
+
+        @include('admin.custom_mails.fields')
+
+
+
+        <div class="box ">
             <div class="box-footer text-right">
                 <button-type type="save" :promise="store"></button-type>
                 <button type="save" @click="store(false)" class="btn btn-sm bg-green btn-save">
