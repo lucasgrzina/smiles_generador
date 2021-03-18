@@ -35,7 +35,7 @@ class UploadsController extends AppBaseController
         try {
             $disk = 'uploads';
             $inputName = 'file';
-            $path = env('AMAZON_S3_FOLDER') . '/tmp';
+            $path = env('AMAZON_S3_FOLDER') . '/' . $request->folder;
             $pathSubida = '';
             $uploadPath = \FUHelper::path($path, $disk);
             

@@ -41,6 +41,7 @@
             var imagefile = event.target.files[0];
             formData.append("file", imagefile);
             formData.append("_token", token);
+            formData.append("folder",_this.selectedItem.id);
 
             $.ajax({
                 url: url_upload,
@@ -155,7 +156,7 @@
 
         <div class="box ">
             <div class="box-footer text-right">
-                <button-type type="save" :promise="store"></button-type>
+                <button-type type="save" :promise="store" v-if="selectedItem.id > 0"></button-type>
                 <button type="save" @click="store(false)" class="btn btn-sm bg-green btn-save">
                     <i class="fa fa-save" v-if="!saving"></i><i class="fa fa-spinner fa-spin fa-save" v-if="saving"></i> Guardar y continuar</button>
                 <button-type type="cancel" @click="cancel()"></button-type>

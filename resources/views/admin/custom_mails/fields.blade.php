@@ -40,7 +40,8 @@
     </div>
 </div>
 
-<div class="box box-cu">
+<template v-if="selectedItem.id > 0">
+<div class="box box-cu" >
     <div class="box-header with-border">
         <h3 class="box-title">Header</h3>
     </div>    
@@ -462,3 +463,4 @@
         </div>
     </div>
 </div>
+</template>

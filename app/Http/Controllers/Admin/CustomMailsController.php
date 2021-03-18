@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use View;
 use Response;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
+use App\Helpers\StorageHelper;
 use App\Repositories\CustomMailsRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Http\Requests\Admin\CUCustomMailsRequest;
@@ -30,6 +32,7 @@ class CustomMailsController extends CrudAdminController
     {
         parent::index();
         $this->data['filters']['template'] = null;
+        $this->data['filters']['export_xls'] = true;
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -209,8 +212,27 @@ class CustomMailsController extends CrudAdminController
 
     public function store(CUCustomMailsRequest $request)
     {
-        $model = $this->_store($request);
-        return $this->sendResponse($model,trans('admin.success'));        
+        
+
+        try {
+            \DB::beginTransaction();;
+            
+            $model = $this->_store($request, true);
+            $uploadPath = env('AMAZON_S3_FOLDER'). '/' .$model->id;
+
+            if (!StorageHelper::existe($uploadPath)) {
+                StorageHelper::crearDirectorio($uploadPath);
+            }
+
+            \DB::commit();
+            return $this->sendResponse($model,trans('admin.success'));        
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \log::error($e->getMessage());
+            throw $e;
+        }
+
+        
     }
 
     public function edit($id)
@@ -263,4 +285,32 @@ class CustomMailsController extends CrudAdminController
 
         return $this->sendResponse($model,trans('admin.success'));
     }
+
+    public function export($type = 'xlsx',Request $request)
+    {
+        $request->merge(['page' => 1,'per_page' => 99999]);
+
+        $this->repository->pushCriteria(new CustomMailsCriteria($request));
+        $this->repository->pushCriteria(new RequestCriteria($request));
+        $data = $this->repository->with('updater')->all()->toArray();        
+
+        $header = [
+            'nombre' => 'Nombre',
+            'template' => 'Template',
+            'fecha_envio' => 'Fecha de envío'
+        ];
+
+        $format = [
+            'fecha_envio' => function($value) {
+                return Carbon::parse($value)->format('d/m/Y');
+            },
+
+            'template' => function($value) {
+                $templates = config('constantes.templates',[]);
+                return $templates[$value];
+            }
+        ];
+
+        return $this->_exportXls($data,$header,$format,'piezas');
+    }    
 }

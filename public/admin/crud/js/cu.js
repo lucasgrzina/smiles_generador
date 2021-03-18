@@ -88,42 +88,42 @@ _data.contenidosTipo = [
   {
     id: 'imagen1',
     index: 0,
-    btn: '+Fila de una sola imagen por Banner horizontal',
+    btn: 'Banner horizontal',
     cols: 1,
-    titulo: 'Fila de una sola imagen por Banner horizontal'
+    titulo: 'Banner horizontal'
   },
   {
     id: 'imagen2',
     index: 1,
-    btn: '+Fila de 2 imágenes por Banner horizontal',
+    btn: '2 banners verticales',
     cols: 1,
-    titulo: 'Fila de 2 imágenes por Banner horizontal'
+    titulo: '2 banners verticales'
   },
   {
     id: 'textolibre',
     index: 2,
-    btn: '+Fila - Texto Libre',
+    btn: 'Texto Libre',
     cols: 1,
-    titulo: 'Fila con texto libre'
+    titulo: 'Texto libre'
   },
   {
     id: 'separador1',
     index: 3,
-    btn: '+Separador en blanco',
+    btn: 'Separador en blanco',
     cols: 1,
-    titulo: 'Separador Horizontal'
+    titulo: 'Separador en blanco'
   },
   {
     id: 'contenido_predefinido',
     index: 4,
-    btn: '+Contenido predefinido',
+    btn: 'Contenido predefinido',
     cols: 1,
     titulo: 'Contenido predefinido'
   },
   {
     id: 'textoplano',
     index: 5,
-    btn: '+Contenido HTML',
+    btn: 'Contenido HTML',
     cols: 1,
     titulo: 'Contenido HTML'
   }
