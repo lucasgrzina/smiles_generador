@@ -105,7 +105,7 @@
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="full-width" width="600" align="center">
 						<tr>
 							<td width="600" class="full-width" align="center">
-								@if(isset($item->link) && $item->link != '')
+								@if(isset($item->link) && $item->link != '' && $item->haslink)
 
 									@php
 										$urlLink = $item->link;
@@ -143,7 +143,7 @@
 		  <tbody>
 		    <tr>
 		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link) && $item->link != '' && isset($item->input))
+		      	@if(isset($item->link) && $item->link != '' && isset($item->input) && $item->haslink)
 		      	@php
 					$urlLink = $item->link;
 					$dataLink = [];
@@ -169,7 +169,7 @@
 				@endif
 				
 		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link2) && $item->link2 != '' && isset($item->input2))
+		      	@if(isset($item->link2) && $item->link2 != '' && isset($item->input2) && $item->haslink2)
 		      	@php
 					$urlLink2 = $item->link2;
 					$dataLink = [];

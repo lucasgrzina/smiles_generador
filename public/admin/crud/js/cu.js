@@ -163,6 +163,15 @@ if (typeof _methods.agregaritem === 'undefined') {
         input: inputNew,
       };
 
+      if (id == 'imagen1'){
+        newItem['link'] = 'https://www.smiles.com.ar/';
+      }
+
+      if (id == 'imagen2'){
+        newItem['link'] = 'https://www.smiles.com.ar/';
+        newItem['link2'] = 'https://www.smiles.com.ar/';
+      }
+
       _this.listContents.push(newItem);
       this.exportar();
     }
@@ -204,7 +213,7 @@ if (typeof _methods.exportar === 'undefined') {
   _methods.exportar = function(index,field,model) {
       var _this = this;
 
-      
+     
         var childDivs = document.getElementById('accordion').getElementsByClassName('card');
 
         var sortArray = [];

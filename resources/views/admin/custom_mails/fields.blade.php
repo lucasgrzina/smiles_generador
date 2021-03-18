@@ -114,6 +114,14 @@
                                 </div>
                                 <!-- Items link-->
                                 <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12" @mouseout="exportar">
+                                        <label>¿Lleva link?</label>
+                                        <br>
+                                         <switch-button v-model="item.haslink" theme="bootstrap" type-bold="true" ></switch-button>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink">
                                     <div class="col-sm-12">
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
@@ -125,12 +133,12 @@
 
                                 
 
-                                <div class="row" style="margin-bottom: 15px;">
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink">
                                     <div class="col-sm-12">
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
                                         <div class="FormControl-info">
-                                            (e.g. <code>Vencimientos verano</code>)
+                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
                                         </div>
                                     </div>
                                 </div>
@@ -191,6 +199,7 @@
                                     
                                         <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input" @change="exportar">
                                     </div>
+                                    
                                     <div class="col-md-12" v-if="item.input">
                                         <a href="#" class="delete-image shadow-light" @click="deleteImage($event, item, 1)">
                                             <i class="fa fa-trash text-danger"></i>
@@ -201,8 +210,17 @@
                                         
                                     </div>
                                 </div>
-                                <!-- Items link-->
+
                                 <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12" @mouseout="exportar">
+                                        <label>¿Lleva link?</label>
+                                        <br>
+                                         <switch-button v-model="item.haslink" theme="bootstrap" type-bold="true" ></switch-button>
+                                    </div>
+                                </div>
+
+                                <!-- Items link-->
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink">
                                     <div class="col-sm-12">
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
@@ -214,12 +232,12 @@
 
                                 
 
-                                <div class="row" style="margin-bottom: 15px;">
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink">
                                     <div class="col-sm-12">
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
                                         <div class="FormControl-info">
-                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
                                         </div>
                                     </div>
                                 </div>
@@ -274,6 +292,8 @@
                                     
                                         <input class="form-control" style="opacity: 0;width: 0px;height: 0px;" type="text" name="" v-model="item.input2" @change="exportar">
                                     </div>
+
+                                
                                     <div class="col-md-12" v-if="item.input2">
                                         <a href="#" class="delete-image shadow-light" @click="deleteImage($event, item, 2)">
                                             <i class="fa fa-trash text-danger"></i>
@@ -284,8 +304,16 @@
                                         
                                     </div>
                                 </div>
-                                <!-- Items link-->
+
                                 <div class="row" style="margin-bottom: 15px;">
+                                    <div class="col-sm-12" @mouseout="exportar">
+                                        <label>¿Lleva link?</label>
+                                        <br>
+                                         <switch-button v-model="item.haslink2" theme="bootstrap" type-bold="true" ></switch-button>
+                                    </div>
+                                </div>
+                                <!-- Items link-->
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink2">
                                     <div class="col-sm-12">
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link2" @change="exportar">
@@ -297,12 +325,12 @@
 
                                 
 
-                                <div class="row" style="margin-bottom: 15px;">
+                                <div class="row" style="margin-bottom: 15px;" v-if="item.haslink2">
                                     <div class="col-sm-12">
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign2" @change="exportar">
                                         <div class="FormControl-info">
-                                            Product, promo code, or slogan (e.g. <code>spring_sale</code>)
+                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
                                         </div>
                                     </div>
                                 </div>
