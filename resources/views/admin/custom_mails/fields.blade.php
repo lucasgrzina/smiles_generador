@@ -126,7 +126,7 @@
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
                                         <div class="FormControl-info">
-                                            Ingresar (<code>https://www.example.com</code>)
+                                            Ingresar (<code>https://www.smiles.com.ar/</code>)
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
                                         <div class="FormControl-info">
-                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
+                                            Nombre_concepto_campaña_AA_MM_DD_producto/ (ej. Smiles_Sale_2021_03_12_Adhesion_Club/)
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link" @change="exportar">
                                         <div class="FormControl-info">
-                                            The full website URL (e.g. <code>https://www.example.com</code>)
+                                            The full website URL (e.g. <code>https://www.smiles.com.ar/</code>)
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +237,7 @@
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign" @change="exportar">
                                         <div class="FormControl-info">
-                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
+                                            Nombre_concepto_campaña_AA_MM_DD_producto/ (ej. Smiles_Sale_2021_03_12_Adhesion_Club/)
                                         </div>
                                     </div>
                                 </div>
@@ -318,7 +318,7 @@
                                         <label>Website URL</label>
                                         <input class="form-control" type="text" name="" v-model="item.link2" @change="exportar">
                                         <div class="FormControl-info">
-                                            The full website URL (e.g. <code>https://www.example.com</code>)
+                                            The full website URL (e.g. <code>https://www.smiles.com.ar/</code>)
                                         </div>
                                     </div>
                                 </div>
@@ -330,7 +330,7 @@
                                         <label>Nombre de Campaña</label>
                                         <input class="form-control" type="text" name="" v-model="item.utm_campaign2" @change="exportar">
                                         <div class="FormControl-info">
-                                            Nombre_concepto_campaña_AA_MM_DD_producto (ej. <code>Smiles_Sale_2021_03_12_Adhesion_Club / Smiles_Sale_2021_03_12_Compra_de_millas)</code>
+                                            Nombre_concepto_campaña_AA_MM_DD_producto/ (ej. Smiles_Sale_2021_03_12_Adhesion_Club/)
                                         </div>
                                     </div>
                                 </div>

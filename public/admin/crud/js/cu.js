@@ -164,12 +164,12 @@ if (typeof _methods.agregaritem === 'undefined') {
       };
 
       if (id == 'imagen1'){
-        newItem['link'] = 'https://www.smiles.com.ar/';
+        newItem['link'] = 'https://';
       }
 
       if (id == 'imagen2'){
-        newItem['link'] = 'https://www.smiles.com.ar/';
-        newItem['link2'] = 'https://www.smiles.com.ar/';
+        newItem['link'] = 'https://';
+        newItem['link2'] = 'https://';
       }
 
       _this.listContents.push(newItem);
