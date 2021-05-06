@@ -29,6 +29,10 @@ class ContenidoPredefinidoController extends CrudAdminController
     {
         parent::index();
 
+        $this->data['filters']['orderBy'] = 'tipo';
+        $this->data['filters']['sortedBy'] = 'asc';
+        //'orderBy' => 'id',
+        //'sortedBy' => 'desc',  
         $this->data['info'] = [
             'tipos' => config('constantes.tiposContenidosPredefinidos',[])
         ];

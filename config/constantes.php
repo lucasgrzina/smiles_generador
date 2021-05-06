@@ -25,7 +25,7 @@ return [
     	'footer'=> '"{\"footer\":\"4\",\"redes\":\"3\"}"'
     ],
     'default_vto_millas' => [
-    	'publicidad' => false,
+    	'publicidad' => true,
     	'saldo' => true,
     	'contenido' => '[{"id": "imagen1", "index": "content_2", "input": "https://smiles-mkt-ar.s3.amazonaws.com/EMKT-Smiles-Millas-Vencimiento/banner_vencimiento_millas.png", "nombre": "Banner horizontal", "unique": 2}, {"id": "separador1", "index": "content_3", "input": "30", "nombre": "Separador Horizontal", "unique": 3}, {"id": "contenido_predefinido", "index": "content_4", "input": "", "nombre": "Contenido predefinido", "unique": 4, "predefinido": 10}]',
     	'legales'=> '"{\"legales\":\"1\",\"legales_custom\":\"\"}"',

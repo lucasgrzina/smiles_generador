@@ -15,7 +15,7 @@
                 <td>(% item.nombre %)</td>
                 <td>(% nombreTipo(item.tipo) %)</td>
                 <td>
-                    <span :class="{'label': true, 'label-success': item.default, 'label-danger': !item.default}">
+                    <span v-if="item.tipo !== 'contenido'" :class="{'label': true, 'label-success': item.default, 'label-danger': !item.default}">
                         (% item.default ? 'SI' : 'NO' %)
                     </span>
                 </td>

@@ -114,58 +114,6 @@ Route::prefix('mailing/respaldo')->group(function () {
     Route::get('/registro/{guid}', 'Front\MailingRespaldoController@registro')->name('mailingRespaldo.registro');
 });
 
-
-if (request()->segment(1) !== 'admin') {
-    $locale = '';
-    
-    //me fijo por el primer segmento de la URL que pais quiere ver
-
-    if (strlen(request()->segment(1)) === 2) {
-        $locale = request()->segment(1);
-    } else {
-        $locale = 'co';
-    }    
-        
-    Route::middleware([])->group(function () {
-        Route::get('/', 'Front\HomeController@index')->name('home');
-        
-        Route::middleware(['guest'])->group(function () {
-            Route::get('/confirmar-cuenta/{guid}', 'Front\MiCuentaController@confirmarCuenta')->name('confirmarCuenta');
-            Route::get('/login', 'Front\MiCuentaController@login')->name('login');
-            Route::post('/login', 'Auth\LoginController@login')->name('login-post');
-            Route::get('/registro', 'Front\MiCuentaController@registro')->name('registro');
-            Route::post('/registro', 'Auth\RegisterController@register')->name('registro-post');
-        
-        }); 
-        Route::middleware(['auth'])->group(function () {
-            
-            Route::get('/cambiar-contrasena', 'Front\CambiarContrasenaController@index')->name('cambiarContrasena'); 
-            Route::post('/cambiar-contrasena/guardar', 'Front\CambiarContrasenaController@guardar')->name('cambiarContrasena.guardar');
-            Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-        });               
-    });
-    Route::post('/olvide-contrasena', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('olvide-password');
-    //Route::get('/cambiar-contrasena', 'Front\MiCuentaController@cambiarPassword')->name('cambiar-password');
-    
-    
-
-    Route::middleware(['auth'])->group(function () {    
-        //Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-        
-        
-        
-        
-        
-        //Route::get('/materiales', 'Front\FrontController@materiales')->name('materiales');
-        
-        
-        
-    });        
-
-}
-
-
-
-
-
-
+Route::get('/',function() {
+    return redirect()->route('admin.home');
+});
