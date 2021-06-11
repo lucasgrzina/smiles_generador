@@ -31,6 +31,19 @@
             return codigo;
         };
 
+        _methods.clonar = function(item) {
+            var _this = this;
+            if (confirm('Deséa clonar la pieza seleccionada?')) {
+                _this.alert.show = false;
+                _this.loading = true;
+                return _this.ajaxPut(_this.url_clonar.replace('_ID_',item.id),item,true,_this.errors).then(function(data){
+                    _this.doFilter();
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+            
+        };
         
        
                         

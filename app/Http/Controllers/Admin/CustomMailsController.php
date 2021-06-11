@@ -33,6 +33,7 @@ class CustomMailsController extends CrudAdminController
         parent::index();
         $this->data['filters']['template'] = null;
         $this->data['filters']['export_xls'] = true;
+        $this->data['url_clonar'] = route($this->routePrefix.'.clonar',['_ID_']);
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -312,5 +313,53 @@ class CustomMailsController extends CrudAdminController
         ];
 
         return $this->_exportXls($data,$header,$format,'piezas');
+    }  
+    
+    public function clonar($id, Request $request)
+    {
+        try {
+            \DB::beginTransaction();;
+            
+            $model = $this->repository->findWithoutFail($id);
+
+            if (empty($model)) {
+                return $this->sendError('No existe el registro',500);
+            }
+    
+            $clonado = $model->replicate();
+            $clonado->nombre.= ' (clonado)';
+            $clonado->save();
+
+
+
+            $uploadPathAnterior = env('AMAZON_S3_FOLDER'). '/' .$model->id;
+            $uploadPathNuevo = env('AMAZON_S3_FOLDER'). '/' .$clonado->id;
+            //$clonado->contenido = str_replace($uploadPathAnterior,$uploadPathNuevo, $clonado->contenido);
+            if (StorageHelper::existe($uploadPathAnterior)) {
+                //StorageHelper::crearDirectorio($uploadPathNuevo);
+                foreach(StorageHelper::archivos($uploadPathAnterior) as $asset) {
+                    $nuevoAsset = str_replace($uploadPathAnterior, $uploadPathNuevo, $asset);
+                    StorageHelper::copiar($asset,$nuevoAsset);
+                }
+                //throw new \Exception('No existe la carpeta con assets en S3');
+                $nuevoContenido = [];
+                foreach((array)json_decode($model->contenido) as $jsonItem) {
+                    $jsonItem->input = str_ireplace($uploadPathAnterior,$uploadPathNuevo,$jsonItem->input);
+                    $nuevoContenido[] = $jsonItem;
+                }
+                $clonado->contenido = json_encode($nuevoContenido);
+                $clonado->save();
+    
+            } else {
+                throw new \Exception('No existe la carpeta con assets en S3');
+            }
+
+            \DB::commit();
+            return $this->sendResponse($clonado,trans('admin.success'));        
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+            throw $e;
+        }
     }    
 }

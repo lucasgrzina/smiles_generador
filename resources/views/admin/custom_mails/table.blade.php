@@ -21,6 +21,7 @@
                     @endif
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
                         <button-type type="edit-list" @click="edit(item)"></button-type>
+                        <button-type type="clone-list" @click="clonar(item)"></button-type>
                         <button-type type="remove-list" @click="destroy(item)"></button-type>
                     @endif
                 </td>            

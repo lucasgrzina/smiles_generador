@@ -68,6 +68,7 @@ Route::prefix('/admin')->group(function () {
         Route::post('custom-mails/filter', 'Admin\CustomMailsController@filter')->name('custom-mails.filter');
         Route::get('custom-mails/export-html/{id}', 'Admin\CustomMailsController@exportHtml')->name('custom-mails.export-html');
         Route::get('custom-mails/exportar/{type}', 'Admin\CustomMailsController@export')->name('custom-mails.export');
+        Route::put('custom-mails/{id}/clonar', 'Admin\CustomMailsController@clonar')->name('custom-mails.clonar');
         Route::resource('custom-mails', 'Admin\CustomMailsController');
 
         Route::get('contenido-predefinidos/edit/{id}', 'Admin\ContenidoPredefinidoController@index')->name('contenido-predefinidos.edit-lang');            

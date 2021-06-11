@@ -202,6 +202,11 @@ _components['button-type'] = {
                 this.title = 'Calcular liquidación';                
                 this.text = ' Calcular liquidación';
                 break;
+            case 'clone-list':
+                this.theClass = 'btn btn-xs bg-primary';
+                this.icon += 'clone';
+                this.title = 'Clonar';
+                break;                
     
         }
 

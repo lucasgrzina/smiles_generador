@@ -31,6 +31,7 @@ class ContenidoPredefinidoController extends CrudAdminController
 
         $this->data['filters']['orderBy'] = 'tipo';
         $this->data['filters']['sortedBy'] = 'asc';
+        
         //'orderBy' => 'id',
         //'sortedBy' => 'desc',  
         $this->data['info'] = [
@@ -126,4 +127,6 @@ class ContenidoPredefinidoController extends CrudAdminController
 
         return $this->sendResponse($model,trans('admin.success'));
     }
+
+    
 }
