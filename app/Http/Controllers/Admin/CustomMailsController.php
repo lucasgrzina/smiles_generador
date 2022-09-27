@@ -229,7 +229,7 @@ class CustomMailsController extends CrudAdminController
             return $this->sendResponse($model,trans('admin.success'));        
         } catch (\Exception $e) {
             \DB::rollback();
-            \log::error($e->getMessage());
+            \Log::error($e->getMessage());
             throw $e;
         }
 
