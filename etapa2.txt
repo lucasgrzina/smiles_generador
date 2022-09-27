@@ -1,0 +1,39 @@
+Piezas (Slots)
+Cont. Predefinido (Slots)
+
+Tabla: Contenidos_predefinidos
+agregar campo seccion char(1) con indice (Valores: S o C)
+
+2 secciones nuevas
+- Cont. Predefinidos (Slots) => cargar los cont predef de seccion = 'S'
+- Piezas (Slots)
+
+
+- slot_mails
+	id
+	nombre
+	fecha_envio
+	publicidad
+	saldo
+	template
+	footer
+	
+	
+- slot_mail_contents
+	id
+	slot_mail_id
+	contenido 
+	legales
+	nombre
+	orden
+	
+	
+Pantallas de slots mails
+1) nombre, fecha y template
+2) Info pieza madre: Header (publicidad, saldo), footer (footer, redes)
+3) Info de contenidos de los slots: contenido y legales (generico y especifico)
+
+
+	
+	
+
