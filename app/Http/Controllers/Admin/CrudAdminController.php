@@ -89,7 +89,7 @@ class CrudAdminController extends AppBaseController
 
         try
         {
-            \DB::beginTransaction();;
+            \DB::beginTransaction();
             $model = $this->repository->create($input);
             \DB::commit();
         }

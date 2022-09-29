@@ -18,6 +18,8 @@ class PermissionSeeder extends Seeder
 			['Roles y Permisos',20],
 			['Contenidos predefinidos', 30],
 			['Piezas', 31],
+			['Piezas slots', 40],
+			['Contenidos predefinidos slots', 41],
         ];
 
         foreach ($items as $i => $value) 

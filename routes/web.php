@@ -76,6 +76,24 @@ Route::prefix('/admin')->group(function () {
         Route::post('contenido-predefinidos/filter', 'Admin\ContenidoPredefinidoController@filter')->name('contenido-predefinidos.filter');
         Route::resource('contenido-predefinidos', 'Admin\ContenidoPredefinidoController');
 
+        /* ** Etapa 2 ** */
+        Route::get('slot-mails/edit/{id}', 'Admin\SlotMailsController@index')->name('slot-mails.edit-lang');            
+        Route::post('slot-mails/change-enabled', 'Admin\SlotMailsController@changeEnabled')->name('slot-mails.change-enabled');
+        Route::post('slot-mails/filter', 'Admin\SlotMailsController@filter')->name('slot-mails.filter');
+        Route::get('slot-mails/export-html/{id}', 'Admin\SlotMailsController@exportHtml')->name('slot-mails.export-html');
+        Route::get('slot-mails/exportar/{type}', 'Admin\SlotMailsController@export')->name('slot-mails.export');
+        Route::put('slot-mails/{id}/clonar', 'Admin\SlotMailsController@clonar')->name('slot-mails.clonar');
+        Route::resource('slot-mails', 'Admin\SlotMailsController');
+
+        Route::get('slot-mail-contents/edit/{id}', 'Admin\SlotMailContentsController@index')->name('slot-mail-contents.edit-lang');            
+        Route::post('slot-mail-contents/change-enabled', 'Admin\SlotMailContentsController@changeEnabled')->name('slot-mail-contents.change-enabled');
+        Route::post('slot-mail-contents/filter', 'Admin\SlotMailContentsController@filter')->name('slot-mail-contents.filter');
+        Route::get('slot-mail-contents/export-html/{id}', 'Admin\SlotMailContentsController@exportHtml')->name('slot-mail-contents.export-html');
+        Route::get('slot-mail-contents/exportar/{type}', 'Admin\SlotMailContentsController@export')->name('slot-mail-contents.export');
+        Route::put('slot-mail-contents/{id}/clonar', 'Admin\SlotMailContentsController@clonar')->name('slot-mail-contents.clonar');
+        Route::resource('slot-mail-contents', 'Admin\SlotMailContentsController');
+        /* ** END Etapa 2 ** */
+
 
         Route::get('clear-cache', function () {
             $exitCode = Artisan::call('cache:clear');

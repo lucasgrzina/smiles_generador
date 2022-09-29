@@ -7,7 +7,7 @@
 
         
         <a href="#" class="sidebar-logo">
-            <img src="{{asset('img/Logo-Grande.png')}}" style="max-width: 100%;"/>
+            <img src="{{asset('img/Logo-Grande.png')}}" style="max-width: 100%;     padding: 10px 15px;" />
         </a>
         @if(Auth::check())
         <div class="media sidebar-user">

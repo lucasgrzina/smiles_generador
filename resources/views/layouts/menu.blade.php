@@ -33,3 +33,15 @@
     <a href="{!! route('contenido-predefinidos.index') !!}"><i class="fa fa-edit"></i><span>Contenido Predefinidos</span></a>
 </li>
 @endif
+
+@if (\App\Helpers\AdminHelper::mostrarMenu('piezas-slots'))    
+<li class="{{ Request::is('piezas-slots*') ? 'active' : '' }}">
+    <a href="{!! route('slot-mails.index') !!}"><i class="fa fa-edit"></i><span>Piezas (Slots)</span></a>
+</li>
+@endif
+
+@if (\App\Helpers\AdminHelper::mostrarMenu('piezas-slots'))    
+<li class="{{ Request::is('slot-mail-contents*') ? 'active' : '' }}">
+    <a href="{!! route('slot-mail-contents.index') !!}"><i class="fa fa-edit"></i><span>Contenidos (Slots)</span></a>
+</li>
+@endif
