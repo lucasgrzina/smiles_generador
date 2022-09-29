@@ -34,6 +34,7 @@ class SlotMailsController extends CrudAdminController
         $this->data['filters']['template'] = null;
         $this->data['filters']['export_xls'] = true;
         $this->data['url_clonar'] = route($this->routePrefix.'.clonar',['_ID_']);
+        $this->data['url_contenido_delete'] = route('slot-mail-contents.destroy', ['slot' => '_ID_']);
         $this->data['url_contenido_create'] = route('slot-mail-contents.create', ['slot' => '_ID_']);
         $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_']);
         return view($this->viewPrefix.'index')->with('data',$this->data);

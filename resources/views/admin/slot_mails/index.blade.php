@@ -79,6 +79,27 @@
             let createURL = _this.url_contenido_create.replace('_ID_',item.id);
             window.location.href = createURL;
        }
+
+       _methods.destroyContenido = function(item) {
+            var _this = this;
+
+
+            if (confirm('Deséa eliminar la pieza seleccionada?')) {
+                _this.alert.show = false;
+                _this.loading = true;
+                return _this.ajaxDelete(_this.url_contenido_delete.replace('_ID_',item.id),item,true,_this.errors).then(function(data){
+                    _this.doFilter();
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+
+
+            
+           
+       }
+
+       
                         
 
         this._mounted.push(function(_this) {

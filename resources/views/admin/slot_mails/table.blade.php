@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="collapse multi-collapse w-100" :id="'item'+item.id">
-                    <div class="card card-body">
+                    <div class="card card-body" v-if="item.contenidos.length > 0">
                         
                             <div class="row-content head">
                                 <div>ID</div>
@@ -50,7 +50,7 @@
                                 <div>(% contenido.nombre %)</div>
                                 <div>
                                     <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
-                                    <button-type type="remove-list" @click="destroy(contenido)"></button-type>
+                                    <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
                                 </div>
 
                             </div>
