@@ -7,7 +7,7 @@
             <!-- Nombre Field -->
             <div class="form-group col-sm-8" :class="{'has-error': errors.has('nombre')}" >
                 {!! Form::label('nombre', 'Nombre') !!}
-                {!! Form::text('nombre', null, ['readonly', 'class' => 'form-control','v-model' => 'selectedItem.nombre']) !!}
+                {!! Form::text('nombre', null, ['readonly', 'class' => 'form-control','v-model' => 'selectedItem.nombre_slot']) !!}
                 <span class="help-block" v-show="errors.has('nombre')">(% errors.first('nombre') %)</span>
             </div>
 
@@ -60,6 +60,23 @@
                 <switch-button v-model="selectedItem.saldo" theme="bootstrap" type-bold="true" disabled></switch-button>
                 <span class="help-block" v-show="errors.has('saldo')">(% errors.first('saldo') %)</span>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="box box-cu" >
+    <div class="box-header with-border">
+        <h3 class="box-title">Pieza Info</h3>
+    </div>    
+    <div class="box-body">
+        <div class="row">
+            <!-- Nombre Field -->
+            <div class="form-group col-sm-8" :class="{'has-error': errors.has('nombre')}" >
+                {!! Form::label('nombre', 'Nombre') !!}
+                {!! Form::text('nombre', null, ['class' => 'form-control','v-model' => 'selectedItem.nombre']) !!}
+                <span class="help-block" v-show="errors.has('nombre')">(% errors.first('nombre') %)</span>
+            </div>
+            
         </div>
     </div>
 </div>

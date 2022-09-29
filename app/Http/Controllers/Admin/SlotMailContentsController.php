@@ -203,7 +203,7 @@ class SlotMailContentsController extends CrudAdminController
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'slot_mail_id' => $slot_mail_id,
-                'nombre' => $slot->nombre,
+                'nombre_slot' => $slot->nombre,
                 'fecha_envio' => $slot->fecha_envio,
                 'template' => $slot->template,
                 'publicidad' => $templateDefault['publicidad'],
@@ -261,7 +261,7 @@ class SlotMailContentsController extends CrudAdminController
         $legales_id         = $legalesObj->legales;        //
         $legales_custom     = $legalesObj->legales_custom;
 
-        $this->data['selectedItem']['nombre'] = $slot->nombre;
+        $this->data['selectedItem']['nombre_slot'] = $slot->nombre;
         $this->data['selectedItem']['template'] = $slot->template;
         $this->data['selectedItem']['fecha_envio'] = $slot->fecha_envio;
         $this->data['selectedItem']['publicidad'] = $slot->publicidad;
