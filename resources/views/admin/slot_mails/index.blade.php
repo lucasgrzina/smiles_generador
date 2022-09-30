@@ -23,7 +23,7 @@
 
     .multi-collapse{}
     .multi-collapse .card-body{
-        padding: 18px 15px 4px;
+        padding: 10px 0;
     }
     
 </style>
@@ -114,7 +114,7 @@
 @section('content-header')
  <section class="content-header">
             <h1>
-            Piezas
+            Piezas (Slots)
             </h1>
 
             

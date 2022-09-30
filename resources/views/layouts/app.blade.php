@@ -15,7 +15,13 @@
         <link rel="stylesheet" href="{{ asset('admin/css/utils.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/AdminLTE.min.css') }}">
         <link rel="stylesheet" href="{{ asset('admin/css/skin-adminlte.css') }}">
-
+        <style>
+            .separador {
+                display: block;
+                height: 2px;
+                border-top: 1px solid #d2d6de;
+            }
+        </style>
         <script type="text/javascript">
                 var _csrfToken = '{!! csrf_token() !!}';
                 var _methods = {};

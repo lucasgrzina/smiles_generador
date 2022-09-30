@@ -179,7 +179,7 @@ class SlotMailContentsController extends CrudAdminController
         $slot_mail_id = request()->get('slot',false);
 
         if (!$slot_mail_id) {
-            return redirect()->route($this->routePrefix.'.index');
+            return redirect()->route('slot-mails.index');
         }
 
         $slot = SlotMails::where('id', $slot_mail_id)->first();
@@ -199,7 +199,7 @@ class SlotMailContentsController extends CrudAdminController
             'redes_id' => json_decode(json_decode($templateDefault['footer']))->redes,
         ]);
       
-
+        
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'slot_mail_id' => $slot_mail_id,
@@ -214,7 +214,16 @@ class SlotMailContentsController extends CrudAdminController
                 'tipo_footer' => null
         ]);
 
+
+        $footerFooterCP = ContenidoPredefinido::find($this->data['info']['footer_id']);
+        $footerRedesCP = ContenidoPredefinido::find($this->data['info']['legales_id']);
+
+        $this->data['selectedItem']['footer'] = [
+            'footer' => $footerFooterCP ? ['id' => $footerFooterCP->id, 'nombre' => $footerFooterCP->nombre] : null,
+            'redes' => $footerRedesCP ? ['id' => $footerRedesCP->id, 'nombre' => $footerRedesCP->nombre] : null
+        ];
         
+        $this->data['url_index'] = route('slot-mails.edit',[$slot_mail_id]);
         //echo json_encode($templateDefault['contenido']);
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
@@ -293,7 +302,14 @@ class SlotMailContentsController extends CrudAdminController
        
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
+        $footerFooterCP = ContenidoPredefinido::find($footer_id);
+        $footerRedesCP = ContenidoPredefinido::find($id_redes);
 
+        $this->data['selectedItem']->footer = [
+            'footer' => $footerFooterCP ? ['id' => $footerFooterCP->id, 'nombre' => $footerFooterCP->nombre] : null,
+            'redes' => $footerRedesCP ? ['id' => $footerRedesCP->id, 'nombre' => $footerRedesCP->nombre] : null
+        ];
+        $this->data['url_index'] = route('slot-mails.edit',[$id_slot]);
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

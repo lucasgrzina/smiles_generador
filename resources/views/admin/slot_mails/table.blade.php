@@ -6,7 +6,7 @@
                 <th>Nombre</th>
                 <th>Templatess</th>
                 <th>Fecha de envío</th>
-                <th>Regiones</th>
+                <th>Piezas slots</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
         </thead>
@@ -18,9 +18,9 @@
                         <div style="width: 100%; padding: 0 5px;">(% item.nombre %) </div>
                         <div style="width: 100%; padding: 0 5px;">(% nombreTemplate(item.template) %)</div>
                         <div style="width: 100%; padding: 0 5px;">(% item.fecha_envio | dateFormat %) </div>
-                        <div style="width: 100%; padding: 0 5px;">
-                            <button v-if="item.contenidos.length == 0" class="btn btn-sm bg-yellow" type="button"  @click="createContenido(item)">Crear primero</button>
-                            <button v-if="item.contenidos.length > 0" class="btn btn-sm bg-green" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id">Ver piezas</button>
+                        <div style="width: 100%; padding: 0 5px;z-index: 1;">
+                            <button v-if="item.contenidos.length == 0" class="btn btn-xs bg-green" type="button"  @click="createContenido(item)">Crear primero</button>
+                            <button v-if="item.contenidos.length > 0" class="btn btn-xs bg-gray" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id">Mostrar/Ocultar</button>
                         </div>
                         <div style="display: flex;
                             align-items: center;
@@ -43,12 +43,12 @@
                             <div class="row-content head">
                                 <div>ID</div>
                                 <div>Nombre</div>
-                                <div>Acciones</div>
+                                <div class="text-right">Acciones</div>
                             </div>
                             <div v-for="contenido in item.contenidos" class="row-content">
                                 <div>(% contenido.id %)</div>
                                 <div>(% contenido.nombre %)</div>
-                                <div>
+                                <div class="text-right">
                                     <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
                                     <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
                                 </div>
@@ -56,8 +56,8 @@
                             </div>
 
                        
-                        <div style="padding: 10px 0; display: flex; align-items: center;">
-                            <button @click="createContenido(item)" class="btn btn-sm bg-yellow" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id">Crear nuevo</button>
+                        <div style="padding: 10px 0; display: flex; align-items: center;justify-content: end;">
+                            <button @click="createContenido(item)" class="btn btn-xs bg-green" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id"><i class="fa fa-plus m-r-5"></i> Crear nuevo</button>
                         </div>
                     </div>  
                 </div>

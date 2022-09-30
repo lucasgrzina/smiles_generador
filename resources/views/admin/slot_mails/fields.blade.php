@@ -69,23 +69,23 @@
         <div class="box-header with-border">
             <h3 class="box-title">Piezas Slots</h3>
             <div class="box-tools pull-right">
-                <a class="btn btn-box-tool bg-green" :href="info.link_create"><i class="fa fa-plus"></i> Nuevo</a>
+                <a class="btn btn-box-tool bg-green" :href="info.link_create"><i class="fa fa-plus m-r-5"></i>Crear nuevo</a>
             </div>             
         </div>    
-        <div class="box-body">
+        <div class="box-body p-v-0">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-body" v-if="selectedItem.contenidos.length > 0" style="padding: 10px;">
+                    <div class="card card-body p-0 p-h-5" v-if="selectedItem.contenidos.length > 0" style="padding: 10px;">
                         
                             <div class="row-content head">
                                 <div>ID</div>
                                 <div>Nombre</div>
-                                <div>Acciones</div>
+                                <div class="text-right">Acciones</div>
                             </div>
                             <div v-for="contenido in selectedItem.contenidos" class="row-content">
                                 <div>(% contenido.id %)</div>
                                 <div>(% contenido.nombre %)</div>
-                                <div>
+                                <div class="text-right">
                                     <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
                                     <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
                                 </div>

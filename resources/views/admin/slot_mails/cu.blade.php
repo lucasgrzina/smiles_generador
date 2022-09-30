@@ -168,7 +168,11 @@
             return config;
         };
        
-             
+        _methods.editContenido = function(item) {
+            var _this = this;
+            let editURL = _this.url_contenido_edit.replace('_ID_',item.id);
+            window.location.href = editURL;
+       }  
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
@@ -178,7 +182,7 @@
 @endsection
 
 @section('content-header')
-    {!! AdminHelper::contentHeader('Custom Mails',isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
+    {!! AdminHelper::contentHeader('Piezas (Slots)',isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
 @endsection
 
 @section('content')

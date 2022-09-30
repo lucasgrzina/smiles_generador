@@ -4,6 +4,13 @@
     @parent
     <link rel="stylesheet" href="{{ asset('admin/crud/css/cu.css') }}"/>
     <link rel="stylesheet" href="{{ asset('admin/crud/css/smiles.css') }}"/>
+    <style>
+        .label-info-form {
+            padding: 5px 5px;
+            text-transform: uppercase;
+            display: block;
+        }
+    </style>    
 @endsection
 
 @section('scripts')
@@ -100,6 +107,8 @@
                             location.href = _this.url_index+'/'+data.id+'/edit';
                         }
                         
+                    }, function (error) {
+                        _this.saving = false;
                     });                            
                 }
 
@@ -143,7 +152,7 @@
 @endsection
 
 @section('content-header')
-    {!! AdminHelper::contentHeader('Custom Mails',isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
+    {!! AdminHelper::contentHeader('Piezas (Slots)',isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
 @endsection
 
 @section('content')
@@ -156,9 +165,8 @@
 
         <div class="box ">
             <div class="box-footer text-right">
-                <button-type type="save" :promise="store" v-if="selectedItem.id > 0"></button-type>
-                <button type="save" @click="store(false)" class="btn btn-sm bg-green btn-save">
-                    <i class="fa fa-save" v-if="!saving"></i><i class="fa fa-spinner fa-spin fa-save" v-if="saving"></i> Guardar y continuar</button>
+                <button-type type="save" :promise="store"></button-type>
+                
                 <button-type type="cancel" @click="cancel()"></button-type>
             </div>   
         </div>   

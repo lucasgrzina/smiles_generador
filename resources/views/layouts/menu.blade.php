@@ -23,6 +23,7 @@
   </ul>
 </li>
 @endif
+<li><div class="separador"></div></li>
 @if (\App\Helpers\AdminHelper::mostrarMenu('contenidos-predefinidos'))    
 <li class="{{ Request::is('custom-mails*') ? 'active' : '' }}">
     <a href="{!! route('custom-mails.index') !!}"><i class="fa fa-edit"></i><span>Piezas</span></a>
@@ -33,15 +34,15 @@
     <a href="{!! route('contenido-predefinidos.index') !!}"><i class="fa fa-edit"></i><span>Contenido Predefinidos</span></a>
 </li>
 @endif
-
+<li><div class="separador"></div></li>
 @if (\App\Helpers\AdminHelper::mostrarMenu('piezas-slots'))    
 <li class="{{ Request::is('piezas-slots*') ? 'active' : '' }}">
     <a href="{!! route('slot-mails.index') !!}"><i class="fa fa-edit"></i><span>Piezas (Slots)</span></a>
 </li>
 @endif
 
-@if (\App\Helpers\AdminHelper::mostrarMenu('piezas-slots'))    
-<li class="{{ Request::is('slot-mail-contents*') ? 'active' : '' }}">
-    <a href="{!! route('slot-mail-contents.index') !!}"><i class="fa fa-edit"></i><span>Contenidos (Slots)</span></a>
+@if (\App\Helpers\AdminHelper::mostrarMenu('contenidos-predefinidos'))    
+<li class="{{ Request::is('custom-mails*') ? 'active' : '' }}">
+  <a href="{!! route('slot-contenido-predefinidos.index') !!}"><i class="fa fa-edit"></i><span>Contenido Predefinidos (Slots)</span></a>
 </li>
 @endif

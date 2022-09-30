@@ -92,6 +92,11 @@ Route::prefix('/admin')->group(function () {
         Route::get('slot-mail-contents/exportar/{type}', 'Admin\SlotMailContentsController@export')->name('slot-mail-contents.export');
         Route::put('slot-mail-contents/{id}/clonar', 'Admin\SlotMailContentsController@clonar')->name('slot-mail-contents.clonar');
         Route::resource('slot-mail-contents', 'Admin\SlotMailContentsController');
+
+        Route::get('slot-contenido-predefinidos/edit/{id}', 'Admin\SlotContenidoPredefinidoController@index')->name('slot-contenido-predefinidos.edit-lang');            
+        Route::post('slot-contenido-predefinidos/change-enabled', 'Admin\SlotContenidoPredefinidoController@changeEnabled')->name('slot-contenido-predefinidos.change-enabled');
+        Route::post('slot-contenido-predefinidos/filter', 'Admin\SlotContenidoPredefinidoController@filter')->name('slot-contenido-predefinidos.filter');
+        Route::resource('slot-contenido-predefinidos', 'Admin\SlotContenidoPredefinidoController');
         /* ** END Etapa 2 ** */
 
 

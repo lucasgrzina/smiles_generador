@@ -56,6 +56,7 @@ class ContenidoPredefinido extends Model
         'imagen',
         'contenido',
         'default',
+        'seccion'
         //'enabled'
     ];
 

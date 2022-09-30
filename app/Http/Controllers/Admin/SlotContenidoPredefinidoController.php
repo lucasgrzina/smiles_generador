@@ -11,9 +11,9 @@ use App\Repositories\ContenidoPredefinidoRepository;
 use App\Http\Requests\Admin\CUContenidoPredefinidoRequest;
 use App\Repositories\Criteria\ContenidoPredefinidoCriteria;
 
-class ContenidoPredefinidoController extends CrudAdminController
+class SlotContenidoPredefinidoController extends CrudAdminController
 {
-    protected $routePrefix = 'contenido-predefinidos';
+    protected $routePrefix = 'slot-contenido-predefinidos';
     protected $viewPrefix  = 'admin.contenido_predefinidos.';
     protected $actionPerms = 'contenidos-predefinidos';
 
@@ -49,7 +49,7 @@ class ContenidoPredefinidoController extends CrudAdminController
         {
             $this->repository->pushCriteria(new ContenidoPredefinidoCriteria($request));
             $this->repository->pushCriteria(new RequestCriteria($request));
-            $collection = $this->repository->with('updater')->whereSeccion('c')->paginate($request->get('per_page'))->toArray();        
+            $collection = $this->repository->whereSeccion('s')->with('updater')->paginate($request->get('per_page'))->toArray();        
 
             $this->data = [
                 'list' => $collection['data'],
@@ -84,7 +84,7 @@ class ContenidoPredefinidoController extends CrudAdminController
                 'id' => 0,
                 'tipo' => null,
                 'default' => false,
-                'seccion' => 'c'
+                'seccion' => 's'
         ]);
         $this->data['info'] = [
             'tipos' => config('constantes.tiposContenidosPredefinidos',[])
@@ -98,7 +98,7 @@ class ContenidoPredefinidoController extends CrudAdminController
         if ($request['default'] == 1){
            // \Log::info('Es destacado');
             ContenidoPredefinido::where('tipo', $request['tipo'])
-            ->where('seccion','c')
+            ->where('seccion','s')
             ->where('default', 1)
             ->update(['default' => 0]);
         }
@@ -121,7 +121,7 @@ class ContenidoPredefinidoController extends CrudAdminController
         if ($request['default'] == 1){
            // \Log::info('Es destacado');
             ContenidoPredefinido::where('tipo', $request['tipo'])
-            ->where('seccion','c')
+            ->where('seccion','s')
             ->where('default', 1)
             ->update(['default' => 0]);
         }

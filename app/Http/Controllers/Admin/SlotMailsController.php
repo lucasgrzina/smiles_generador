@@ -88,7 +88,6 @@ class SlotMailsController extends CrudAdminController
             if($itemContenido->id == 'contenido_predefinido'){
                 $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
             }
-           
         }
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
@@ -251,7 +250,9 @@ class SlotMailsController extends CrudAdminController
             'templates' => config('constantes.templates',[])
         ]);
 
-  
+        $this->data['url_contenido_delete'] = route('slot-mail-contents.destroy', ['slot' => '_ID_']);
+        $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_']);
+
         $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
         
         foreach ($arrContenidoDecode as $itemContenido) {
