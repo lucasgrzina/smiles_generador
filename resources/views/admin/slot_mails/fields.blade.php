@@ -75,11 +75,26 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-12">
-                    <!--div class="content-buttons-options">
-                        <a class="btn btn-sm " :href="info.link_create">
-                            Crear contenido
-                        </a>
-                    </div-->
+                    <div class="card card-body" v-if="selectedItem.contenidos.length > 0" style="padding: 10px;">
+                        
+                            <div class="row-content head">
+                                <div>ID</div>
+                                <div>Nombre</div>
+                                <div>Acciones</div>
+                            </div>
+                            <div v-for="contenido in selectedItem.contenidos" class="row-content">
+                                <div>(% contenido.id %)</div>
+                                <div>(% contenido.nombre %)</div>
+                                <div>
+                                    <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
+                                    <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
+                                </div>
+
+                            </div>
+
+                       
+                      
+                    </div>  
                 </div>
             </div>
         </div> 

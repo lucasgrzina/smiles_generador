@@ -7,6 +7,7 @@ use Response;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
+use App\SlotMailContents;
 use App\Helpers\StorageHelper;
 use App\Repositories\SlotMailsRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -263,6 +264,8 @@ class SlotMailsController extends CrudAdminController
        
        
         
+        $this->data['selectedItem']['contenidos'] = SlotMailContents::where('slot_mail_id', $id)->get();
+
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);

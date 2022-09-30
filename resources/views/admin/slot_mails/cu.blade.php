@@ -11,6 +11,31 @@
             display: block;
         }
     </style>
+
+    <style type="text/css">
+    .row-content{
+        display: grid;
+        grid-template-columns: 76px auto 273px;
+        margin: 0 auto;
+        /* max-width: calc(100% - 50px); */
+        padding: 8px 10px;
+        background: #f579210a;
+        border-width: 0 0 1px;
+        border-style: solid;
+        border-color: #f4f4f4;
+    }
+
+    .row-content.head{
+        font-weight: bold;
+        background: #f1f1f1;
+    }
+
+    .multi-collapse{}
+    .multi-collapse .card-body{
+        padding: 18px 15px 4px;
+    }
+    
+</style>
 @endsection
 
 @section('scripts')
