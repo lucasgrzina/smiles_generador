@@ -5,20 +5,20 @@
     <div class="box-body">
         <div class="row">
             <!-- Nombre Field -->
-            <div class="form-group col-sm-8" :class="{'has-error': errors.has('nombre')}">
+            <div class="form-group col-sm-5" :class="{'has-error': errors.has('nombre')}">
                 {!! Form::label('nombre', 'Nombre') !!}
                 {!! Form::text('nombre', null, ['class' => 'form-control','v-model' => 'selectedItem.nombre']) !!}
                 <span class="help-block" v-show="errors.has('nombre')">(% errors.first('nombre') %)</span>
             </div>
 
-            <div class="form-group col-sm-4" :class="{'has-error': errors.has('fecha_envio')}">
+            <div class="form-group col-sm-3" :class="{'has-error': errors.has('fecha_envio')}">
                 {!! Form::label('fecha_envio', 'Fecha Envío') !!}
                 {!! Form::date('fecha_envio', null, ['class' => 'form-control','v-model' => 'selectedItem.fecha_envio']) !!}
                 <span class="help-block" v-show="errors.has('fecha_envio')">(% errors.first('fecha_envio') %)</span>
             </div>
 
             <!-- Nombre Field -->
-            <div class="form-group col-sm-6" :class="{'has-error': errors.has('contenido')}" style="display: none;">
+            <div class="form-group col-sm-4" :class="{'has-error': errors.has('contenido')}" style="display: none;">
                 {!! Form::label('contenido', 'Contenido') !!}
                 {!! Form::text('contenido', null, ['class' => 'form-control','v-model' => 'selectedItem.contenido']) !!}
                 <span class="help-block" v-show="errors.has('contenido')">(% errors.first('contenido') %)</span>
@@ -67,16 +67,19 @@
 
     <div class="box box-cu" v-if="selectedItem.id > 0">
         <div class="box-header with-border">
-            <h3 class="box-title">Contenido</h3>
+            <h3 class="box-title">Piezas Slots</h3>
+            <div class="box-tools pull-right">
+                <a class="btn btn-box-tool bg-green" :href="info.link_create"><i class="fa fa-plus"></i> Nuevo</a>
+            </div>             
         </div>    
         <div class="box-body">
             <div class="row">
                 <div class="col-12">
-                    <div class="content-buttons-options">
+                    <!--div class="content-buttons-options">
                         <a class="btn btn-sm " :href="info.link_create">
                             Crear contenido
                         </a>
-                    </div>
+                    </div-->
                 </div>
             </div>
         </div> 

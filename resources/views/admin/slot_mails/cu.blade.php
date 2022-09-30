@@ -4,6 +4,13 @@
     @parent
     <link rel="stylesheet" href="{{ asset('admin/crud/css/cu.css') }}"/>
     <link rel="stylesheet" href="{{ asset('admin/crud/css/smiles.css') }}"/>
+    <style>
+        .label-info-form {
+            padding: 5px 5px;
+            text-transform: uppercase;
+            display: block;
+        }
+    </style>
 @endsection
 
 @section('scripts')
@@ -23,6 +30,7 @@
         
 
         var _data = {!! json_encode($data) !!};
+        console.debug(_data.selectedItem);
         _data.files = {
             imagen_web: [],
             imagen_mobile: []
@@ -100,6 +108,8 @@
                             location.href = _this.url_index+'/'+data.id+'/edit';
                         }
                         
+                    }, function(error) {
+                        _this.saving = false;
                     });                            
                 }
 

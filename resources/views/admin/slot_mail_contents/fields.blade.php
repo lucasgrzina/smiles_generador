@@ -1,6 +1,6 @@
 <div class="box box-info box-cu">
     <div class="box-header with-border">
-        <h3 class="box-title">General</h3>
+        <h3 class="box-title">Pieza madre</h3>
     </div>    
     <div class="box-body">
         <div class="row">

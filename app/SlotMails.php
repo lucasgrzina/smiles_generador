@@ -105,8 +105,6 @@ class SlotMails extends Model
         
         return $this->hasMany('App\SlotMailContents', 'slot_mail_id');
     } 
-
-   
     
 
     protected static function boot()
