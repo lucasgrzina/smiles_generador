@@ -80,6 +80,19 @@
             window.location.href = createURL;
        }
 
+       _methods.clonarContenido = function(item){
+            var _this = this;
+            if (confirm('Deséa clonar la pieza seleccionada?')) {
+                _this.alert.show = false;
+                _this.loading = true;
+                return _this.ajaxPut(_this.url_contenido_clonar.replace('_ID_',item.id),item,true,_this.errors).then(function(data){
+                    _this.doFilter();
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+       }
+
        _methods.destroyContenido = function(item) {
             var _this = this;
 
@@ -127,7 +140,9 @@
               </button>
               <ul class="dropdown-menu">
                 @foreach (config('constantes.templates',[]) as $codigo => $nombre)
-                    <li><a v-on:click="create('{{$codigo}}')">{{$nombre}}</a></li>      
+                    @if($codigo == 'pieza_madre')
+                    <li><a v-on:click="create('{{$codigo}}')">{{$nombre}}</a></li>     
+                    @endif 
                 @endforeach
               </ul>
             </div>

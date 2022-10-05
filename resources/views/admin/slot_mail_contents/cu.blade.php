@@ -37,7 +37,7 @@
 
         _data.saving = false;
 
-
+        
         
 
          _methods.uploadImageCustom = function (item, event, url_upload, token, pos){

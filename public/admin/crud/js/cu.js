@@ -307,7 +307,6 @@ if (typeof _methods.selectLegales === 'undefined') {
   
   _methods.selectLegales = function(evt, $tipo) {
       var _this = this;
-
       if($tipo == 'predefinido'){
         _data.id_legales = evt.target.value;
       }

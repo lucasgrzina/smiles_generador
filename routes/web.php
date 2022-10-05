@@ -80,7 +80,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('slot-mails/edit/{id}', 'Admin\SlotMailsController@index')->name('slot-mails.edit-lang');            
         Route::post('slot-mails/change-enabled', 'Admin\SlotMailsController@changeEnabled')->name('slot-mails.change-enabled');
         Route::post('slot-mails/filter', 'Admin\SlotMailsController@filter')->name('slot-mails.filter');
-        Route::get('slot-mails/export-html/{id}', 'Admin\SlotMailsController@exportHtml')->name('slot-mails.export-html');
+        Route::get('slot-mails/export-html/{id}/{hijo}', 'Admin\SlotMailsController@exportHtml')->name('slot-mails.export-html');
         Route::get('slot-mails/exportar/{type}', 'Admin\SlotMailsController@export')->name('slot-mails.export');
         Route::put('slot-mails/{id}/clonar', 'Admin\SlotMailsController@clonar')->name('slot-mails.clonar');
         Route::resource('slot-mails', 'Admin\SlotMailsController');

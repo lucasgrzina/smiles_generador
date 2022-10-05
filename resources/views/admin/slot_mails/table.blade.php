@@ -27,7 +27,7 @@
                             justify-content: end;
                             gap: 4px;">
                             @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))
-                            <button-type type="show-list" @click="show(item)"></button-type>
+                            <button-type type="show-list" @click="show(item)" v-if="item.contenidos.length > 0"></button-type>
                             @endif
                             @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
                             <button-type type="edit-list" @click="edit(item)"></button-type>
@@ -50,6 +50,7 @@
                                 <div>(% contenido.nombre %)</div>
                                 <div class="text-right">
                                     <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
+                                    <button-type type="clone-list" @click="clonarContenido(contenido)"></button-type>
                                     <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
                                 </div>
 

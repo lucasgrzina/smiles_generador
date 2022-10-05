@@ -11,7 +11,7 @@ use App\SlotMails;
 use App\Helpers\StorageHelper;
 use App\Repositories\SlotMailContentsRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Http\Requests\Admin\CUCustomMailsRequest;
+use App\Http\Requests\Admin\CUSlotMailContentsRequest;
 use App\Repositories\Criteria\CustomMailsCriteria;
 use App\Http\Controllers\Admin\CrudAdminController;
 
@@ -189,10 +189,10 @@ class SlotMailContentsController extends CrudAdminController
         $templateDefault = config('constantes.default_'.$slot->template,[]);
 
         data_set($this->data,'info',[
-            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
-            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
-            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
-            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 's')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 's')->get(),
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->get(),
             'templates' => config('constantes.templates',[]),
             'legales_id' => json_decode(json_decode($templateDefault['legales']))->legales,
             'footer_id' => json_decode(json_decode($templateDefault['footer']))->footer,
@@ -228,7 +228,7 @@ class SlotMailContentsController extends CrudAdminController
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 
-    public function store(CUCustomMailsRequest $request)
+    public function store(CUSlotMailContentsRequest $request)
     {
         
 
@@ -260,12 +260,16 @@ class SlotMailContentsController extends CrudAdminController
        // $tipo_footer = ContenidoPredefinido::get();
          
         $id_slot = $this->data['selectedItem']->slot_mail_id;
+        
         $slot = SlotMails::where('id', $id_slot)->first();
+       
 
         $footerObj = json_decode(json_decode($slot->footer));
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
 
+       // dd($slot->footer);
+       $this->data['selectedItem']->footer = $slot->footer;
         $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
         $legales_id         = $legalesObj->legales;        //
         $legales_custom     = $legalesObj->legales_custom;
@@ -277,10 +281,10 @@ class SlotMailContentsController extends CrudAdminController
         $this->data['selectedItem']['saldo'] = $slot->saldo;
        
         data_set($this->data,'info',[
-            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
-            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
-            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
-            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 's')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 's')->get(),
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->get(),
             'redes_id' => $id_redes,
             'footer_id' => $footer_id,
             'legales_id' => $legales_id,
@@ -305,15 +309,12 @@ class SlotMailContentsController extends CrudAdminController
         $footerFooterCP = ContenidoPredefinido::find($footer_id);
         $footerRedesCP = ContenidoPredefinido::find($id_redes);
 
-        $this->data['selectedItem']->footer = [
-            'footer' => $footerFooterCP ? ['id' => $footerFooterCP->id, 'nombre' => $footerFooterCP->nombre] : null,
-            'redes' => $footerRedesCP ? ['id' => $footerRedesCP->id, 'nombre' => $footerRedesCP->nombre] : null
-        ];
+     
         $this->data['url_index'] = route('slot-mails.edit',[$id_slot]);
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 
-    public function update($id, CUCustomMailsRequest $request)
+    public function update($id, CUSlotMailContentsRequest $request)
     {
         $model = $this->_update($id, $request);
 

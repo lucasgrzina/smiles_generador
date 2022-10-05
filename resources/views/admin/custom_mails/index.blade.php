@@ -73,7 +73,9 @@
               </button>
               <ul class="dropdown-menu">
                 @foreach (config('constantes.templates',[]) as $codigo => $nombre)
+                     @if($codigo != 'pieza_madre')
                     <li><a v-on:click="create('{{$codigo}}')">{{$nombre}}</a></li>      
+                    @endif
                 @endforeach
               </ul>
             </div>
