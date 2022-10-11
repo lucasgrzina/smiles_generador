@@ -220,7 +220,7 @@ class SlotMailsController extends CrudAdminController
         ]);
         
         
-
+        
         $templateDefault['footer'] = $footerDefault ? '"{\"footer\":\"'.$footerDefault->id.'\",\"redes\":\"'.$redesDefault->id.'\"}"' : null;
         $templateDefault['legales'] = $legalesDefault ? $legalesDefault->id : null;
 

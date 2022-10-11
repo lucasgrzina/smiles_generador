@@ -183,17 +183,49 @@ class CustomMailsController extends CrudAdminController
 
         $templateDefault = config('constantes.default_'.$template,[]);
 
+
+        $legalesDefault = ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 'c')->where('default',true)->first();
+        $footerDefault = ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 'c')->where('default',true)->first();
+        $redesDefault = ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 'c')->where('default',true)->first();
+      
+        //$templateDefault['footer'] = $footerDefault ? '"{\"footer\":\"'.$footerDefault->id.'\",\"redes\":\"'.$redesDefault->id.'\"}"' : null;
+
+              
+
+        $objDefaults = [];
+        
+        
+
+
+        if(!isset($templateDefault['footer']->footer)){
+            $objDefaults['footer'] = $footerDefault->id;
+        }else{
+            $objDefaults['footer'] = json_decode(json_decode($templateDefault['footer']))->footer;
+        }
+
+        if(!isset($templateDefault['footer']->redes)){
+           $objDefaults['redes'] = $redesDefault->id;
+        }else{
+            $objDefaults['redes'] = json_decode(json_decode($templateDefault['footer']))->redes;
+        }
+
+        $templateDefault['footer'] = json_encode(json_encode($objDefaults));
+        
+     
+
         data_set($this->data,'info',[
-            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
-            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
-            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
-            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 'c')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 'c')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 'c')->get(),
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 'c')->get(),
             'templates' => config('constantes.templates',[]),
             'legales_id' => json_decode(json_decode($templateDefault['legales']))->legales,
             'footer_id' => json_decode(json_decode($templateDefault['footer']))->footer,
             'redes_id' => json_decode(json_decode($templateDefault['footer']))->redes,
         ]);
-      
+
+
+
 
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
@@ -251,10 +283,10 @@ class CustomMailsController extends CrudAdminController
         $legales_custom     = $legalesObj->legales_custom;
        
         data_set($this->data,'info',[
-            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->get(),
-            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->get(),
-            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->get(),
-            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->get(),
+            'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 'c')->get(),
+            'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 'c')->get(),
+            'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 'c')->get(),
+            'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 'c')->get(),
             'redes_id' => $id_redes,
             'footer_id' => $footer_id,
             'legales_id' => $legales_id,

@@ -46,6 +46,8 @@
                 <button class="btn btn-sm bg-purple btn-back" @click="goTo(url_export)">
                     Exportar HTML
                 </button>
+
+                
             </div>        
         </div>
 

@@ -94,6 +94,14 @@
                 <button class="btn btn-sm bg-purple btn-back" @click="goTo(url_export+'/'+_data.piezaView)">
                     Exportar HTML
                 </button>
+
+                <button class="btn btn-sm bg-purple btn-back" >
+                    Exportar Pieza madre
+                </button>
+
+                <button class="btn btn-sm bg-purple btn-back" >
+                    Exportar todas las piezas
+                </button>
             </div>        
         </div>
 
