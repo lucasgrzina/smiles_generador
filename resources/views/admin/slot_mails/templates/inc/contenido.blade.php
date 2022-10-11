@@ -105,7 +105,7 @@
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="full-width" width="600" align="center">
 						<tr>
 							<td width="600" class="full-width" align="center">
-								@if(isset($item->link) && $item->link != '' && $item->haslink)
+								@if(isset($item->link) && $item->link != '' && isset($item->haslink) && $item->haslink)
 
 									@php
 										$urlLink = $item->link;

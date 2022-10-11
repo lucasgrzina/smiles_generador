@@ -8,8 +8,7 @@ return [
         'eventos_especiales' => 'Eventos Especiales',
         'sabias_que' => 'Sabías que',
         'voucher' => 'Voucher',
-        'template_libre' => 'Template Libre',
-        'pieza_madre' => 'Pieza Madre'
+        'template_libre' => 'Template Libre'
     ],
     'default_diario' => [
     	'publicidad' => true,

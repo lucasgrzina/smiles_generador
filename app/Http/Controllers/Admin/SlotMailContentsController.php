@@ -188,17 +188,28 @@ class SlotMailContentsController extends CrudAdminController
 
         $templateDefault = config('constantes.default_'.$slot->template,[]);
 
+        $footerObj = json_decode(json_decode($slot->footer));
+        $footer_id = $footerObj->footer;        //
+        $id_redes = $footerObj->redes;
+
+        $legalesDefault = ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->where('default',true)->first();
+        $footerDefault = ContenidoPredefinido::find($footer_id);
+        $redesDefault = ContenidoPredefinido::find($id_redes);
+
+
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 's')->get(),
             'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 's')->get(),
             'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->get(),
             'templates' => config('constantes.templates',[]),
-            'legales_id' => json_decode(json_decode($templateDefault['legales']))->legales,
-            'footer_id' => json_decode(json_decode($templateDefault['footer']))->footer,
-            'redes_id' => json_decode(json_decode($templateDefault['footer']))->redes,
+            'legales_id' => $legalesDefault ? $legalesDefault->id : null,
+            'footer_id' => $footerDefault ? $footerDefault->id : null,
+            'redes_id' => $redesDefault ? $redesDefault->id : null
         ]);
       
+        
+        $templateDefault['legales'] = '"{\"legales\":\"'.($legalesDefault ? $legalesDefault->id : 0).'\",\"legales_custom\":\"\"}"';
         
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
@@ -209,19 +220,16 @@ class SlotMailContentsController extends CrudAdminController
                 'publicidad' => $templateDefault['publicidad'],
                 'saldo' => $templateDefault['saldo'],
                 'contenido' => $templateDefault['contenido'],
-                'footer' => $templateDefault['footer'],
                 'legales' => $templateDefault['legales'],
                 'tipo_footer' => null
         ]);
 
 
-        $footerFooterCP = ContenidoPredefinido::find($this->data['info']['footer_id']);
-        $footerRedesCP = ContenidoPredefinido::find($this->data['info']['legales_id']);
 
-        $this->data['selectedItem']['footer'] = [
-            'footer' => $footerFooterCP ? ['id' => $footerFooterCP->id, 'nombre' => $footerFooterCP->nombre] : null,
-            'redes' => $footerRedesCP ? ['id' => $footerRedesCP->id, 'nombre' => $footerRedesCP->nombre] : null
-        ];
+        $this->data['selectedItem']['footerpm'] = ([
+            'footer' => $footerDefault ? ['id' => $footerDefault->id, 'nombre' => $footerDefault->nombre] : null,
+            'redes' => $redesDefault ? ['id' => $redesDefault->id, 'nombre' => $redesDefault->nombre] : null
+        ]);
         
         $this->data['url_index'] = route('slot-mails.edit',[$slot_mail_id]);
         //echo json_encode($templateDefault['contenido']);
@@ -231,9 +239,9 @@ class SlotMailContentsController extends CrudAdminController
     public function store(CUSlotMailContentsRequest $request)
     {
         
-
+        
         try {
-            \DB::beginTransaction();;
+            \DB::beginTransaction();
             
             $model = $this->_store($request, true);
             $uploadPath = env('AMAZON_S3_FOLDER'). '/' .$model->id;
@@ -269,8 +277,21 @@ class SlotMailContentsController extends CrudAdminController
         $id_redes = $footerObj->redes;
 
        // dd($slot->footer);
-       $this->data['selectedItem']->footer = $slot->footer;
+       //$this->data['selectedItem']->footerpm = $slot->footer;
+
+       $legalesDefault = ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->where('default',true)->first();
+       $footerDefault = ContenidoPredefinido::find($footer_id);
+       $redesDefault = ContenidoPredefinido::find($id_redes);
+
+       $this->data['selectedItem']['footerpm'] = [
+        'footer' => $footerDefault ? ['id' => $footerDefault->id, 'nombre' => $footerDefault->nombre] : null,
+        'redes' => $redesDefault ? ['id' => $redesDefault->id, 'nombre' => $redesDefault->nombre] : null
+        ];
+
+
+
         $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+        
         $legales_id         = $legalesObj->legales;        //
         $legales_custom     = $legalesObj->legales_custom;
 
@@ -306,8 +327,8 @@ class SlotMailContentsController extends CrudAdminController
        
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
-        $footerFooterCP = ContenidoPredefinido::find($footer_id);
-        $footerRedesCP = ContenidoPredefinido::find($id_redes);
+        //$footerFooterCP = ContenidoPredefinido::find($footer_id);
+        //$footerRedesCP = ContenidoPredefinido::find($id_redes);
 
      
         $this->data['url_index'] = route('slot-mails.edit',[$id_slot]);

@@ -142,7 +142,22 @@
             return config;
         };
        
-             
+        _methods.selectLegales = function(evt, $tipo) {
+            var _this = this;
+            if($tipo == 'predefinido'){
+                _data.id_legales = evt.target.value;
+            }
+
+            if($tipo == 'legales_custom'){
+                _data.legales_custom = evt;
+            }
+
+            let $legales = {legales: _data.id_legales, legales_custom: _data.legales_custom};
+            _data.legales  = JSON.stringify($legales);
+            _data.selectedItem.legales = JSON.stringify(_data.legales);
+            
+            
+        }
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>

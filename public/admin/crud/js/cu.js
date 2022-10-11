@@ -263,7 +263,7 @@ if (typeof _methods.checkMove === 'undefined') {
 var objFooter = new Object();
 
 if (_data.selectedItem.footer){
-  objFooter = new Object(JSON.parse(_data.selectedItem.footer));
+  console.log(_data.selectedItem.footer);
   _data.id_redes    = JSON.parse(objFooter).redes;
   _data.id_footer   = JSON.parse(objFooter).footer;
 }else{
@@ -320,7 +320,7 @@ if (typeof _methods.selectLegales === 'undefined') {
       _data.selectedItem.legales = JSON.stringify(_data.legales);
      
      
-    }
+  }
 }
 
 if (typeof _methods.downloadHtml === 'undefined') {

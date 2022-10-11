@@ -60,14 +60,14 @@
                 <div class="form-group col-sm-6" >
                     {!! Form::label('tipo-footer', 'Footer') !!}<br>
                     <span class="label label-default label-info-form">
-                        (% selectedItem.footer.footer ? selectedItem.footer.footer.nombre : 'S/A' %)
+                        (% selectedItem.footerpm.footer ? selectedItem.footerpm.footer.nombre : 'S/A' %)
                     </span>                        
                 </div>
 
                 <div class="form-group col-sm-6" >
                     {!! Form::label('tipo-footer', 'Redes') !!}<br>
                     <span class="label label-default label-info-form">
-                        (% selectedItem.footer.redes ? selectedItem.footer.redes.nombre : 'S/A' %)
+                        (% selectedItem.footerpm.redes ? selectedItem.footerpm.redes.nombre : 'S/A' %)
                     </span>      
                 </div>
             </div>

@@ -218,7 +218,7 @@
                 </table>
                 @endif
                 <!-- END top -->
-				@include('admin.custom_mails.templates.inc.contenido',[
+				@include('admin.slot_mails.templates.inc.contenido',[
                         'contenido' => $contenido
                 ])
 

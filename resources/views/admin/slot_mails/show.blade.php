@@ -71,7 +71,7 @@
                         @foreach($data['selectedItem']->contenidos as $contenido)
                             <div class="exporthtml" v-if="_data.piezaView == {{$contenido->id}}">
                                 
-                            @include('admin.slot_mails.templates.'.$data['selectedItem']->template,[
+                            @include('admin.slot_mails.templates.pieza_madre',[
                                 'nombre' => $contenido->nombre,
                                 'publicidad' => $data['selectedItem']->publicidad,
                                 'saldo' => $data['selectedItem']->saldo,
