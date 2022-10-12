@@ -126,8 +126,12 @@ class SlotMailsController extends CrudAdminController
     public function exportHtml($id, $idHijo){
         parent::show($id);
 
-        $hijo  = SlotMailContents::where('id', $idHijo)->first();
-
+        if($idHijo > 0){
+            $hijo  = SlotMailContents::where('id', $idHijo)->first();
+        }else{
+            $hijo = null;
+        }
+        
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $id_footer = $footerObj->footer;
         $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
@@ -136,15 +140,20 @@ class SlotMailsController extends CrudAdminController
         $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
 
 
-        
-        $legalesObj         = json_decode(json_decode($hijo->legales));
-        $legales_id         = $legalesObj->legales;        //
-        $legales_custom     = $legalesObj->legales_custom;
-        if ($legales_id){
-            $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+        if ($hijo){
+            $legalesObj         = json_decode(json_decode($hijo->legales));
+            $legales_id         = $legalesObj->legales;        //
+            $legales_custom     = $legalesObj->legales_custom;
+            if ($legales_id){
+                $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+            }else{
+                 $legaleshtml = '';
+            }
         }else{
-             $legaleshtml = '';
+            $legaleshtml    = '';
+            $legales_custom = '';
         }
+        
         
 
         data_set($this->data, 'info', (object)[
@@ -154,7 +163,13 @@ class SlotMailsController extends CrudAdminController
             'legales_custom' => ($legales_custom),
         ]);
 
-        $arrContenidoDecode = (array)json_decode($hijo->contenido);
+        if ($hijo){
+            $exportMadre = true;
+            $arrContenidoDecode = (array)json_decode($hijo->contenido);
+        }else{
+            $exportMadre = false;
+            $arrContenidoDecode = [];
+        }
         
         foreach ($arrContenidoDecode as $itemContenido) {
             if($itemContenido->id == 'contenido_predefinido'){
@@ -164,9 +179,10 @@ class SlotMailsController extends CrudAdminController
         }
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
+        
 
-     
-        $html = View::make("admin.slot_mails.templates.".$this->data['selectedItem']->template, ['export' => true])
+        
+        $html = View::make("admin.slot_mails.templates.pieza_madre", ['export' => $exportMadre])       
         ->with([
             'data' => $this->data, 
             'publicidad' => $this->data['selectedItem']->publicidad,

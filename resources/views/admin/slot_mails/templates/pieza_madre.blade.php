@@ -115,7 +115,7 @@
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="background-color:#e0e0e0;">
         <tr>
             <td>
-                @if(!isset($export))
+                @if(!empty(!$export))
                 <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;"
                     class="full-width" width="600" align="center">
                     <tr>
@@ -222,7 +222,7 @@
                         'contenido' => $contenido
                 ])
 
-                @if(!isset($export))
+                @if(!empty(!$export))
 
 				{!! ($footer) !!}
 				{!! ($redes) !!}

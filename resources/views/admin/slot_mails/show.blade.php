@@ -72,6 +72,7 @@
                             <div class="exporthtml" v-if="_data.piezaView == {{$contenido->id}}">
                                 
                             @include('admin.slot_mails.templates.pieza_madre',[
+                                'export' => false,
                                 'nombre' => $contenido->nombre,
                                 'publicidad' => $data['selectedItem']->publicidad,
                                 'saldo' => $data['selectedItem']->saldo,
@@ -95,7 +96,7 @@
                     Exportar HTML
                 </button>
 
-                <button class="btn btn-sm bg-purple btn-back" >
+                <button class="btn btn-sm bg-purple btn-back" @click="goTo(url_export+'/0')">
                     Exportar Pieza madre
                 </button>
 
