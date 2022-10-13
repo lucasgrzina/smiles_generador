@@ -244,6 +244,7 @@
 					</tbody>
 				</table>
 				@endif
+                
 				{!! ($legaleshtml) !!}
 
                 @endif

@@ -150,7 +150,7 @@ class SlotMailsController extends CrudAdminController
                  $legaleshtml = '';
             }
         }else{
-            $legaleshtml    = '';
+            $legaleshtml        = ContenidoPredefinido::where('seccion', 's')->where('tipo', 'legales')->where('default', true)->get()[0]->contenido;
             $legales_custom = '';
         }
         
