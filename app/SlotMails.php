@@ -56,6 +56,7 @@ class SlotMails extends Model
         'saldo',
         'template',
         'footer',
+        'legales',
         //'enabled'
     ];
 
@@ -71,6 +72,7 @@ class SlotMails extends Model
         'saldo' => 'boolean',
         'template' => 'string',
         'footer' => 'text',
+        'legales' => 'text',
         //'enabled' => 'boolean'
     ];
 

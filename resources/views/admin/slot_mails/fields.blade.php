@@ -130,6 +130,27 @@
             </div>
         </div>
     </div>
+    <div class="box box-cu">
+    <div class="box-header with-border">
+        <h3 class="box-title">Legales</h3>
+    </div>    
+    <div class="box-body">
+        <div class="row">
+            <div class="form-group col-sm-6" :class="{'has-error': errors.has('legales')}" style="display: block;">
+                {!! Form::label('legales', 'Legales Json') !!}
+                {!! Form::text('legales', null, ['class' => 'form-control','v-model' => 'selectedItem.legales']) !!}
+                <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
+            </div> 
 
+            <div class="form-group col-sm-6" >
+                {!! Form::label('tipo_legales', 'Genérico') !!}
+                <select class="form-control" v-model="info.legales_id" name="tipo-legales" @change="selectLegales($event, 'predefinido')">
+                    <option :value="''">Ninguno</option>
+                    <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
 
 </template>

@@ -469,7 +469,7 @@
                 <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
             </div> 
 
-            <div class="form-group col-sm-6" >
+            <div class="form-group col-sm-6" style="display: none;">
                 {!! Form::label('tipo_legales', 'Genérico') !!}
                 <select class="form-control" v-model="info.legales_id" name="tipo-legales" @change="selectLegales($event, 'predefinido')">
                     <option :value="''">Ninguno</option>

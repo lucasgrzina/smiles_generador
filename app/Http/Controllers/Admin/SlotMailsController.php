@@ -75,6 +75,10 @@ class SlotMailsController extends CrudAdminController
         $id_footer = $footerObj->footer;
         $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
         //
+        $legalesGenericoObj = json_decode(json_decode($this->data['selectedItem']->legales));
+        $legales_id = $legalesGenericoObj->legales;
+        $legaleshtml = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+        //
         $id_redes = $footerObj->redes;
         $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
 
@@ -83,20 +87,15 @@ class SlotMailsController extends CrudAdminController
             'footerhtml' => ($footerhtml)
         ]);
         
-        
+       // dd($this->data['selectedItem']);
         
         $this->data['selectedItem']['contenidos'] = SlotMailContents::where('slot_mail_id', $id)->get();
 
         foreach($this->data['selectedItem']['contenidos'] as $contenido){
             $legalesObj         = json_decode(json_decode($contenido->legales));
-            $legales_id         = $legalesObj->legales;        //
             $legales_custom     = $legalesObj->legales_custom;
 
-            if ($legales_id){
-                $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
-            }else{
-                 $legaleshtml = '';
-            }
+            
         
             $contenido['legaleshtml'] = $legaleshtml;
             $contenido['legales_custom'] = $legales_custom;
@@ -150,7 +149,9 @@ class SlotMailsController extends CrudAdminController
                  $legaleshtml = '';
             }
         }else{
-            $legaleshtml        = ContenidoPredefinido::where('seccion', 's')->where('tipo', 'legales')->where('default', true)->get()[0]->contenido;
+            $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+            $legales_id         = $legalesObj->legales;    
+            $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
             $legales_custom = '';
         }
         
@@ -238,7 +239,9 @@ class SlotMailsController extends CrudAdminController
         
         
         $templateDefault['footer'] = $footerDefault ? '"{\"footer\":\"'.$footerDefault->id.'\",\"redes\":\"'.$redesDefault->id.'\"}"' : null;
-        $templateDefault['legales'] = $legalesDefault ? $legalesDefault->id : null;
+      
+
+        $templateDefault['legales'] = '"{\"legales\":\"'.($legalesDefault ? $legalesDefault->id : 0).'\"}"';
 
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
@@ -291,7 +294,12 @@ class SlotMailsController extends CrudAdminController
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
         
-        
+        if($this->data['selectedItem']->legales){
+            $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+            $legales_id         = $legalesObj->legales;    
+        }else{
+            $legales_id = 0;
+        }
        
         data_set($this->data,'info',[
             'link_create' => route('slot-mail-contents.create', ['slot' => $id]),
@@ -301,6 +309,7 @@ class SlotMailsController extends CrudAdminController
             'tipo_legales' => ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 's')->get(),
             'redes_id' => $id_redes,
             'footer_id' => $footer_id,
+            'legales_id' => $legales_id,
             'templates' => config('constantes.templates',[])
         ]);
 
@@ -317,6 +326,9 @@ class SlotMailsController extends CrudAdminController
         }
 
        
+        
+
+           
        
         
         $this->data['selectedItem']['contenidos'] = SlotMailContents::where('slot_mail_id', $id)->get();
@@ -324,6 +336,7 @@ class SlotMailsController extends CrudAdminController
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
+        
     }
 
     public function update($id, CUCustomMailsRequest $request)
