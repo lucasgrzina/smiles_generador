@@ -98,7 +98,7 @@
 										<tr>
 											<td valign="top" width="27" height="84" style="padding:0;width:27px;height:84px;background:rgb(255,255,255)">
 											</td>
-											<td width="131" height="84" bgcolor="#ffffff" style="padding:0;width:131px;height:auto; bac"><img class=" full-width" src="https://smiles-mkt-ar.s3.amazonaws.com/logo-header.png" border="0" alt="Smiles" style="display:block;margin:auto">
+											<td width="131" height="84" bgcolor="#ffffff" style="padding:0;width:131px;height:auto; bac"><img class=" full-width" src="https://smiles-mkt.s3.amazonaws.com/logo_frase.png" border="0" alt="Smiles" style="display:block;margin:auto">
 											</td>
 											<td valign="top" width="423" height="84" style="color:rgb(240,240,240);background:rgb(255,255,255);font-family:arial;font-size:13px;line-height:15px;mso-line-height-rule:exactly;text-align:right;width:423px;height:84px">
 												<span style="color:#f07b00;font-weight:bold">Hola, $cond(eq(1, empty(lookup(PRI_NOME))), nothing(), firstname(lookup(PRI_NOME)))$ ;) </span><br />

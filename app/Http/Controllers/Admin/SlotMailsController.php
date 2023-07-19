@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use View;
 use Response;
 use Carbon\Carbon;
+use App\SlotMailGroups;
+use App\SlotMailContents;
+use Chumper\Zipper\Zipper;
 use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
-use App\SlotMailContents;
 use App\Helpers\StorageHelper;
 use App\Repositories\SlotMailsRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Http\Requests\Admin\CUCustomMailsRequest;
+//use Chumper\Zipper\Facades\Zipper;
 use App\Repositories\Criteria\CustomMailsCriteria;
 use App\Http\Controllers\Admin\CrudAdminController;
 
@@ -37,7 +40,7 @@ class SlotMailsController extends CrudAdminController
         $this->data['url_clonar'] = route($this->routePrefix.'.clonar',['_ID_']);
         $this->data['url_contenido_delete'] = route('slot-mail-contents.destroy', ['slot' => '_ID_']);
         $this->data['url_contenido_create'] = route('slot-mail-contents.create', ['slot' => '_ID_']);
-        $this->data['url_contenido_clonar'] = route('slot-mail-contents.clonar', ['slot' => '_ID_']);
+        $this->data['url_contenido_clonar'] = route('slot-mail-contents.clonar', ['slot' => '_ID_']);        
         $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_']);
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
@@ -51,7 +54,15 @@ class SlotMailsController extends CrudAdminController
         {
             $this->repository->pushCriteria(new CustomMailsCriteria($request));
             $this->repository->pushCriteria(new RequestCriteria($request));
-            $collection = $this->repository->with(['updater', 'contenidos'])->paginate($request->get('per_page'))->toArray();        
+            $collection = $this->repository->with([
+                'updater', 
+                'contenidos' => function ($q) {
+                    $q->with('grupo')->orderBy('slot_mail_group_id')->orderBy('order');
+                },
+                'grupos' => function ($q) {
+                    $q->with('contenidos')->orderBy('order');
+                }
+            ])->paginate($request->get('per_page'))->toArray();        
 
             $this->data = [
                 'list' => $collection['data'],
@@ -71,6 +82,7 @@ class SlotMailsController extends CrudAdminController
     {
         parent::show($id);
 
+        $this->data['selectedItem']->load('tarjetaSusp');
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $id_footer = $footerObj->footer;
         $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
@@ -118,18 +130,12 @@ class SlotMailsController extends CrudAdminController
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
         $this->data['url_export'] = route('slot-mails.export-html',['id' => $id, 'hijo' => null]);
 
+        
         return view($this->viewPrefix.'show')->with('data', $this->data);
 
     }
 
-    public function exportHtml($id, $idHijo){
-        parent::show($id);
-
-        if($idHijo > 0){
-            $hijo  = SlotMailContents::where('id', $idHijo)->first();
-        }else{
-            $hijo = null;
-        }
+    protected function htmlMadre() {
         
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $id_footer = $footerObj->footer;
@@ -138,53 +144,23 @@ class SlotMailsController extends CrudAdminController
         $id_redes = $footerObj->redes;
         $redeshtml = ContenidoPredefinido::where('id', $id_redes)->get()[0]->contenido;
 
-
-        if ($hijo){
-            $legalesObj         = json_decode(json_decode($hijo->legales));
-            $legales_id         = $legalesObj->legales;        //
-            $legales_custom     = $legalesObj->legales_custom;
-            if ($legales_id){
-                $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
-            }else{
-                 $legaleshtml = '';
-            }
-        }else{
-            $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
-            $legales_id         = $legalesObj->legales;    
-            $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
-            $legales_custom = '';
-        }
-        
-        
+        $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
+        $legales_id         = $legalesObj->legales;    
+        $legaleshtml        = ContenidoPredefinido::where('id', $legales_id)->get()[0]->contenido;
+        $legales_custom = '';
 
         data_set($this->data, 'info', (object)[
             'redeshtml' => ($redeshtml),
             'footerhtml' => ($footerhtml),
             'legaleshtml' => ($legaleshtml),
             'legales_custom' => ($legales_custom),
-        ]);
+        ]);     
+        
+        $exportMadre = false;
+        $arrContenidoDecode = [];        
 
-        if ($hijo){
-            $exportMadre = true;
-            $arrContenidoDecode = (array)json_decode($hijo->contenido);
-        }else{
-            $exportMadre = false;
-            $arrContenidoDecode = [];
-        }
-        
-        foreach ($arrContenidoDecode as $itemContenido) {
-            if($itemContenido->id == 'contenido_predefinido'){
-                $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
-            }
-           
-        }
-        
-        $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
-        
-
-        
-        $html = View::make("admin.slot_mails.templates.pieza_madre", ['export' => $exportMadre])       
-        ->with([
+        $html = View::make("admin.slot_mails.templates.pieza_madre", [
+            'export' => true,
             'data' => $this->data, 
             'publicidad' => $this->data['selectedItem']->publicidad,
             'saldo' => $this->data['selectedItem']->saldo,
@@ -194,16 +170,91 @@ class SlotMailsController extends CrudAdminController
             'legaleshtml' => $this->data['info']->legaleshtml,
             'legales_custom' => $this->data['info']->legales_custom,
         ])
-        ->render();
+        ->render();        
 
-        $headers = [
-            'Content-type'        => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="'.$this->data['selectedItem']->nombre.'.html"',
+        return $html;
+    }
+
+    protected function htmlHijo($hijo,$pieza='contenido') {
+        //
+        //$legales_id         = $legalesObj->legales;        //
+        $dataVista = [
+            'export' => true
         ];
+        
+        if ($pieza === 'contenido') {
+            $arrContenidoDecode = (array)json_decode($hijo->contenido);
+            foreach ($arrContenidoDecode as $itemContenido) {
+                if($itemContenido->id == 'contenido_predefinido'){
+                    $itemContenido->contenidohtml = ContenidoPredefinido::where('id', $itemContenido->predefinido)->get()[0]->contenido;
+                }
+               
+            }
+            $dataVista['contenido'] = $arrContenidoDecode;
+            //'contenido' => json_decode($this->data['selectedItem']->contenido),
+            //$this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
+    
+        } else {
+            $legalesObj         = json_decode(json_decode($hijo->legales));
+            $legales_custom     = $legalesObj->legales_custom;
+            $dataVista['contenido'] = $legalesObj->legales_custom;
+    
+        }
+        
+        $html = View::make("admin.slot_mails.templates.inc.$pieza", $dataVista)->render();
+    
 
 
+        return $html;
+    }
 
-        return \Response::make($html, 200, $headers);
+    public function exportHtml($id, $parte){
+        parent::show($id);
+        
+        
+        if ($parte === 'madre') {
+            $html = $this->htmlMadre();
+            $headers = [
+                'Content-type'        => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="'.str_slug($this->data['selectedItem']->nombre).'.html"',
+            ];
+    
+    
+            return \Response::make($html, 200, $headers);
+        } else if ($parte === 'contenido' || $parte === 'todo') {
+            $hijos = $this->data['selectedItem']->contenidos;
+            
+            $carpetaZip = 'tmp/';
+            $nombreZip = time() . '_' . $this->data['selectedItem']->id.'_'.str_slug($this->data['selectedItem']->nombre) . '.zip';
+            
+            $pathZip = public_path($carpetaZip.$nombreZip);
+            
+            //$ziper = Zipper::make($pathZip);
+            $ziper = new Zipper();
+            $ziper->make($pathZip);
+            foreach($hijos as $hijo) {
+                $html = $this->htmlHijo($hijo,'contenido');
+                $ziper->addString('cont_'.str_slug($hijo->nombre) . '.html',$html);
+
+                $html = $this->htmlHijo($hijo,'legales');
+                $ziper->addString('legales_'.str_slug($hijo->nombre) . '.html',$html);
+
+            }
+
+            if ($parte === 'todo') {
+                $html = $this->htmlMadre();
+                $ziper->addString(str_slug($this->data['selectedItem']->nombre).'.html',$html);
+
+            }
+            
+            $ziper->close();            
+            $response = response()->download($pathZip);
+            
+            StorageHelper::eliminar($carpetaZip.$nombreZip,'uploads_local');
+            
+            return $response;
+        }
+
 
        // return $html->download('mail.html');
 
@@ -234,6 +285,7 @@ class SlotMailsController extends CrudAdminController
             'legales_id' => $legalesDefault ? $legalesDefault->id : null,
             'footer_id' => $footerDefault ? $footerDefault->id : null,
             'redes_id' => $redesDefault ? $redesDefault->id : null,
+            'tarj_susps' => ContenidoPredefinido::where('tipo', 'suspenso')->where('seccion', 's')->get()
         ]);
         
         
@@ -251,7 +303,8 @@ class SlotMailsController extends CrudAdminController
                 'contenido' => $templateDefault['contenido'],
                 'footer' => $templateDefault['footer'],
                 'legales' => $templateDefault['legales'],
-                'tipo_footer' => null
+                'tipo_footer' => null,
+                'tarjeta_susp_id' => null
         ]);
 
         
@@ -266,7 +319,7 @@ class SlotMailsController extends CrudAdminController
             \DB::beginTransaction();;
             
             $model = $this->_store($request, true);
-            $uploadPath = env('AMAZON_S3_FOLDER'). '/' .$model->id;
+            $uploadPath = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$model->id;
 
             if (!StorageHelper::existe($uploadPath)) {
                 StorageHelper::crearDirectorio($uploadPath);
@@ -286,11 +339,11 @@ class SlotMailsController extends CrudAdminController
     public function edit($id)
     {
         parent::edit($id);
-
+        $this->data['selectedItem']->load('grupos.contenidos');
        // $tipo_footer = ContenidoPredefinido::get();
 
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
-        
+
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
         
@@ -302,7 +355,7 @@ class SlotMailsController extends CrudAdminController
         }
        
         data_set($this->data,'info',[
-            'link_create' => route('slot-mail-contents.create', ['slot' => $id]),
+            'link_create' => route('slot-mail-contents.create', ['slot' => $id,'grupo' => '_GRUPOID_']),
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 's')->get(),
             'tipo_contenido' => ContenidoPredefinido::where('tipo', 'contenido')->where('seccion', 's')->get(),
@@ -310,11 +363,15 @@ class SlotMailsController extends CrudAdminController
             'redes_id' => $id_redes,
             'footer_id' => $footer_id,
             'legales_id' => $legales_id,
-            'templates' => config('constantes.templates',[])
+            'templates' => config('constantes.templates',[]),
+            'tarj_susps' => ContenidoPredefinido::where('tipo', 'suspenso')->where('seccion', 's')->get()
+
         ]);
 
         $this->data['url_contenido_delete'] = route('slot-mail-contents.destroy', ['slot' => '_ID_']);
-        $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_']);
+        $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_','grupo' => '_GRUPOID_']);
+        $this->data['url_save_grupo'] = route('slot-mails.store-grupo', [$id]);
+        $this->data['url_cambiar_valor_grupo'] = route('slot-mails.cambiar-valor-grupo', ['_ID_']);
 
         $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
         
@@ -336,6 +393,30 @@ class SlotMailsController extends CrudAdminController
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
+        
+    }
+
+
+    public function storeGrupo($id,Request $request)
+    {
+        
+        try {
+            \DB::beginTransaction();;
+
+            $grupo = new SlotMailGroups();
+            $grupo->fill($request->only(['nombre','tipo']));
+            $grupo->slot_mail_id = $id;
+            $grupo->order = SlotMailGroups::whereSlotMailId($id)->count() + 1;
+            $grupo->save();
+
+            \DB::commit();
+            return $this->sendResponse($grupo,trans('admin.success'));        
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+            throw $e;
+        }
+
         
     }
 
@@ -424,26 +505,23 @@ class SlotMailsController extends CrudAdminController
             }
             $clonado->save();
 
+            $uploadPathAnterior = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$model->slot_mail_id;
+            $uploadPathNuevo = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$clonado->slot_mail_id;
 
-
-            $uploadPathAnterior = env('AMAZON_S3_FOLDER'). '/' .$model->id;
-            $uploadPathNuevo = env('AMAZON_S3_FOLDER'). '/' .$clonado->id;
-            //$clonado->contenido = str_replace($uploadPathAnterior,$uploadPathNuevo, $clonado->contenido);
             if (StorageHelper::existe($uploadPathAnterior)) {
-                //StorageHelper::crearDirectorio($uploadPathNuevo);
                 foreach(StorageHelper::archivos($uploadPathAnterior) as $asset) {
                     $nuevoAsset = str_replace($uploadPathAnterior, $uploadPathNuevo, $asset);
-                    StorageHelper::copiar($asset,$nuevoAsset);
+                    if (!StorageHelper::existe($nuevoAsset)) {
+                        StorageHelper::copiar($asset,$nuevoAsset);
+                    }                    
                 }
-                //throw new \Exception('No existe la carpeta con assets en S3');
                 $nuevoContenido = [];
                 foreach((array)json_decode($model->contenido) as $jsonItem) {
                     $jsonItem->input = str_ireplace($uploadPathAnterior,$uploadPathNuevo,$jsonItem->input);
                     $nuevoContenido[] = $jsonItem;
                 }
                 $clonado->contenido = json_encode($nuevoContenido);
-                $clonado->save();
-    
+                $clonado->save();    
             } else {
                 throw new \Exception('No existe la carpeta con assets en S3');
             }
@@ -456,4 +534,25 @@ class SlotMailsController extends CrudAdminController
             throw $e;
         }
     }  
+
+    public function cambiarValorGrupo($grupoId, Request $request)
+    {
+        logger($grupoId);
+        $model = SlotMailGroups::find($grupoId);
+        logger($model);
+        $model->fill([$request->get('campo') => $request->get('valor')]);
+        $model->save();
+        return $this->sendResponse($model,trans('admin.success')); 
+    }
+
+    protected function _destroy($model)
+    {
+        if (empty($model)) {
+            throw new Exception(trans('admin.not_found'), 1);
+        }
+
+        $model->contenidos()->delete();
+
+        $model->delete();
+    }    
 }

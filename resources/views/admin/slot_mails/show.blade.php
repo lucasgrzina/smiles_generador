@@ -15,6 +15,9 @@
                     border-style: solid;
                     border-color: #ff5a00;
         }
+        .exporthtml a {
+            text-decoration: underline;
+        }
     </style>
 @endsection
 
@@ -80,7 +83,8 @@
                                 'footer' => $data['info']->footerhtml,
                                 'redes' => $data['info']->redeshtml,
                                 'legaleshtml' => $contenido['legaleshtml'],
-                                'legales_custom' => $contenido['legales_custom']
+                                'legales_custom' => $contenido['legales_custom'],
+                                'tarj_susp' => $data['selectedItem']->tarjetaSusp ? $data['selectedItem']->tarjetaSusp->contenido : false
                             ])
                             </div>
                         @endforeach
@@ -92,18 +96,18 @@
                     <button-type type="edit" @click="edit(selectedItem)"></button-type>
                 @endif
                 <button-type type="back" @click="goTo(url_index)"></button-type>
-                <button class="btn btn-sm bg-purple btn-back" @click="goTo(url_export+'/'+_data.piezaView)">
-                    Exportar HTML
-                </button>
-
-                <button class="btn btn-sm bg-purple btn-back" @click="goTo(url_export+'/0')">
-                    Exportar Pieza madre
-                </button>
-
-                <button class="btn btn-sm bg-purple btn-back" >
-                    Exportar todas las piezas
-                </button>
-            </div>        
+                <div class="pull-right m-l-5 dropdown">
+                    <button class="btn bg-green btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        Exportar 
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a v-on:click="goTo(url_export+'/madre')">Pieza Madre</a></li>     
+                        <li><a v-on:click="goTo(url_export+'/contenido')">Contenido/Legales</a></li>     
+                        <li><a v-on:click="goTo(url_export+'/todo')">Todo</a></li>     
+                    </ul>
+                </div>                
+           </div>        
         </div>
 
     </div>    

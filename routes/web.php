@@ -77,6 +77,8 @@ Route::prefix('/admin')->group(function () {
         Route::resource('contenido-predefinidos', 'Admin\ContenidoPredefinidoController');
 
         /* ** Etapa 2 ** */
+        Route::post('slot-mails/grupo/{id}', 'Admin\SlotMailsController@storeGrupo')->name('slot-mails.store-grupo');            
+        Route::put('slot-mails/grupo/{id}/cambiar-valor', 'Admin\SlotMailsController@cambiarValorGrupo')->name('slot-mails.cambiar-valor-grupo');            
         Route::get('slot-mails/edit/{id}', 'Admin\SlotMailsController@index')->name('slot-mails.edit-lang');            
         Route::post('slot-mails/change-enabled', 'Admin\SlotMailsController@changeEnabled')->name('slot-mails.change-enabled');
         Route::post('slot-mails/filter', 'Admin\SlotMailsController@filter')->name('slot-mails.filter');
@@ -98,6 +100,10 @@ Route::prefix('/admin')->group(function () {
         Route::post('slot-contenido-predefinidos/filter', 'Admin\SlotContenidoPredefinidoController@filter')->name('slot-contenido-predefinidos.filter');
         Route::resource('slot-contenido-predefinidos', 'Admin\SlotContenidoPredefinidoController');
         /* ** END Etapa 2 ** */
+
+
+        Route::get('configuraciones/s3','Admin\ConfigS3Controller@index')->name('configuraciones.s3');            
+        Route::post('configuraciones/s3','Admin\ConfigS3Controller@guardar')->name('configuraciones.s3.guardar');            
 
 
         Route::get('clear-cache', function () {

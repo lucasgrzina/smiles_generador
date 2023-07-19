@@ -18,15 +18,15 @@ use Yajra\Auditable\AuditableTrait;
  * @property boolean publicidad
  * @property string template
  */
-class SlotMailContents extends Model
+class SlotMailGroups extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
-    use AuditableTrait;
+    //use AuditableTrait;
     //use Translatable;
     //use UploadableTrait;
 
-    public $table = 'slot_mail_contents';
+    public $table = 'slot_mail_groups';
     
     /**
      * Translatable
@@ -46,15 +46,13 @@ class SlotMailContents extends Model
 
     
     
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
 
     
     public $fillable = [
         'nombre',
         'slot_mail_id',
-        'slot_mail_group_id',
-        'contenido',
-        'legales',
+        'tipo',
         'order',
         //'enabled'
     ];
@@ -67,9 +65,8 @@ class SlotMailContents extends Model
     protected $casts = [
         'nombre' => 'string',
         'slot_mail_id' => 'integer',
-        'slot_mail_id' => 'integer',
-        'contenido' => 'string',
-        'legales' => 'text',
+        'tipo' => 'string',
+        'order' => 'integer',
         //'enabled' => 'boolean'
     ];
 
@@ -95,11 +92,12 @@ class SlotMailContents extends Model
         return \FUHelper::fullUrl($this->targetDir,$this->the_file);
     }*/   
 
-
-    public function grupo()
+    public function contenidos()
     {
-        return $this->belongsTo('App\SlotMailGroups', 'slot_mail_group_id');
-    }
+        
+        return $this->hasMany('App\SlotMailContents', 'slot_mail_group_id');
+    } 
+    
 
     protected static function boot()
     {

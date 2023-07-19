@@ -36,6 +36,7 @@ return [
 		'footer' => 'Footer',
 		'redes' => 'Redes',
 		'legales' => 'Legales',
+        'suspenso' => 'Tarj. Suspenso'
 	],
     'default_eventos_especiales' => [
         'publicidad' => true,

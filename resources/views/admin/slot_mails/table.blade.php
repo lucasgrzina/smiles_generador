@@ -4,7 +4,7 @@
             <tr style="display: grid; grid-template-columns: 5% 18% 22% 27% 5% auto;">
                 <th @click="orderBy('id')"  :class="cssOrderBy('id')">ID</th>
                 <th>Nombre</th>
-                <th>Templatess</th>
+                <th>Templates</th>
                 <th>Fecha de envío</th>
                 <th>Piezas slots</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
@@ -45,7 +45,25 @@
                                 <div>Nombre</div>
                                 <div class="text-right">Acciones</div>
                             </div>
-                            <div v-for="contenido in item.contenidos" class="row-content">
+                            <template v-for="grupo in ordenarContenido(item.grupos)"> 
+                                <div class="row-content subhead">
+                                    <div>(% grupo.nombre %)</div>
+                                </div>
+                                <div v-for="contenido in grupo.contenidos" class="row-content">
+                                    <div>(% contenido.id %)</div>
+                                    <div>(% contenido.nombre %)</div>
+                                    <div class="text-right">
+                                        <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
+                                        <button-type type="clone-list" @click="clonarContenido(contenido)"></button-type>
+                                        <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
+                                    </div>
+    
+                                </div>
+        
+        
+                                
+                            </template>
+                            <div v-for="contenido in ordenarContenido(item.contenidos)" class="row-content">
                                 <div>(% contenido.id %)</div>
                                 <div>(% contenido.nombre %)</div>
                                 <div class="text-right">

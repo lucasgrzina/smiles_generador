@@ -56,6 +56,14 @@
 
         var _data = {!! json_encode($data) !!};
         console.debug(_data.selectedItem);
+        _data.nuevoGrupo = {
+            nombre: null,
+            tipo: 'C',
+            id: 0
+        };
+
+
+
         _data.files = {
             imagen_web: [],
             imagen_mobile: []
@@ -74,7 +82,7 @@
             var imagefile = event.target.files[0];
             formData.append("file", imagefile);
             formData.append("_token", token);
-            formData.append("folder",_this.selectedItem.id);
+            formData.append("folder",'slot_mail_' + _this.selectedItem.id);
 
             $.ajax({
                 url: url_upload,
@@ -114,15 +122,23 @@
 
         _methods.store = function(redirect = true) {
             var _this = this;
-            _this.saving = true;
+           
             var _ajaxMethod = _this.selectedItem.id == 0 ? _this.ajaxPost : _this.ajaxPut ;
             var _is_valid = _this.validateForm();
             _this.alert.show = false;
 
+
+
             return _this.$validator.validateAll().then(function(result) {
                      
                 if (result && _is_valid) {
-                    
+                    var legales = JSON.parse(JSON.parse(_this.selectedItem.legales));
+                    console.debug(legales);
+                    if (!legales.legales) {
+                        alert('Debes seleccionar un contenido predefinido para los legales');
+                        return false;
+                    }                    
+                    _this.saving = true;
                     return _ajaxMethod(_this.url_save,_this.selectedItem,true,_this.errors).then(function(data){
                         
                         _this.saving = false;
@@ -170,11 +186,11 @@
        
         _methods.editContenido = function(item) {
             var _this = this;
-            let editURL = _this.url_contenido_edit.replace('_ID_',item.id);
+            let editURL = _this.url_contenido_edit.replace('_ID_',item.id).replace('_GRUPOID_',item.slot_mail_group_id);
             window.location.href = editURL;
        }  
 
-       _methods.selectLegales = function(evt, $tipo) {
+        _methods.selectLegales = function(evt, $tipo) {
             var _this = this;
             if($tipo == 'predefinido'){
                 _data.id_legales = evt.target.value;
@@ -190,6 +206,70 @@
             
             
         }
+
+        _methods.destroyContenido = function(item, index) {
+            var _this = this;
+
+
+            if (confirm('Deséa eliminar la pieza seleccionada?')) {
+                _this.alert.show = false;
+                _this.loading = true;
+                return _this.ajaxDelete(_this.url_contenido_delete.replace('_ID_',item.id),item,true,_this.errors).then(function(data){
+                    _this.selectedItem.contenidos.splice(index, 1);
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+
+
+            
+           
+       }        
+
+       _methods.storeGrupo = function() {
+            var _this = this;
+           
+           var _ajaxMethod = _this.nuevoGrupo.id == 0 ? _this.ajaxPost : _this.ajaxPut ;
+           var _is_valid = true;
+           _this.alert.show = false;
+
+
+
+           return _this.$validator.validateAll().then(function(result) {
+                    
+               if (result && _is_valid) {
+                   if (!_this.nuevoGrupo.nombre) {
+                       alert('Debes ingresar un nombre para el grupo');
+                       return false;
+                   }                    
+                   _this.saving = true;
+                   return _ajaxMethod(_this.url_save_grupo,_this.nuevoGrupo,true,_this.errors).then(function(data){
+                       
+                       _this.saving = false;
+                       
+                        location.reload();
+                       
+                   }, function(error) {
+                       _this.saving = false;
+                   });                            
+               }
+
+           });
+
+       }
+       _methods.cambiarValorGrupo = function(item,campo) {
+            var _this = this; 
+            var data = {campo: campo, valor: item[campo]};
+            console.debug(data);
+            if (item.id && item.id > 0) {
+                _this.ajaxPut(_this.url_cambiar_valor_grupo.replace('_ID_',item.id),data,true,_this.errors).then(function(data){
+                    _this.saving = false;
+                }, function(error) {
+                    _this.saving = false;
+                }); 
+
+            }
+       }
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>

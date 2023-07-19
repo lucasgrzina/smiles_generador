@@ -182,7 +182,7 @@ class CustomMailsController extends CrudAdminController
         }
 
         $templateDefault = config('constantes.default_'.$template,[]);
-
+        
 
         $legalesDefault = ContenidoPredefinido::where('tipo', 'legales')->where('seccion', 'c')->where('default',true)->first();
         $footerDefault = ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 'c')->where('default',true)->first();
@@ -190,27 +190,40 @@ class CustomMailsController extends CrudAdminController
       
         //$templateDefault['footer'] = $footerDefault ? '"{\"footer\":\"'.$footerDefault->id.'\",\"redes\":\"'.$redesDefault->id.'\"}"' : null;
 
-              
 
-        $objDefaults = [];
+/*        $objDefaults = [];
         
         
 
-
-        if(!isset($templateDefault['footer']->footer)){
+        //dd($templateDefault);
+        //if(!isset($templateDefault['footer']->footer)){
             $objDefaults['footer'] = $footerDefault->id;
-        }else{
-            $objDefaults['footer'] = json_decode(json_decode($templateDefault['footer']))->footer;
-        }
+        //}else{
+        //    $objDefaults['footer'] = json_decode(json_decode($templateDefault['footer']))->footer;
+        //}
 
-        if(!isset($templateDefault['footer']->redes)){
+
+
+        //if(!isset($templateDefault['footer']->redes)){
            $objDefaults['redes'] = $redesDefault->id;
-        }else{
-            $objDefaults['redes'] = json_decode(json_decode($templateDefault['footer']))->redes;
-        }
+        //}else{
+        //    $objDefaults['redes'] = json_decode(json_decode($templateDefault['footer']))->redes;
+        //}
 
         $templateDefault['footer'] = json_encode(json_encode($objDefaults));
         
+
+        */
+
+        $footerDefaultId = $footerDefault ? $footerDefault->id : null;
+        $redesDefaultId = $redesDefault ? $redesDefault->id : null;
+
+
+        $templateDefault['footer'] = $footerDefault ? '"{\"footer\":\"'.$footerDefaultId.'\",\"redes\":\"'.$redesDefaultId.'\"}"' : null;
+      
+
+        $templateDefault['legales'] = '"{\"legales\":\"'.($legalesDefault ? $legalesDefault->id : 0).'\",\"legales_custom\":\"\"}"';
+
      
 
         data_set($this->data,'info',[
@@ -273,7 +286,7 @@ class CustomMailsController extends CrudAdminController
         parent::edit($id);
 
        // $tipo_footer = ContenidoPredefinido::get();
-
+        //dd($this->data['selectedItem']->toArray());
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $footer_id = $footerObj->footer;        //
         $id_redes = $footerObj->redes;
@@ -282,6 +295,10 @@ class CustomMailsController extends CrudAdminController
         $legales_id         = $legalesObj->legales;        //
         $legales_custom     = $legalesObj->legales_custom;
        
+
+
+
+
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 'c')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 'c')->get(),
@@ -308,7 +325,7 @@ class CustomMailsController extends CrudAdminController
        
         
         $this->data['selectedItem']->contenido = json_encode($arrContenidoDecode);
-
+        //dd($this->data['selectedItem']->toArray());
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

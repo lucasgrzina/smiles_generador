@@ -7,14 +7,21 @@ use App\Helpers\StorageHelper;
 use App\Helpers\FileUploadHelper;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\ConfiguracionesRepository;
 use App\Http\Controllers\Traits\FileUploadTrait;
 
 class UploadsController extends AppBaseController
 {
     use FileUploadTrait;
 
-    public function storeFile(Request $request)
+    public function storeFile(Request $request,ConfiguracionesRepository $configRepo)
     {
+        $configS3 = $configRepo->getCredencialesS3();
+        if ($configS3) {
+            config(['filesystems.disks.uploads.key' => $configS3['AMAZON_S3_KEY']]);
+            config(['filesystems.disks.uploads.secret' => $configS3['AMAZON_S3_SECRET']]);
+        }
+
     	$file = $this->saveFile($request,'file','tmp');
     	return $this->sendResponse([
     		'file' => $file,
@@ -22,14 +29,26 @@ class UploadsController extends AppBaseController
     	], trans('api.success'));
     }
 
-    public function storeImage(Request $request)
+    public function storeImage(Request $request,ConfiguracionesRepository $configRepo)
     {
+        $configS3 = $configRepo->getCredencialesS3();
+        if ($configS3) {
+            config(['filesystems.disks.uploads.key' => $configS3['AMAZON_S3_KEY']]);
+            config(['filesystems.disks.uploads.secret' => $configS3['AMAZON_S3_SECRET']]);
+        }
+
     	$file = $this->saveImage($request,'file','tmp');
     	return $this->sendResponse(['file' => $file], trans('api.success'));
     }   
     
-    public function subirArchivo(Request $request)
+    public function subirArchivo(Request $request,ConfiguracionesRepository $configRepo)
     {
+        $configS3 = $configRepo->getCredencialesS3();
+        if ($configS3) {
+            config(['filesystems.disks.uploads.key' => $configS3['AMAZON_S3_KEY']]);
+            config(['filesystems.disks.uploads.secret' => $configS3['AMAZON_S3_SECRET']]);
+        }
+
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
         try {

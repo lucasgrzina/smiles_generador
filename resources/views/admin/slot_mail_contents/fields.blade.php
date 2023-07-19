@@ -463,7 +463,7 @@
     </div>    
     <div class="box-body">
         <div class="row">
-            <div class="form-group col-sm-6" :class="{'has-error': errors.has('legales')}" style="display: none;">
+            <!--div class="form-group col-sm-6" :class="{'has-error': errors.has('legales')}" >
                 {!! Form::label('legales', 'Legales Json') !!}
                 {!! Form::text('legales', null, ['class' => 'form-control','v-model' => 'selectedItem.legales']) !!}
                 <span class="help-block" v-show="errors.has('legales')">(% errors.first('legales') %)</span>
@@ -475,11 +475,11 @@
                     <option :value="''">Ninguno</option>
                     <option :value="item.id" v-for="item in info.tipo_legales">(% item.nombre %)</option>
                 </select>
-            </div>
+            </div-->
             <!-- Contenido Field -->
             <div class="form-group col-sm-12 col-lg-12" :class="{'has-error': errors.has('legales_custom')}">
                 {!! Form::label('legales_custom', 'Específico') !!}
-                <vue-mce v-model="info.legales_custom" :config="configMce('texto')" @change="selectLegales($event, 'legales_custom')"/>
+                <vue-mce v-model="info.legales_custom" :config="configMce('todo')" @change="selectLegales($event, 'legales_custom')"/>
                 <span class="help-block" v-show="errors.has('legales_custom')">(% errors.first('legales_custom') %)</span>
             </div>
         </div>

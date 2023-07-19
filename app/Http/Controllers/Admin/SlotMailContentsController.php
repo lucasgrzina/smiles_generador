@@ -177,8 +177,9 @@ class SlotMailContentsController extends CrudAdminController
         parent::create();
 
         $slot_mail_id = request()->get('slot',false);
+        $grupo_id = request()->get('grupo',false);
 
-        if (!$slot_mail_id) {
+        if (!$slot_mail_id || !$grupo_id) {
             return redirect()->route('slot-mails.index');
         }
 
@@ -214,6 +215,7 @@ class SlotMailContentsController extends CrudAdminController
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'slot_mail_id' => $slot_mail_id,
+                'slot_mail_group_id' => $grupo_id,
                 'nombre_slot' => $slot->nombre,
                 'fecha_envio' => $slot->fecha_envio,
                 'template' => $slot->template,
@@ -244,11 +246,7 @@ class SlotMailContentsController extends CrudAdminController
             \DB::beginTransaction();
             
             $model = $this->_store($request, true);
-            $uploadPath = env('AMAZON_S3_FOLDER'). '/' .$model->id;
-
-            if (!StorageHelper::existe($uploadPath)) {
-                StorageHelper::crearDirectorio($uploadPath);
-            }
+            //$uploadPath = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$model->id;
 
             \DB::commit();
             return $this->sendResponse($model,trans('admin.success'));        
@@ -291,8 +289,8 @@ class SlotMailContentsController extends CrudAdminController
 
 
         $legalesObj         = json_decode(json_decode($this->data['selectedItem']->legales));
-        
-        $legales_id         = $legalesObj->legales;        //
+        //dd($legalesObj);
+        $legales_id         = isset($legalesObj->legales) ? $legalesObj->legales : null;        //
         $legales_custom     = $legalesObj->legales_custom;
 
         $this->data['selectedItem']['nombre_slot'] = $slot->nombre;
@@ -385,26 +383,21 @@ class SlotMailContentsController extends CrudAdminController
             $clonado->nombre.= ' (clonado)';
             $clonado->save();
 
-
-
-            $uploadPathAnterior = env('AMAZON_S3_FOLDER'). '/' .$model->id;
-            $uploadPathNuevo = env('AMAZON_S3_FOLDER'). '/' .$clonado->id;
-            //$clonado->contenido = str_replace($uploadPathAnterior,$uploadPathNuevo, $clonado->contenido);
+            $uploadPathAnterior = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$model->slot_mail_id;
+            $uploadPathNuevo = env('AMAZON_S3_FOLDER'). '/slot_mail_' .$clonado->slot_mail_id;
+            
             if (StorageHelper::existe($uploadPathAnterior)) {
-                //StorageHelper::crearDirectorio($uploadPathNuevo);
                 foreach(StorageHelper::archivos($uploadPathAnterior) as $asset) {
                     $nuevoAsset = str_replace($uploadPathAnterior, $uploadPathNuevo, $asset);
-                    StorageHelper::copiar($asset,$nuevoAsset);
+                    //StorageHelper::copiar($asset,$nuevoAsset);
                 }
-                //throw new \Exception('No existe la carpeta con assets en S3');
                 $nuevoContenido = [];
                 foreach((array)json_decode($model->contenido) as $jsonItem) {
                     $jsonItem->input = str_ireplace($uploadPathAnterior,$uploadPathNuevo,$jsonItem->input);
                     $nuevoContenido[] = $jsonItem;
                 }
                 $clonado->contenido = json_encode($nuevoContenido);
-                $clonado->save();
-    
+                $clonado->save();    
             } else {
                 throw new \Exception('No existe la carpeta con assets en S3');
             }

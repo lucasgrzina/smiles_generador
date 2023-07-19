@@ -253,6 +253,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'FrontHelper' => App\Helpers\FrontHelper::class,
         'StorageHelper' => App\Helpers\StorageHelper::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
 
 ];

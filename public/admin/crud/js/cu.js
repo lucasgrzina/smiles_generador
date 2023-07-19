@@ -260,33 +260,13 @@ if (typeof _methods.checkMove === 'undefined') {
     }
 }
 
-var objFooter = new Object();
 
-if (_data.selectedItem.footer){
-  console.log(_data.selectedItem.footer);
-  _data.id_redes    = JSON.parse(objFooter).redes;
-  _data.id_footer   = JSON.parse(objFooter).footer;
-}else{
-  _data.id_redes    = 0;
-  _data.id_footer   = 0;
-}
-
-var objLegales = new Object();
-
-if (_data.selectedItem.legales){
-  objLegales = new Object(JSON.parse(_data.selectedItem.legales));
-  _data.id_legales   = JSON.parse(objLegales).legales;
-  _data.legales_custom   = JSON.parse(objLegales).legales_custom;
-}else{
-  _data.id_legales        = 0;
-  _data.legales_custom    = '';
-}
 
 
 
 if (typeof _methods.selectFooter === 'undefined') {
   
-  _methods.selectFooter = function(evt, $tipo) {
+  /*_methods.selectFooter = function(evt, $tipo) {
       var _this = this;
       if($tipo == 'footer'){
         _data.id_footer = evt.target.value;
@@ -300,13 +280,14 @@ if (typeof _methods.selectFooter === 'undefined') {
       _data.selectedItem.footer = JSON.stringify(_data.footer);
      
      
-    }
+    }*/
 }
 
 if (typeof _methods.selectLegales === 'undefined') {
   
-  _methods.selectLegales = function(evt, $tipo) {
+  /*_methods.selectLegales = function(evt, $tipo) {
       var _this = this;
+      console.debug([evt,$tipo]);
       if($tipo == 'predefinido'){
         _data.id_legales = evt.target.value;
       }
@@ -320,7 +301,7 @@ if (typeof _methods.selectLegales === 'undefined') {
       _data.selectedItem.legales = JSON.stringify(_data.legales);
      
      
-  }
+  }*/
 }
 
 if (typeof _methods.downloadHtml === 'undefined') {

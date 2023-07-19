@@ -20,6 +20,11 @@
       <a href="{!! route('roles.index') !!}"><i class="fa fa-user"></i><span>Roles</span></a>
     </li>
     @endif
+    @if (\App\Helpers\AdminHelper::mostrarMenu('configuraciones'))
+    <li class="{{ Request::is('configuraciones.s3*') ? 'active' : '' }}">
+      <a href="{!! route('configuraciones.s3') !!}"><i class="fa fa-user"></i><span>Credenciales S3</span></a>
+    </li>
+    @endif    
   </ul>
 </li>
 @endif

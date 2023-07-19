@@ -30,6 +30,27 @@
 
         _data.saving = false;
 
+        /*var objFooter = new Object();
+
+        if (_data.selectedItem.footer){
+        console.log(_data.selectedItem.footer);
+        _data.id_redes    = JSON.parse(objFooter).redes;
+        _data.id_footer   = JSON.parse(objFooter).footer;
+        }else{
+        _data.id_redes    = 0;
+        _data.id_footer   = 0;
+        }
+
+        var objLegales = new Object();
+
+        if (_data.selectedItem.legales){
+        objLegales = new Object(JSON.parse(_data.selectedItem.legales));
+        _data.id_legales   = JSON.parse(objLegales).legales;
+        _data.legales_custom   = JSON.parse(objLegales).legales_custom;
+        }else{
+        _data.id_legales        = 0;
+        _data.legales_custom    = '';
+        }*/
 
         
 
@@ -133,7 +154,39 @@
             return config;
         };
        
-             
+        _methods.selectLegales = function(evt, $tipo) {
+            var _this = this;
+            
+            var legales = JSON.parse(JSON.parse(_this.selectedItem.legales));
+
+            if($tipo == 'predefinido'){
+                legales.legales = evt.target.value;
+            }
+
+            if($tipo == 'legales_custom'){
+                legales.legales_custom = evt;
+            }
+
+            _this.selectedItem.legales = JSON.stringify(JSON.stringify(legales));
+            
+        }  
+        
+        _methods.selectFooter = function(evt, $tipo) {
+            var _this = this;
+
+            var footer = JSON.parse(JSON.parse(_this.selectedItem.footer));
+            if($tipo == 'footer'){
+                footer.footer = evt.target.value;
+            }
+
+            if($tipo == 'redes'){
+                footer.redes = evt.target.value;
+            }
+
+            _this.selectedItem.footer = JSON.stringify(JSON.stringify(footer));
+            
+            
+        }        
         
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>

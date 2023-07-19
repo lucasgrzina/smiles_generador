@@ -115,7 +115,7 @@
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="background-color:#e0e0e0;">
         <tr>
             <td>
-                @if(!empty(!$export))
+                <!-- PUBLICIDAD / VER NAVEGADOR-->
                 <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;"
                     class="full-width" width="600" align="center">
                     <tr>
@@ -159,55 +159,147 @@
                         </td>
                     </tr>
                 </table>
-
+                <!-- FIN PUBLICIDAD / VER NAVEGADOR-->
                 
+                @if(isset($export) && $export)
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;"
+                        class="full-width" width="600" align="center">
+                        <tr>
+                            <td width="600" align="center" class="full-width"></td>
+                        </tr>
+                        <tr>
+                            <td valign='top' align='center' width='600' style='text-align:center;width:600px'>
+                                <#setting locale="es_ar">
+                                    <#include "cms://contentlibrary/argentina/headers/header_rpl_padrao_ar.htm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="600">
+                                <table
+                                    border="0"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    style="
+                                        background-color: #ffffff;
+                                        margin: 0 auto;
+                                    "
+                                    class="full-width"
+                                    align="center"
+                                >
+                                    <tr>
+                                        <td
+                                            height="10"
+                                            style="
+                                                line-height: 0px;
+                                                font-size: 0px;
+                                            "
+                                        >
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="600" align="center" class="full-width"></td>
+                        </tr>
+                        <tr>
+                            <td data-content-region-name="Region2" width="600" class="full-width" align="center"><span
+                                    style="color: rgb(29, 28, 29); font-family: Slack-Lato, appleLogo, sans-serif; font-size: 15px; font-variant-ligatures: common-ligatures; background-color: rgb(255, 255, 255);">CONTENT_REGION_|SLOT_TARJA_SUSPENSO|</span>
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width"
+                                    style="background-color:#ffffff;" width="600">
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color: #ffffff; margin: 0 auto" width="600" class="full-width" align="center">
+                        <tbody><tr>
+                            <td width="600">
+                                <table border="0" cellpadding="0" cellspacing="0" style="
+                                        background-color: #ffffff;
+                                        margin: 0 auto;
+                                    " class="full-width" align="center">
+                                    <tbody><tr>
+                                        <td height="10" style="
+                                                line-height: 0px;
+                                                font-size: 0px;
+                                            ">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                @else
 
-                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;"
-                    class="full-width" width="600" align="center">
-                    <tr>
+                    <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td valign="top" width="600" height="84" style="padding: 0; width: 600px; height: 84px; border-bottom: 2px solid rgb(236, 236, 236);">
+                                    <table cellspacing="0" cellpadding="0" align="center">
+                                        <tr>
+                                            <td valign="top" width="27" height="84" style="padding: 0; width: 27px; height: 84px; background: rgb(255, 255, 255);"></td>
+                                            <td width="131" height="84" bgcolor="#ffffff" style="padding:0;width:131px;height:auto; bac">
+                                                <img class="full-width" src="https://smiles-mkt.s3.amazonaws.com/logo_frase.png" border="0" alt="Smiles" style="display: block; margin: auto;" />
+                                            </td>
+                                            <td
+                                                valign="top"
+                                                width="423"
+                                                height="84"
+                                                style="color: rgb(240, 240, 240); background: rgb(255, 255, 255); font-family: arial; font-size: 13px; line-height: 15px; mso-line-height-rule: exactly; text-align: right; width: 423px; height: 84px;"
+                                            >
+                                                <span style="color: #f07b00; font-weight: bold;">Hola, $cond(eq(1, empty(lookup(PRI_NOME))), nothing(), firstname(lookup(PRI_NOME)))$ ;) </span><br />
+                                                <span style="color: #828484; font-size: 11px;"> N&uacute;mero Smiles: <span style="color: #4599e4; font-weight: bold;">$cond(eq(1, empty(lookup(CUSTOMER_ID_))), nothing(), lookup(CUSTOMER_ID_))$ </span></span>
+                    
+                                                @if($saldo)
+                                                <br />
+                                                <span style="color: #828484; font-size: 11px;">
+                                                    Saldo: <b>$cond(eq(1, empty(lookup(DT_PROCESS_SALDO))),nothing (),lookup(DT_PROCESS_SALDO))$: </b>
+                                                    <span style="color: #4599e4; font-weight: bold;"> $cond(eq(1, empty(lookup(Saldo_Pontos))), nothing(), numberformat(lookup(Saldo_Pontos),1.0f,1,0,de))$ </span>
+                                                </span>
+                                                @endif
+                                                <br />
+                    
+                                                <a
+                                                    href="https://www.smiles.com.ar/login/?utm_source=newsletter&utm_medium=email&utm_campaign=transferencia_17072020&utm_content=header-micuenta"
+                                                    style="color: #828484; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 13px;"
+                                                    target="_blank"
+                                                    rilt="Conta_Smiles"
+                                                >
+                                                    Entrar a mi cuenta
+                                                </a>
+                                            </td>
+                    
+                                            <td valign="top" width="19" height="84" style="padding: 0; width: 19px; height: 84px; background: rgb(255, 255, 255);"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+                    @if ($tarj_susp)
+                        {!!$tarj_susp !!}
+                    @endif
+
+                @endif
+
+
+
+                @if(isset($export) && $export)
+                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" class="full-width" width="600" align="center">
+                    <tbody><tr>
                         <td width="600" align="center" class="full-width"></td>
                     </tr>
                     <tr>
-                        <td valign='top' align='center' width='600' style='text-align:center;width:600px'>
-                            <#setting locale="es_ar">
-                                <#include "cms://contentlibrary/argentina/headers/header_rpl_padrao_ar.htm">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="600">
-                            <table
-                                border="0"
-                                cellpadding="0"
-                                cellspacing="0"
-                                style="
-                                    background-color: #ffffff;
-                                    margin: 0 auto;
-                                "
-                                class="full-width"
-                                align="center"
-                            >
-                                <tr>
-                                    <td
-                                        height="10"
-                                        style="
-                                            line-height: 0px;
-                                            font-size: 0px;
-                                        "
-                                    >
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="600" align="center" class="full-width"></td>
-                    </tr>
-                    <tr>
-                        <td data-content-region-name="Region2" width="600" class="full-width" align="center"><span
-                                style="color: rgb(29, 28, 29); font-family: Slack-Lato, appleLogo, sans-serif; font-size: 15px; font-variant-ligatures: common-ligatures; background-color: rgb(255, 255, 255);">CONTENT_REGION_|SLOT_TARJA_SUSPENSO|</span>
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width"
-                                style="background-color:#ffffff;" width="600">
+                        <td data-content-region-name="Region1" width="600" class="full-width" align="center"><span style="color: rgb(29, 28, 29); font-family: Slack-Lato, appleLogo, sans-serif; font-size: 15px; font-variant-ligatures: common-ligatures; background-color: rgb(255, 255, 255);">CONTENT_REGION_|SLOT_CONTEUDO|</span>
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="full-width" style="background-color:#ffffff;" width="600">
                                 <tbody>
                                     <tr>
                                     </tr>
@@ -215,41 +307,107 @@
                             </table>
                         </td>
                     </tr>
-                </table>
+                </tbody></table>                
                 @endif
+
                 <!-- END top -->
-				@include('admin.slot_mails.templates.inc.contenido',[
-                        'contenido' => $contenido
-                ])
+                @if(isset($export) && !$export)
+                    @include('admin.slot_mails.templates.inc.contenido',[
+                            'contenido' => $contenido
+                    ])
+                @else
+                    <!-- VACIO 1-->
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" width="600" class="full-width" align="center">
+                        <tbody><tr>
+                            <td width="600">
+                                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" class="full-width" align="center">
+                                    <tbody><tr>
+                                        <td height="20" style="line-height: 0px; font-size: 0px;">&nbsp;</td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <!-- FIN VACIO 1-->
+                    <!-- VACIO 2-->
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto;" class="full-width" width="600" align="center">
+                        <tbody><tr>
+                            <td width="600" align="center" class="full-width"></td>
+                        </tr>
+                        <tr>
+                            <td width="600" class="full-width" align="center">
+                                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="full-width" width="600" align="center">
+                                    <tbody><tr>
+                                        <td width="600" class="full-width" align="center">
+
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <!-- FIN VACIO 2-->                
+                @endif
 
 
                 {!! ($footer) !!}
-                @if(!empty($export))  
                 {!! ($redes) !!}
+                
+                @if(isset($export) && $export)
+                    <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td data-content-region-name="Region3" valign="top" width="570" align="center" style="padding:0;width:570px;font-size:12px;line-height:16px;font-family:arial;mso-line-height-rule:exactly;color:#7C7C7C;text-align:center;padding-top:15px">
+                                    CONTENT_REGION_|TJ_01|
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>                
+                @else
+                    @if ($legales_custom != '')
+                    <table border="0" cellpadding="0" cellspacing="0" style="background-color:#e3e3e3;margin:0 auto" width="600" align="center">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td valign="top" style="color: rgb(133, 139, 142); background: rgb(227, 227, 227); font-family: arial; font-size: 10px; line-height: 12px; text-align: left; width: 575px; height: 23px;"><br> {!! ($legales_custom) !!} </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @endif                
                 @endif
-                @if ($legales_custom != '')
-                <table border="0" cellpadding="0" cellspacing="0" style="background-color:#e3e3e3;margin:0 auto" width="600" align="center">
+
+
+
+				{!! ($legaleshtml) !!}
+
+                <table style="background-color: #7c7c7c; margin: 0 auto;" border="0" width="600" cellspacing="0" cellpadding="0" align="center">
                     <tbody>
                         <tr>
                             <td>
-                                <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <table border="0" width="600" cellspacing="0" cellpadding="0" align="center">
                                     <tbody>
                                         <tr>
-                                            <td valign="top" style="color: rgb(133, 139, 142); background: rgb(227, 227, 227); font-family: arial; font-size: 10px; line-height: 12px; text-align: left; width: 575px; height: 23px;"><br> {!! ($legales_custom) !!} </td>
+            
                                         </tr>
-                                        
+                                        <tr>
+                                            <td style="color: #858b8e; background: #e3e3e3; font-family: arial; font-size: 10px; line-height: 12px; text-align: center; width: 575px; height: 23px;" valign="top"><br><br>Smiles respeta tu privacidad, y está en contra del
+                                                spam en internet. <br><br><a style="color: #868a8d;" href=" ${form('OPTOUT_OPTDOWN_AR_V1', 'customer_id_')}" target="_blank" rel="noopener">Desuscribirte </a>| <a style="color: #868a8d;" href=" ${form('OPTOUT_OPTDOWN_AR_V1', 'customer_id_')}" target="_blank" rel="noopener"> Opciones de subscripción</a> <br><br></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
                     </tbody>
-                </table>
-                @endif
-
-
-                @if(!empty(!$export))                
-				    {!! ($legaleshtml) !!}
-                @endif
+                </table>                
 			</td>
 		</tr>
 		<tr>

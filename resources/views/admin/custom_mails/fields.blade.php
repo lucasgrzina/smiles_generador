@@ -458,7 +458,7 @@
                     <option :value="null">Seleccione</option>
                     <option :value="item.id" v-for="item in info.tipo_redes">(% item.nombre %)</option>
                 </select>
-            </div>
+            </div>        
         </div>
     </div>
 </div>

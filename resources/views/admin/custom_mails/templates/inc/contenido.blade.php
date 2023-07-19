@@ -105,7 +105,7 @@
 					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff;" class="full-width" width="600" align="center">
 						<tr>
 							<td width="600" class="full-width" align="center">
-								@if(isset($item->link) && $item->link != '' && $item->haslink)
+								@if(isset($item->link) && isset($item->haslink) && $item->link != '' && $item->haslink)
 
 									@php
 										$urlLink = $item->link;
@@ -127,8 +127,8 @@
 									</a>
 								@else
 								<div style="padding: 0 0;"><img src="{!! $item->input !!}" border="0" width="600px;" >
-      							</div>
-      							@endif
+									</div>
+									@endif
 							</td>
 						</tr>
 					</table>
@@ -140,11 +140,11 @@
 
 	@if($item->id == 'imagen2')
 		<table bgcolor="#FFFFFF" width="600" style="background-color:#ffffff" border="0" align="center" cellpadding="0" cellspacing="0">
-		  <tbody>
-		    <tr>
-		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link) && $item->link != '' && isset($item->input) && $item->haslink)
-		      	@php
+			<tbody>
+			<tr>
+				<td bgcolor="#FFFFFF">
+					@if(isset($item->link) && isset($item->haslink) && isset($item->input) && $item->link != '' && $item->haslink)
+					@php
 					$urlLink = $item->link;
 					$dataLink = [];
 					$item->utm_source = 'Email';
@@ -159,18 +159,18 @@
 					$queryString =  http_build_query($dataLink);								
 					$urlLink = $item->link.'?'.$queryString;									
 				@endphp
-		      	<a style="color:#7c7c7c" href="{!! $urlLink !!}" target="_blank">
-		      		<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%"></a>
-		      	</td>
-		      	@elseif(isset($item->input))
+					<a style="color:#7c7c7c" href="{!! $urlLink !!}" target="_blank">
+						<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%"></a>
+					</td>
+					@elseif(isset($item->input))
 				<div style="padding: 0 0;">
 					<img src="{!! $item->input !!}" width="300" border="0" style="display:block;max-width:100%">
 				</div>
 				@endif
 				
-		      <td bgcolor="#FFFFFF">
-		      	@if(isset($item->link2) && $item->link2 != '' && isset($item->input2) && $item->haslink2)
-		      	@php
+				<td bgcolor="#FFFFFF">
+					@if(isset($item->link2) && isset($item->haslink2) && isset($item->input2) && $item->link2 != '' && $item->haslink2)
+					@php
 					$urlLink2 = $item->link2;
 					$dataLink = [];
 					$item->utm_source2 = 'Email';
@@ -185,18 +185,18 @@
 					$queryString =  http_build_query($dataLink);								
 					$urlLink2 = $item->link2.'?'.$queryString;									
 				@endphp
-		      	<a style="color:#7c7c7c" 
+					<a style="color:#7c7c7c" 
 								href="{!! $urlLink2 !!}" target="_blank">
-		      		<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
-		      	</a>
-		      	@elseif(isset($item->input2))
+						<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
+					</a>
+					@elseif(isset($item->input2))
 				<div style="padding: 0 0;">
 					<img src="{!! $item->input2 !!}" width="300" border="0" style="display:block;max-width:100%">
 				</div>
 				@endif
-		      </td>
-		    </tr>
-		  </tbody>
+				</td>
+			</tr>
+			</tbody>
 		</table>
 	@endif
 

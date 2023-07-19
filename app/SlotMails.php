@@ -57,6 +57,7 @@ class SlotMails extends Model
         'template',
         'footer',
         'legales',
+        'tarjeta_susp_id'
         //'enabled'
     ];
 
@@ -73,6 +74,7 @@ class SlotMails extends Model
         'template' => 'string',
         'footer' => 'text',
         'legales' => 'text',
+        'tarjeta_susp_id' => 'integer'
         //'enabled' => 'boolean'
     ];
 
@@ -107,8 +109,17 @@ class SlotMails extends Model
         
         return $this->hasMany('App\SlotMailContents', 'slot_mail_id');
     } 
-    
 
+    public function grupos()
+    {
+        
+        return $this->hasMany('App\SlotMailGroups', 'slot_mail_id');
+    }     
+    
+    public function tarjetaSusp()
+    {
+        return $this->belongsTo('App\ContenidoPredefinido', 'tarjeta_susp_id');
+    }
     protected static function boot()
     {
         parent::boot();

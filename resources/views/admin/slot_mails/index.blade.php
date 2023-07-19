@@ -18,9 +18,14 @@
 
     .row-content.head{
         font-weight: bold;
-        background: #f1f1f1;
+        background: #615a55;
+        color: #f4f4f4;
     }
-
+    .row-content.subhead{
+        font-weight: bold;
+        background-color: #f1f1f1;
+        color: #413c3c;
+    }
     .multi-collapse{}
     .multi-collapse .card-body{
         padding: 10px 0;
@@ -112,7 +117,11 @@
            
        }
 
-       
+        _methods.ordenarContenido = function(contenidos) {
+            let _this = this;
+            console.debug(contenidos);
+            return contenidos;
+        }
                         
 
         this._mounted.push(function(_this) {

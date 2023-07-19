@@ -23,7 +23,8 @@
         "league/flysystem-aws-s3-v3": "^1.0@dev",
         "maatwebsite/excel": "3.0.x-dev",
         "spatie/laravel-permission": "^2.7",
-        "yajra/laravel-auditable": "2.0"
+        "yajra/laravel-auditable": "2.0",
+        "chumper/zipper": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
@@ -68,6 +69,10 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false,
+            "symfony/thanks": false
+        }
     }
 }

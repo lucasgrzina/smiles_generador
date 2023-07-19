@@ -1,3 +1,109 @@
+@if (isset($export) && $export)
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Smiles</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <script type="text/javascript" src="/dtagent634_23hjprtx_1034.js" data-dtconfig="rid=RID_1487864261|rpid=2060065574|domain=smiles.com.br|rt=100|tp=500,50,3,1,10|reportUrl=dynaTraceMonitor"></script>
+
+        <style type="text/css">
+            .dataSaldoHeader a {
+                color: #828484;
+                text-decoration: none;
+            }
+            .dataHeader a {
+                color: #555555;
+                text-decoration: none;
+            }
+            .dataReferentes a {
+                color: #828484;
+                text-decoration: none;
+            }
+            .dataExpiracao a {
+                color: #ff7119;
+                text-decoration: none;
+            }
+            .applelinkFooter a {
+                color: #7c7c7c;
+                text-decoration: none;
+            }
+
+            @media screen and (max-width: 600px) {
+                .full-width {
+                    width: 100% !important;
+                }
+
+                .img-responsive {
+                    width: 100% !important;
+                    height: auto !important;
+                }
+
+                .text-center {
+                    text-align: center !important;
+                }
+            }
+
+            .mobile-only {
+                display: none;
+            }
+
+            img {
+                border: 0 none;
+            }
+
+            @media screen and (max-width: 480px) {
+                .txt-480 {
+                    font-size: 16px !important;
+                }
+                .margen-box {
+                    width: 95% !important;
+                }
+                .width-foto {
+                    width: 97% !important;
+                    image-rendering: -webkit-optimize-contrast;
+                }
+                .logo-gris {
+                    width: 33% !important;
+                    image-rendering: -webkit-optimize-contrast;
+                    text-align: center !important;
+                    margin: auto !important;
+                    padding-left: 0px !important;
+                }
+                .ancho-div-1 {
+                    width: 97% !important;
+                    margin: auto !important;
+                    text-align: center !important;
+                    padding-left: 2% !important;
+                    padding-right: 2% !important;
+                }
+                .txt-aling {
+                    text-align: center !important;
+                }
+                .centrar {
+                    margin: auto !important;
+                    padding-bottom: 7%;
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                table[class="mobile-only"] {
+                    display: block !important;
+                    text-align: center !important;
+                    overflow: visible !important;
+                    float: none !important;
+                    line-height: 100% !important;
+                }
+            }
+        </style>
+    </head>
+
+    <body style="margin: 0; padding: 0;">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="background-color: #e0e0e0;">
+            <tbody>
+                <tr>
+                    <td>
+@endif
 @foreach($contenido as $item)
 	@if($item->id == 'textolibre')
 		<!-- imagen 1 columna -->
@@ -223,3 +329,11 @@
 	@endif
 	
 @endforeach
+@if (isset($export) && $export)						
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+@endif

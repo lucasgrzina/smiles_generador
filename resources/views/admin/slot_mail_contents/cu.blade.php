@@ -30,6 +30,7 @@
         
 
         var _data = {!! json_encode($data) !!};
+        
         _data.files = {
             imagen_web: [],
             imagen_mobile: []
@@ -48,7 +49,7 @@
             var imagefile = event.target.files[0];
             formData.append("file", imagefile);
             formData.append("_token", token);
-            formData.append("folder",_this.selectedItem.id);
+            formData.append("folder",'slot_mail_' + _this.selectedItem.slot_mail_id);
 
             $.ajax({
                 url: url_upload,
@@ -128,15 +129,25 @@
                         media_filter_html: false
                     }
                     break;            
+                case 'todo':
+                    config = {
+                        theme: 'modern',
+                        fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 39px 34px 38px 42px 48px",
+                        plugins: 'searchreplace autolink textcolor link code',
+                        toolbar1: 'formatselect fontsizeselect | bold italic strikethrough forecolor backcolor link code',
+                        media_filter_html: false
+                    }                      
+                    break;
                 default:
                     config = {
                             theme: 'modern',
                             fontsize_formats: "8px 10px 12px 14px 16px 18px 20px 22px 24px 26px 39px 34px 38px 42px 48px",
                             plugins: 'searchreplace autolink textcolor link',
-                            toolbar1: 'formatselect fontsizeselect | bold italic strikethrough forecolor backcolor link',
+                            toolbar1: 'formatselect fontsizeselect | bold italic strikethrough forecolor backcolor link code',
                             media_filter_html: false
                         }                    
                     break;
+
             }
 
             return config;
