@@ -445,7 +445,8 @@
             </div>
         </div>
     </div>
-    <div class="box-footer text-center">
+    
+    <div class="box-footer text-center" v-if="selectedItem.template != 'predefinidos'">
         <div class="col-sm-12">
             <div class="content-buttons-options">
                 <button class="btn btn-sm " @click="agregaritem(btntipo.id, btntipo.index)" v-for="btntipo in contenidosTipo">

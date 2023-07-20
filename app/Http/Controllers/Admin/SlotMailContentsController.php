@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\ContenidoPredefinido;
 use App\SlotMails;
+use App\SlotMailGroups;
 use App\Helpers\StorageHelper;
 use App\Repositories\SlotMailContentsRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -176,8 +177,9 @@ class SlotMailContentsController extends CrudAdminController
     {
         parent::create();
 
-        $slot_mail_id = request()->get('slot',false);
-        $grupo_id = request()->get('grupo',false);
+        $slot_mail_id   = request()->get('slot',false);
+        $grupo_id       = request()->get('grupo',false);
+        $tipo_contenido = SlotMailGroups::find($grupo_id);
 
         if (!$slot_mail_id || !$grupo_id) {
             return redirect()->route('slot-mails.index');
@@ -185,8 +187,12 @@ class SlotMailContentsController extends CrudAdminController
 
         $slot = SlotMails::where('id', $slot_mail_id)->first();
 
-        
-
+        if ($tipo_contenido->tipo == 'P'){
+            //  $templateDefault['contenido'] = 'sabias_que';
+            $slot->template = 'predefinidos';
+             
+        }
+        //return $slot->template;
         $templateDefault = config('constantes.default_'.$slot->template,[]);
 
         $footerObj = json_decode(json_decode($slot->footer));
@@ -197,6 +203,8 @@ class SlotMailContentsController extends CrudAdminController
         $footerDefault = ContenidoPredefinido::find($footer_id);
         $redesDefault = ContenidoPredefinido::find($id_redes);
 
+
+        
 
         data_set($this->data,'info',[
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
@@ -212,6 +220,13 @@ class SlotMailContentsController extends CrudAdminController
         
         $templateDefault['legales'] = '"{\"legales\":\"'.($legalesDefault ? $legalesDefault->id : 0).'\",\"legales_custom\":\"\"}"';
         
+
+        
+
+        
+        
+        
+
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
                 'slot_mail_id' => $slot_mail_id,
@@ -235,6 +250,11 @@ class SlotMailContentsController extends CrudAdminController
         
         $this->data['url_index'] = route('slot-mails.edit',[$slot_mail_id]);
         //echo json_encode($templateDefault['contenido']);
+
+        
+        
+         
+
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

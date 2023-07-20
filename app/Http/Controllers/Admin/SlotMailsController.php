@@ -17,6 +17,8 @@ use App\Http\Requests\Admin\CUCustomMailsRequest;
 //use Chumper\Zipper\Facades\Zipper;
 use App\Repositories\Criteria\CustomMailsCriteria;
 use App\Http\Controllers\Admin\CrudAdminController;
+use Illuminate\Support\Facades\Redirect;
+
 
 class SlotMailsController extends CrudAdminController
 {
@@ -409,8 +411,9 @@ class SlotMailsController extends CrudAdminController
             $grupo->order = SlotMailGroups::whereSlotMailId($id)->count() + 1;
             $grupo->save();
 
-            \DB::commit();
-            return $this->sendResponse($grupo,trans('admin.success'));        
+            \DB::commit();  
+          
+            return $this->sendResponse(['url_redirect'=> route('slot-mail-contents.create', ['slot' => $id, 'grupo' => $grupo->id])],trans('admin.success'));        
         } catch (\Exception $e) {
             \DB::rollback();
             \Log::error($e->getMessage());

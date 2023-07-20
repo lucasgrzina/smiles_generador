@@ -247,7 +247,7 @@
                        
                        _this.saving = false;
                        
-                        location.reload();
+                       document.location = data.url_redirect;
                        
                    }, function(error) {
                        _this.saving = false;

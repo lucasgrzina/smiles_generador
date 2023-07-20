@@ -72,5 +72,12 @@ return [
         'contenido' => '[{"id": "imagen1", "link": "https://", "index": "content_1", "input": "https://smiles-mkt-ar.s3.amazonaws.com/Emkt-07082020/img-banner-3promos.jpg", "nombre": "Banner horizontal", "unique": 1, "utm_term": "", "utm_medium": "", "utm_source": "", "utm_content": "", "utm_campaign": ""}, {"id": "separador1", "index": "content_3", "input": "30", "nombre": "Separador Horizontal", "unique": 3}, {"id": "contenido_predefinido", "index": "content_2", "input": "", "nombre": "Contenido predefinido", "unique": 2, "predefinido": 9}, {"id": "imagen1","link": "https://", "index": "content_4", "input": "https://smiles-mkt-ar.s3.amazonaws.com/Emkt-07082020/promo-compra-2.jpg", "nombre": "Banner horizontal", "unique": 4}, {"id": "contenido_predefinido", "index": "content_5", "input": "", "nombre": "Contenido predefinido", "unique": 5, "predefinido": 6}]',
         'legales'=> '"{\"legales\":\"15\",\"legales_custom\":\"\"}"',
         'footer'=> '"{\"footer\":\"14\",\"redes\":\"3\"}"'
+    ],
+    'default_predefinidos' => [
+        'publicidad' => true,
+        'saldo' => true,
+        'contenido' => '[{"id": "contenido_predefinido", "index": "content_1", "input": "", "nombre": "Contenido predefinido", "unique": 0, "predefinido": 0}]',
+        'legales'=> '"{\"legales\":\"1\",\"legales_custom\":\"\"}"',
+        'footer'=> '"{\"footer\":\"4\",\"redes\":\"3\"}"'
     ]
 ];
