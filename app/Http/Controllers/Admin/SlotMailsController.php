@@ -44,6 +44,8 @@ class SlotMailsController extends CrudAdminController
         $this->data['url_contenido_create'] = route('slot-mail-contents.create', ['slot' => '_ID_']);
         $this->data['url_contenido_clonar'] = route('slot-mail-contents.clonar', ['slot' => '_ID_']);        
         $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_']);
+        //
+        $this->data['url_grupo_clonar'] = route('slot-mail.clonar-grupo', ['grupo' => '_ID_']);  
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -85,6 +87,7 @@ class SlotMailsController extends CrudAdminController
         parent::show($id);
 
         $this->data['selectedItem']->load('tarjetaSusp');
+        $this->data['selectedItem']->load('grupos');
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
         $id_footer = $footerObj->footer;
         $footerhtml = ContenidoPredefinido::where('id', $id_footer)->get()[0]->contenido;
@@ -105,12 +108,11 @@ class SlotMailsController extends CrudAdminController
         
         $this->data['selectedItem']['contenidos'] = SlotMailContents::where('slot_mail_id', $id)->get();
 
-        foreach($this->data['selectedItem']['contenidos'] as $contenido){
+        foreach($this->data['selectedItem']['contenidos'] as  $index => $contenido){
             $legalesObj         = json_decode(json_decode($contenido->legales));
             $legales_custom     = $legalesObj->legales_custom;
 
-            
-        
+            $contenido['activo'] = false;
             $contenido['legaleshtml'] = $legaleshtml;
             $contenido['legales_custom'] = $legales_custom;
 
@@ -342,6 +344,9 @@ class SlotMailsController extends CrudAdminController
     {
         parent::edit($id);
         $this->data['selectedItem']->load('grupos.contenidos');
+        $openModalGrupos = request()->get('create',false);
+
+      
        // $tipo_footer = ContenidoPredefinido::get();
 
         $footerObj = json_decode(json_decode($this->data['selectedItem']->footer));
@@ -357,6 +362,7 @@ class SlotMailsController extends CrudAdminController
         }
        
         data_set($this->data,'info',[
+            'open_modal_grupos' => $openModalGrupos,
             'link_create' => route('slot-mail-contents.create', ['slot' => $id,'grupo' => '_GRUPOID_']),
             'tipo_footer' => ContenidoPredefinido::where('tipo', 'footer')->where('seccion', 's')->get(),
             'tipo_redes' => ContenidoPredefinido::where('tipo', 'redes')->where('seccion', 's')->get(),
@@ -373,6 +379,7 @@ class SlotMailsController extends CrudAdminController
         $this->data['url_contenido_delete'] = route('slot-mail-contents.destroy', ['slot' => '_ID_']);
         $this->data['url_contenido_edit'] = route('slot-mail-contents.edit', ['slot' => '_ID_','grupo' => '_GRUPOID_']);
         $this->data['url_save_grupo'] = route('slot-mails.store-grupo', [$id]);
+        $this->data['url_delete_grupo'] = route('slot-mails.delete-grupo', ['_GRUPOID_']);
         $this->data['url_cambiar_valor_grupo'] = route('slot-mails.cambiar-valor-grupo', ['_ID_']);
 
         $arrContenidoDecode = (array)json_decode($this->data['selectedItem']->contenido);
@@ -419,9 +426,64 @@ class SlotMailsController extends CrudAdminController
             \Log::error($e->getMessage());
             throw $e;
         }
-
-        
     }
+
+    public function deleteGrupo($id,Request $request)
+    {   
+     
+        try {
+            
+            \DB::beginTransaction();;
+            
+            $grupo = new SlotMailGroups();
+            $grupo::destroy([$id]);
+
+            \DB::commit();  
+          
+            return $this->sendResponse([],trans('admin.success'));        
+            
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function clonarGrupo($id, Request $request){
+        try {
+            \DB::beginTransaction();;
+            //clonar grupo
+            $grupo = SlotMailGroups::find($id);
+            $grupoClonado = $grupo->replicate();
+            $grupoClonado->nombre.= ' (clonado)';          
+            $grupoClonado->save();
+            //end clonar grupo
+            $model = $this->repository->findWithoutFail($grupo->slot_mail_id);
+
+            if (empty($model)) {
+                return $this->sendError('No existe el registro',500);
+            }            
+
+            //foreach 
+            $contenidos = SlotMailContents::where('slot_mail_id', $model->id)->where('slot_mail_group_id', $grupo->id)->pluck('id')->toArray();
+
+            foreach ($contenidos as $index=>$idHijo) {
+               $this->clonarInterno($idHijo, $model->id, $grupoClonado->id);
+            }
+            
+
+            \DB::commit();
+            return $this->sendResponse($model,trans('admin.success')); 
+
+                   
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+            throw $e;
+        }
+    }
+
+    
 
     public function update($id, CUCustomMailsRequest $request)
     {
@@ -470,7 +532,8 @@ class SlotMailsController extends CrudAdminController
             }
     
             $clonado = $model->replicate();
-            $clonado->nombre.= ' (clonado)';
+            $clonado->nombre.= ' (clonado)';            
+
             $clonado->save();
 
             //foreach 
@@ -490,7 +553,7 @@ class SlotMailsController extends CrudAdminController
         }
     }    
 
-    public function clonarInterno($id, $padreId = null, Request $request = null)//hijo
+    public function clonarInterno($id, $padreId = null, $grupoId = null, Request $request = null)//hijo
     {
         try {
             \DB::beginTransaction();;
@@ -505,6 +568,9 @@ class SlotMailsController extends CrudAdminController
             $clonado->nombre.= ' (clonado)';
             if ($padreId){
                 $clonado->slot_mail_id = $padreId;
+            }
+            if ($grupoId){
+                $clonado->slot_mail_group_id = $grupoId;
             }
             $clonado->save();
 

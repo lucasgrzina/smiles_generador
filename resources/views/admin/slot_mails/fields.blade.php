@@ -77,17 +77,17 @@
             <div class="box-header with-border">
                 <h3 class="box-title">SLOTS</h3>
                 <div class="box-tools pull-right">
+                    
                     <a class="btn btn-box-tool bg-green" id="button-boy" data-toggle="modal" data-target="#modal-grupos"><i class="fa fa-plus m-r-5"></i>Nuevo grupo</a>
                 </div>             
             </div> 
             <template v-for="(grupo,indexGrupo) in selectedItem.grupos">
             <div class="box-header with-border">
-                <h3 class="box-title">
+                <h3 class="box-title flex-items">
                     <input type="text" v-model="grupo.nombre" @blur="cambiarValorGrupo(grupo,'nombre')" class="form-control">
+                    
                 </h3>
-                <div class="box-tools pull-right">
-                    <a class="btn btn-box-tool bg-green" :href="info.link_create.replace('_GRUPOID_',grupo.id)"><i class="fa fa-plus m-r-5"></i>Crear nuevo</a>
-                </div>             
+                            
             </div>    
             <div class="box-body p-v-0">
                 <div class="row">
@@ -114,7 +114,16 @@
                         </div>  
                     </div>
                 </div>
+                <div class="box-tools box-add-slot">
+                <a :href="url_delete_grupo" class="btn btn-box-tool bg-red " @click="deleteGrupo(grupo.id, url_delete_grupo.replace('_GRUPOID_',grupo.id))">Eliminar el grupo: "(% grupo.nombre %)"</a>
+                    <a class="btn btn-box-tool bg-green" :href="info.link_create.replace('_GRUPOID_',grupo.id)"><i class="fa fa-plus m-r-5"></i>Crear nuevo Slot</a>
+
+                    
+                    
+                </div>
             </div> 
+
+             
             </template>
         </div>
     </template>

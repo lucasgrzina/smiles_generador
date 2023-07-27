@@ -13,6 +13,30 @@
     </style>
 
     <style type="text/css">
+    .box-add-slot{
+        justify-content: center;
+        display: flex;
+        margin: 10px 0;
+        border-width: 0 0 5px;
+        border-color: #c4c4c4;
+        border-style: solid;
+        padding-bottom: 10px;
+        gap:10px;
+    }
+    .flex-items{
+        display: flex !important;
+        justify-content: space-around;
+        width: 100%;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .flex-items input{
+        border-width: 0 0 1px;
+        text-align:left;
+        font-size: 18px;
+        font-weight: 700;
+    }
     .row-content{
         display: grid;
         grid-template-columns: 76px auto 273px;
@@ -49,6 +73,9 @@
 
 
     <script type="text/javascript">
+       
+
+
         Vue.component('file-upload', VueUploadComponent);
         Vue.component('draggable', vuedraggable);
         Vue.component('Sortable', Sortable);
@@ -71,6 +98,14 @@
 
         _data.saving = false;
 
+
+        _methods.openModalGrupos = function(){
+            var _this = this;
+            if(_data.info.open_modal_grupos){
+                $('#modal-grupos').modal('show');
+            }
+            
+        }
 
         
 
@@ -159,7 +194,7 @@
 
         _methods.configMce = function (tipo) {
             var config = {};
-
+            
             switch (tipo) {
                 case 'html':
                     config = {
@@ -225,6 +260,22 @@
             
            
        }        
+       
+       _methods.deleteGrupo = function(idGrupo, url_delete) {
+            var _this = this;
+            
+            var _ajaxMethod = _this.ajaxPost ;
+            _this.saving = true;
+                return _ajaxMethod(url_delete).then(function(data){
+                    
+                    _this.saving = false;
+                    
+                    document.location.reload()
+                    
+                }, function(error) {
+                    _this.saving = false;
+            });    
+       }
 
        _methods.storeGrupo = function() {
             var _this = this;
@@ -270,7 +321,13 @@
 
             }
        }
-        
+
+       window.addEventListener('load', function() {
+       
+        _methods.openModalGrupos();
+        });
+       
+      
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/crud/js/cu.js') }}"></script>
@@ -300,3 +357,4 @@
         </div>   
     </div>
 @endsection
+

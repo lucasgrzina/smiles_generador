@@ -19,8 +19,9 @@
                         <div style="width: 100%; padding: 0 5px;">(% nombreTemplate(item.template) %)</div>
                         <div style="width: 100%; padding: 0 5px;">(% item.fecha_envio | dateFormat %) </div>
                         <div style="width: 100%; padding: 0 5px;z-index: 1;">
-                            <button v-if="item.contenidos.length == 0" class="btn btn-xs bg-green" type="button"  @click="createContenido(item)">Crear primero</button>
-                            <button v-if="item.contenidos.length > 0" class="btn btn-xs bg-gray" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id">Mostrar/Ocultar</button>
+                            <button v-if="item.grupos.length == 0" class="btn btn-xs bg-green" type="button"  @click="createPrimero(item)">Crear primer grupo</button>
+                            <button v-if="item.contenidos.length == 0 && item.grupos.length > 0" class="btn btn-xs bg-yellow" type="button"  @click="edit(item)">Crear primer slot</button>
+                            <button v-if="item.grupos.length > 0 && item.contenidos.length > 0" class="btn btn-xs bg-gray" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id">Mostrar/Ocultar</button>
                         </div>
                         <div style="display: flex;
                             align-items: center;
@@ -40,7 +41,7 @@
                 <div class="collapse multi-collapse w-100" :id="'item'+item.id">
                     <div class="card card-body" v-if="item.contenidos.length > 0">
                         
-                            <div class="row-content head">
+                            <div class="row-content head" v-if="1 > 2">
                                 <div>ID</div>
                                 <div>Nombre</div>
                                 <div class="text-right">Acciones</div>
@@ -48,8 +49,11 @@
                             <template v-for="grupo in ordenarContenido(item.grupos)"> 
                                 <div class="row-content subhead">
                                     <div>(% grupo.nombre %)</div>
+                                    <div>
+                                    <button-type type="clone-list" @click="clonarGrupo(grupo)"></button-type>
+                                    </div>
                                 </div>
-                                <div v-for="contenido in grupo.contenidos" class="row-content">
+                                <div v-for="contenido in grupo.contenidos" class="row-content inner">
                                     <div>(% contenido.id %)</div>
                                     <div>(% contenido.nombre %)</div>
                                     <div class="text-right">
@@ -63,19 +67,21 @@
         
                                 
                             </template>
-                            <div v-for="contenido in ordenarContenido(item.contenidos)" class="row-content">
-                                <div>(% contenido.id %)</div>
-                                <div>(% contenido.nombre %)</div>
-                                <div class="text-right">
-                                    <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
-                                    <button-type type="clone-list" @click="clonarContenido(contenido)"></button-type>
-                                    <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
-                                </div>
+                            <div v-for="contenido in ordenarContenido(item.contenidos)" class="row-content" v-if="item.slot_mail_group_id === null">
+                                
+                                    <div>(% contenido.id %)</div>
+                                    <div>(% contenido.nombre %)</div>
+                                    <div class="text-right">
+                                        <button-type type="edit-list" @click="editContenido(contenido)"></button-type>
+                                        <button-type type="clone-list" @click="clonarContenido(contenido)"></button-type>
+                                        <button-type type="remove-list" @click="destroyContenido(contenido)"></button-type>
+                                    </div>
+                                
 
                             </div>
 
                        
-                        <div style="padding: 10px 0; display: flex; align-items: center;justify-content: end;">
+                        <div v-if="1 > 2" style="padding: 10px 0; display: flex; align-items: center;justify-content: end;">
                             <button @click="createContenido(item)" class="btn btn-xs bg-green" type="button" data-toggle="collapse" :data-target="'#item'+item.id" aria-expanded="false" :aria-controls="'item'+item.id"><i class="fa fa-plus m-r-5"></i> Crear nuevo</button>
                         </div>
                     </div>  

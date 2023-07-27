@@ -4,6 +4,7 @@
     @parent
     <link rel="stylesheet" href="{{ asset('admin/crud/css/index.css') }}"/>
     <style type="text/css">
+        
     .row-content{
         display: grid;
         grid-template-columns: 76px auto 273px;
@@ -23,12 +24,22 @@
     }
     .row-content.subhead{
         font-weight: bold;
-        background-color: #f1f1f1;
+        background-color: #e4e3e3;
         color: #413c3c;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .row-content.inner{
+        
     }
     .multi-collapse{}
     .multi-collapse .card-body{
-        padding: 10px 0;
+        padding: 20px 140px;
+        border-width: 0 0 1px;
+        border-style: solid;
+        border-color: #e4e3e3;
     }
     
 </style>
@@ -39,6 +50,7 @@
     @parent
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
     <script type="text/javascript">
+        
         Vue.component('draggable', vuedraggable);
         var _data = {!! json_encode($data) !!};
         _data.info = {
@@ -75,7 +87,7 @@
         
        _methods.editContenido = function(item) {
             var _this = this;
-            let editURL = _this.url_contenido_edit.replace('_ID_',item.id);
+            let editURL = _this.url_edit.replace('_ID_',item.id);
             window.location.href = editURL;
        }
 
@@ -85,12 +97,31 @@
             window.location.href = createURL;
        }
 
+       _methods.createPrimero = function(item) {
+            var _this = this;
+            let editURL = _this.url_edit.replace('_ID_',item.id);
+            window.location.href = editURL+'?create=group';
+       }
+
        _methods.clonarContenido = function(item){
             var _this = this;
-            if (confirm('Deséa clonar la pieza seleccionada?')) {
+            if (confirm('¿Deséa clonar la pieza seleccionada?')) {
                 _this.alert.show = false;
                 _this.loading = true;
                 return _this.ajaxPut(_this.url_contenido_clonar.replace('_ID_',item.id),item,true,_this.errors).then(function(data){
+                    _this.doFilter();
+                }, function (error) {
+                    _this.loading = false;
+                });
+            }
+       }
+
+       _methods.clonarGrupo = function(grupo){
+            var _this = this;
+            if (confirm('¿Deséa clonar el grupo seleccionado y todos sus items?')) {
+                _this.alert.show = false;
+                _this.loading = true;
+                return _this.ajaxPut(_this.url_grupo_clonar.replace('_ID_',grupo.id),grupo,true,_this.errors).then(function(data){
                     _this.doFilter();
                 }, function (error) {
                     _this.loading = false;
@@ -122,7 +153,8 @@
             console.debug(contenidos);
             return contenidos;
         }
-                        
+              
+       
 
         this._mounted.push(function(_this) {
             _this.doFilter();

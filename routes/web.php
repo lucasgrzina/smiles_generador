@@ -77,7 +77,9 @@ Route::prefix('/admin')->group(function () {
         Route::resource('contenido-predefinidos', 'Admin\ContenidoPredefinidoController');
 
         /* ** Etapa 2 ** */
-        Route::post('slot-mails/grupo/{id}', 'Admin\SlotMailsController@storeGrupo')->name('slot-mails.store-grupo');            
+        Route::post('slot-mails/grupo/{id}', 'Admin\SlotMailsController@storeGrupo')->name('slot-mails.store-grupo'); 
+        Route::post('slot-mails/grupo/{id}/delete', 'Admin\SlotMailsController@deleteGrupo')->name('slot-mails.delete-grupo');  
+        Route::put('slot-mail/grupo/{id}/clonar', 'Admin\SlotMailsController@clonarGrupo')->name('slot-mail.clonar-grupo');          
         Route::put('slot-mails/grupo/{id}/cambiar-valor', 'Admin\SlotMailsController@cambiarValorGrupo')->name('slot-mails.cambiar-valor-grupo');            
         Route::get('slot-mails/edit/{id}', 'Admin\SlotMailsController@index')->name('slot-mails.edit-lang');            
         Route::post('slot-mails/change-enabled', 'Admin\SlotMailsController@changeEnabled')->name('slot-mails.change-enabled');
